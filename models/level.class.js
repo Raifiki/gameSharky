@@ -21,12 +21,18 @@ class Level {
     }
 
     setBgImgs(){
-        this.backgroundImgs.Img1.forEach(e => {
-            this.background.push(e);
-        });
-        this.backgroundImgs.Img2.forEach(e => {
-            this.background.push(e);
-        });
-        debugger
+        let nrSector = Math.ceil(Math.ceil(this.length/canvas_w)/2);
+        for (let i = 0; i < nrSector; i++) {
+            this.backgroundImgs.Img1.forEach(e => {
+                let x = i * 2 * canvas_w - 1;
+                let newBg = new BackgroundObject(e,x,canvas_w,canvas_h);
+                this.background.push(newBg);
+            });
+            this.backgroundImgs.Img2.forEach(e => {
+                let x = (i * 2 + 1) * canvas_w - 1;
+                let newBg = new BackgroundObject(e,x,canvas_w,canvas_h);
+                this.background.push(newBg);
+            });
+        }
     }
 }

@@ -33,7 +33,6 @@ class Character extends MovableObject{
                 this.moveDown();
             }
             this.setCameraOfst();
-            console.log('x Sharky: ',this.x)
         },10)
     }
 
@@ -49,6 +48,7 @@ class Character extends MovableObject{
     outsideLvlBorderBottom(){
         return this.y + this.height > world.level.height - this.speedY;
     }
+
     setCameraOfst(){
         let newOfst = this.x - this.xOfst;
         if ( newOfst>= 0 && newOfst <= world.level.length - world.canvas.width){
