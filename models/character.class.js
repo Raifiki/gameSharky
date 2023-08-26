@@ -12,7 +12,7 @@ class Character extends MovableObject{
         this.width = w;
         this.height = h;
         
-        this.speedX = 5;
+        this.speedX = 15;
         this.speedY = 5;
 
         this.move();
@@ -37,16 +37,16 @@ class Character extends MovableObject{
     }
 
     outsideLvlBorderRight(){
-        return this.x + this.width > world.level.length - this.speedX;
+        return this.x + this.width > world.level.length - this.speedX/2;
     }
     outsideLvlBorderLeft(){
-        return this.x < this.speedX;
+        return this.x < this.speedX/2;
     }
     outsideLvlBorderTop(){
-        return this.y < this.speedY;
+        return this.y < this.speedY/2;
     }
     outsideLvlBorderBottom(){
-        return this.y + this.height > world.level.height - this.speedY;
+        return this.y + this.height > world.level.height - this.speedY/2;
     }
 
     setCameraOfst(){

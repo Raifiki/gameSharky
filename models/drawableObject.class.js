@@ -12,8 +12,10 @@ class DrawableObject {
     }
 
     draw(ctx,ofst){
-        let x = this.x - ofst;
-        ctx.drawImage(this.img,x,this.y,this.width,this.height);
+        if (!this.isNotVisible(ofst)) {
+            let x = this.x - ofst;
+            ctx.drawImage(this.img,x,this.y,this.width,this.height); 
+        }
         this.drawFrame(ctx,ofst);
     }
 
@@ -29,5 +31,10 @@ class DrawableObject {
 
     loadImg(path){ 
         this.img.src = path;
+    }
+
+    isNotVisible(ofst){
+        return this.x+this.width < ofst ||
+            this.x > ofst + canvas_w;
     }
 }
