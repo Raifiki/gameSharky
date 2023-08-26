@@ -2,6 +2,9 @@ class Character extends MovableObject{
     //field
     keyListener;
 
+    poison = 0;
+    bubbleShots = 2;
+
     xOfst = 100;
     //method
     constructor(x,y,w,h){
@@ -16,6 +19,8 @@ class Character extends MovableObject{
         this.speedY = 5;
 
         this.move();
+        this.attack();
+        this.loadBubbleShot();
     }
 
     move(){
@@ -70,6 +75,49 @@ class Character extends MovableObject{
             this.direction = false;
             this.xOfst = Math.min(this.xOfst + 10,canvas_w - this.width - 100);
         }        
+    }
+
+
+    attack(){
+        setInterval(() => {
+            this.attackBubbleTrap();
+        },100);
+    }
+
+    attackBubbleTrap(){
+        if (this.keyListener.SPACE) {
+            let x;
+            if (this.direction) {
+                x = this.x + this.width;
+            } else {
+                x = this.x - 30;
+            }
+            let y = this.y + this.height/2;
+            let type = this.chooseBubbleType();
+            if (type != 'noShots') {
+                world.Bubbles.push(new Bubble(x,y,30,30,type, this.direction));
+            } else {
+                
+            }
+            
+        }
+    }
+
+    chooseBubbleType(){
+        if (this.bubbleShots > 0) {
+            this.bubbleShots--;
+            return 'normal'
+        } else {
+            return 'noShots'
+        }
+    }
+
+    loadBubbleShot(){
+        setInterval(() =>{
+            if (this.bubbleShots < 5) {
+                this.bubbleShots++;
+            }
+        },3000);
     }
 }
 

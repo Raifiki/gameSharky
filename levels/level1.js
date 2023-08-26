@@ -22,7 +22,11 @@ const LEVEL_1 = new Level(
     [   // enemies
         new Pufferfish(200,200,100,100),
         new Pufferfish(600,300,100,100),
-        new Pufferfish(800,300,100,100),
+        new Pufferfish(800,250,100,100),
+
+        new Jellyfish(300,350,100,100),
+        new Jellyfish(500,150,100,100),
+        new Jellyfish(1000,100,100,100),
     ],
     [],
     3500,

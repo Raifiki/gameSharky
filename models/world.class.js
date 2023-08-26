@@ -4,10 +4,11 @@ class World {
     canvas;
     level = LEVEL_1;
     character = [new Character(100,100,150,150)];
-    
+    Bubbles = [];
     keyListener;
 
     cameraOfst = 0;
+
     //methodes
     constructor(canvas,keyListener){
         this.canvas = canvas;
@@ -16,6 +17,8 @@ class World {
 
         this.keyListener = keyListener;
         this.character[0].keyListener = keyListener;
+
+        this.run();
     }
 
 
@@ -32,12 +35,16 @@ class World {
         this.addToMap(this.level.background);
         this.addToMap(this.level.enemies);
         this.addToMap(this.character);
+        this.addToMap(this.Bubbles);
         
+        //delete Code
         this.drawCameraView();
+        //delete Code
 
         let self = this;
         requestAnimationFrame(function (){self.drawMap();});  
     }    
+
 
     drawCameraView(){ // delete this function at the end
         this.ctx.beginPath();
@@ -45,5 +52,21 @@ class World {
         this.ctx.strokeStyle = 'green';
         this.ctx.rect(0, 5, canvas_w,canvas_h - 10);
         this.ctx.stroke();
+    }
+
+    run(){
+        setInterval(() => {
+            this.removeBubbles();
+        }, 100);
+    }
+
+    removeBubbles(){
+        let visibleBubbles = [];
+        this.Bubbles.forEach(bubble =>{
+            if (bubble.x < this.cameraOfst + this.canvas.width && bubble.x > this.cameraOfst) {
+                visibleBubbles.push(bubble);
+            }
+        });
+        this.Bubbles = visibleBubbles;
     }
 }
