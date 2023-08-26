@@ -19,8 +19,12 @@ const LEVEL_1 = new Level(
         ]
     },
     [],
+    [   // enemies
+        new Pufferfish(200,200,100,100),
+        new Pufferfish(600,300,100,100),
+        new Pufferfish(800,300,100,100),
+    ],
     [],
-    [],
-    2500,
-    350
+    3500,
+    480
 );

@@ -14,7 +14,12 @@ class DrawableObject {
     draw(ctx,ofst){
         if (!this.isNotVisible(ofst)) {
             let x = this.x - ofst;
-            ctx.drawImage(this.img,x,this.y,this.width,this.height); 
+            if (this.direction) {
+                ctx.drawImage(this.img,x,this.y,this.width,this.height); 
+            } else {
+                this.flipImg(ctx,x);
+            }
+            
         }
         this.drawFrame(ctx,ofst);
     }
@@ -36,5 +41,13 @@ class DrawableObject {
     isNotVisible(ofst){
         return this.x+this.width < ofst ||
             this.x > ofst + canvas_w;
+    }
+
+    flipImg(ctx,x){
+        ctx.save();
+        ctx.scale(-1, 1);
+        x = -x - this.width;
+        ctx.drawImage(this.img,x,this.y,this.width,this.height);
+        ctx.restore()
     }
 }

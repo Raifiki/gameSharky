@@ -22,9 +22,11 @@ class Character extends MovableObject{
         setInterval(() =>{
             if (this.keyListener.RIGHT && !this.outsideLvlBorderRight()) {
                 this.moveRight();
+                this.setDirection('right');
             }
             if (this.keyListener.LEFT && !this.outsideLvlBorderLeft()) {
                 this.moveLeft();
+                this.setDirection('left');
             }
             if (this.keyListener.UP && !this.outsideLvlBorderTop()) {
                 this.moveUp();
@@ -51,9 +53,23 @@ class Character extends MovableObject{
 
     setCameraOfst(){
         let newOfst = this.x - this.xOfst;
-        if ( newOfst>= 0 && newOfst <= world.level.length - world.canvas.width){
-            world.cameraOfst = this.x - this.xOfst;
-        }
+            if (newOfst>= 0 && newOfst <= world.level.length - world.canvas.width){
+                world.cameraOfst = newOfst;
+            } else if(newOfst<0){
+                world.cameraOfst = 0;
+            } else if (newOfst>world.level.length - world.canvas.width){
+                world.cameraOfst = world.level.length - world.canvas.width;
+            }
+    }
+
+    setDirection(dir){
+        if (dir == 'right') {
+            this.direction = true;
+            this.xOfst = Math.max(this.xOfst - 10,100);
+        } else {
+            this.direction = false;
+            this.xOfst = Math.min(this.xOfst + 10,canvas_w - this.width - 100);
+        }        
     }
 }
 

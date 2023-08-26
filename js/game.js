@@ -1,8 +1,8 @@
 // Varibles
 let world;
 let canvas;
-let canvas_w = 500;
-let canvas_h = 350;
+let canvas_w = 720;
+let canvas_h = 480;
 
 let keyListener = new KeyListener();
 

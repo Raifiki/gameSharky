@@ -3,7 +3,7 @@ class Level {
     backgroundImgs;
     background = [];
     obstacles;
-    enemeis;
+    enemies;
     collectables;
     length;
     height;
@@ -12,7 +12,7 @@ class Level {
     constructor(bg, obcls, en, coll, lvllen, lvlhe){
         this.backgroundImgs = bg;
         this.obstacles = obcls;
-        this.enemeis = en;
+        this.enemies = en;
         this. collectables = coll;
         this.length = lvllen;
         this.height = lvlhe;
