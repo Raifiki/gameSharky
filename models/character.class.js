@@ -14,6 +14,13 @@ class Character extends FightableObject{
         this.speedX = 15;
         this.speedY = 5;
 
+        this.hitBox.w = 0.8*this.width;
+        this.hitBox.h = 0.8*this.width;
+        this.attackBox.w = 1*this.width;
+        this.attackBox.h = 0.4*this.width;
+        this.detectBox.w = 1.2*this.width;
+        this.detectBox.h = 1.2*this.width;
+
         this.move();
         this.attack();
         this.loadBubbleShot();
@@ -36,6 +43,7 @@ class Character extends FightableObject{
                 this.moveDown();
             }
             this.setCameraOfst();
+            this.setBoxes();
         },10)
     }
 

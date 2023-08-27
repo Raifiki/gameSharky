@@ -7,6 +7,7 @@ class DrawableObject {
         center;
         img = new Image();
         direction = true;
+        
     // methodes
     constructor(x,y,w,h){
         this.x = x;
@@ -26,15 +27,29 @@ class DrawableObject {
             }
             
         }
-        this.drawFrame(ctx,ofst);
+        this.drawFrames(ctx,ofst);
     }
 
-    drawFrame(ctx, ofst){
+    drawFrames(ctx, ofst){
         if (this instanceof MoveableObject || this instanceof BackgroundObject) {
             ctx.beginPath();
             ctx.lineWidth = '2';
-            ctx.strokeStyle = 'red';
+            ctx.strokeStyle = 'green';
             ctx.rect(this.x - ofst, this.y, this.width,this.height);
+            ctx.stroke();
+        }
+        this.drawFrame(ctx,ofst,this.hitBox,'blue');
+        this.drawFrame(ctx,ofst,this.attackBox,'red');
+        this.drawFrame(ctx,ofst,this.detectBox,'yellow');
+
+    }
+
+    drawFrame(ctx,ofst,Box,color){
+        if (this instanceof FightableObject) {
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = color;
+            ctx.rect(Box.x - ofst, Box.y, Box.w,Box.h);
             ctx.stroke();
         }
     }

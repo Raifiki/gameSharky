@@ -7,21 +7,23 @@ class Bubble extends FightableObject{
     type;
     //methodes
     constructor(x,y,w,h,type,dir){
-        super();
-        this.x = x;
-        this.y = y;
+        super(x,y,w,h);
         this.setImgPath(type);
-        this.width = w;
-        this.height = h;
         this.direction = dir;
         this.type = type;
+
+        this.hitBox.w = 1*this.width;
+        this.hitBox.h = 1*this.width;
+        this.attackBox.w = 0;
+        this.attackBox.h = 0;
+        this.detectBox.w = 0;
+        this.detectBox.h = 0;
 
         this.speedX = 5;
         this.speedY = 0;
 
         this.move();
     }
-
 
     move(){
         setInterval(() => {
@@ -30,6 +32,7 @@ class Bubble extends FightableObject{
             } else {
                 this.moveLeft();
             }
+            this.setBoxes();
         },10)
     }
 

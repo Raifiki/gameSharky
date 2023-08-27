@@ -3,15 +3,18 @@ class Jellyfish extends FightableObject {
 
     //methodes
     constructor(x,y,w,h){
-        super();
-        this.x = x;
-        this.y = y;
+        super(x,y,w,h);
         this.loadImg('../img/02_Enemy/2_Jellyfish/Regular damage/Lila 1.png');
-        this.width = w;
-        this.height = h;
 
         this.speedX = 0.5;
         this.speedY = 1;
+
+        this.hitBox.w = 0.8*this.width;
+        this.hitBox.h = 0.8*this.width;
+        this.attackBox.w = 0;
+        this.attackBox.h = 0;
+        this.detectBox.w = 1.2*this.width;
+        this.detectBox.h = 1.2*this.width;
 
         this.move();
     }
@@ -26,6 +29,7 @@ class Jellyfish extends FightableObject {
             } else {
                 this.moveDown();
             }
+            this.setBoxes();
         },10)
     }
 

@@ -27,6 +27,8 @@ const LEVEL_1 = new Level(
         new Jellyfish(300,350,100,100),
         new Jellyfish(500,150,100,100),
         new Jellyfish(1000,100,100,100),
+
+        new Endboss (1000,50,300,300),
     ],
     [],
     3500,
