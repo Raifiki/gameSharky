@@ -4,11 +4,16 @@ class DrawableObject {
         y;
         width;
         height;
+        center;
         img = new Image();
         direction = true;
     // methodes
-    constructor(){
-
+    constructor(x,y,w,h){
+        this.x = x;
+        this.y = y;
+        this.width = w;
+        this.height = h;
+        this.calcCenter();
     }
 
     draw(ctx,ofst){
@@ -25,7 +30,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx, ofst){
-        if (this instanceof MovableObject || this instanceof BackgroundObject) {
+        if (this instanceof MoveableObject || this instanceof BackgroundObject) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'red';
@@ -49,5 +54,12 @@ class DrawableObject {
         x = -x - this.width;
         ctx.drawImage(this.img,x,this.y,this.width,this.height);
         ctx.restore()
+    }
+
+    calcCenter(){
+        this.center = {
+            x: this.x + this.width/2,
+            y: this.y + this.height/2,
+        }
     }
 }

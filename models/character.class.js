@@ -1,4 +1,4 @@
-class Character extends MovableObject{
+class Character extends FightableObject{
     //field
     keyListener;
 
@@ -8,13 +8,9 @@ class Character extends MovableObject{
     xOfst = 100;
     //method
     constructor(x,y,w,h){
-        super();
-        this.x = x;
-        this.y = y;
+        super(x,y,w,h);
         this.loadImg('../img/01_Sharkie/1_IDLE/1.png');
-        this.width = w;
-        this.height = h;
-        
+
         this.speedX = 15;
         this.speedY = 5;
 

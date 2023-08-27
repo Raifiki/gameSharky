@@ -3,11 +3,7 @@ class BackgroundObject extends DrawableObject{
 
     // methodes
     constructor(imgPath,x,w,h){
-        super();
-        this.x = x;
-        this.y = 0;
+        super(x,0,w,h);
         this.loadImg(imgPath);
-        this.width = w;
-        this.height = h;
     }
 }

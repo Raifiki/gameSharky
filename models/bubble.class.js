@@ -1,4 +1,4 @@
-class Bubble extends MovableObject{
+class Bubble extends FightableObject{
     //fields
     IMGs = {
         normal: '../img/01_Sharkie/4_Attack/Bubble trap/Bubble.png',

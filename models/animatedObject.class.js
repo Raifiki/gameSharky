@@ -2,7 +2,7 @@ class AnmiatedObject extends DrawableObject {
     //field
 
     //method
-    constructor(){
-        super();
+    constructor(x,y,h,w){
+        super(x,y,w,h);
     }
 }

@@ -1,4 +1,4 @@
-class Pufferfish extends MovableObject {
+class Pufferfish extends FightableObject {
     //fields
 
     //methodes

@@ -1,4 +1,4 @@
-class Jellyfish extends MovableObject {
+class Jellyfish extends FightableObject {
     //fields
 
     //methodes
