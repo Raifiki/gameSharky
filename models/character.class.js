@@ -14,12 +14,15 @@ class Character extends FightableObject{
         this.speedX = 15;
         this.speedY = 5;
 
-        this.hitBox.w = 0.8*this.width;
-        this.hitBox.h = 0.8*this.width;
-        this.attackBox.w = 1*this.width;
-        this.attackBox.h = 0.4*this.width;
-        this.detectBox.w = 1.2*this.width;
-        this.detectBox.h = 1.2*this.width;
+        this.health = 100;
+        this.damage = 20;
+
+        this.hitBox.w = 0.7*this.width;
+        this.hitBox.h = 0.35*this.width;
+        this.attackBox.w = 0*this.width;
+        this.attackBox.h = 0*this.width;
+        this.detectBox.w = 0*this.width;
+        this.detectBox.h = 0*this.width;
 
         this.move();
         this.attack();
@@ -43,7 +46,7 @@ class Character extends FightableObject{
                 this.moveDown();
             }
             this.setCameraOfst();
-            this.setBoxes();
+            this.setBoxes(0,15);
         },10)
     }
 
@@ -73,10 +76,10 @@ class Character extends FightableObject{
 
     setDirection(dir){
         if (dir == 'right') {
-            this.direction = true;
+            this.directionX = true;
             this.xOfst = Math.max(this.xOfst - 10,100);
         } else {
-            this.direction = false;
+            this.directionX = false;
             this.xOfst = Math.min(this.xOfst + 10,canvas_w - this.width - 100);
         }        
     }
@@ -91,7 +94,7 @@ class Character extends FightableObject{
     attackBubbleTrap(){
         if (this.keyListener.SPACE) {
             let x;
-            if (this.direction) {
+            if (this.directionX) {
                 x = this.x + this.width;
             } else {
                 x = this.x - 30;
@@ -99,7 +102,7 @@ class Character extends FightableObject{
             let y = this.y + this.height/2;
             let type = this.chooseBubbleType();
             if (type != 'noShots') {
-                world.Bubbles.push(new Bubble(x,y,30,30,type, this.direction));
+                world.Bubbles.push(new Bubble(x,y,30,30,type, this.directionX));
             } else {
                 
             }

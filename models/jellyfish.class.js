@@ -5,16 +5,18 @@ class Jellyfish extends FightableObject {
     constructor(x,y,w,h){
         super(x,y,w,h);
         this.loadImg('../img/02_Enemy/2_Jellyfish/Regular damage/Lila 1.png');
+        this.directionIMG = false;
+        this.directionX = false;
 
         this.speedX = 0.5;
         this.speedY = 1;
 
-        this.hitBox.w = 0.8*this.width;
-        this.hitBox.h = 0.8*this.width;
+        this.hitBox.w = 1*this.width;
+        this.hitBox.h = 0.85*this.width;
         this.attackBox.w = 0;
         this.attackBox.h = 0;
-        this.detectBox.w = 1.2*this.width;
-        this.detectBox.h = 1.2*this.width;
+        this.detectBox.w = 0*this.width;
+        this.detectBox.h = 0*this.width;
 
         this.move();
     }
@@ -24,12 +26,12 @@ class Jellyfish extends FightableObject {
         setInterval(() => {
             this.checkLevelBorder();
             this.moveLeft();
-            if (this.direction) {
+            if (this.directionY) {
                 this.moveUp();
             } else {
                 this.moveDown();
             }
-            this.setBoxes();
+            this.setBoxes(-2,5);
         },10)
     }
 
@@ -51,7 +53,7 @@ class Jellyfish extends FightableObject {
             this.x = LEVEL_1.length;
         }
         if (this.outsideLvlBorderTop() || this.outsideLvlBorderBottom()) {
-            this.direction = !this.direction;
+            this.directionY = !this.directionY;
         }
     }
 }

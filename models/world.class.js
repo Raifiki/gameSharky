@@ -18,7 +18,7 @@ class World {
         this.keyListener = keyListener;
         this.character[0].keyListener = keyListener;
 
-        this.run();
+        this.run100();
     }
 
 
@@ -54,9 +54,12 @@ class World {
         this.ctx.stroke();
     }
 
-    run(){
+    run100(){
         setInterval(() => {
             this.removeBubbles();
+            this.removeEnemies();
+            this.checkHitToCharacter();
+            this.checkHitToEnemies();
         }, 100);
     }
 
@@ -68,5 +71,36 @@ class World {
             }
         });
         this.Bubbles = visibleBubbles;
+    }
+
+    removeEnemies(){
+        this.level.enemies.forEach((e,idx) => {
+            if (e.state == 'REMOVE'){
+                this.level.enemies.splice(idx,1);
+            }
+        })
+    }
+
+    checkHitToCharacter(){
+        // collision
+        this.level.enemies.forEach(e =>{
+            if (this.character[0].isColliding(e)) {
+                this.character[0].isHit(e.damage);
+            }
+        });
+        // Attacke (Endbos)
+    }
+
+    checkHitToEnemies(){
+        // BubbleTrap
+        this.Bubbles.forEach((B,idx) =>{
+            this.level.enemies.forEach(e =>{
+                if (e.isColliding(B) && e.state != 'HURT') {
+                    e.isHit(B.damage);
+                    this.Bubbles.splice(idx,1);
+                }
+            })
+        });
+        // Slap Attacke Sharky
     }
 }

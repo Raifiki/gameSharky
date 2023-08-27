@@ -6,7 +6,9 @@ class DrawableObject {
         height;
         center;
         img = new Image();
-        direction = true;
+        directionX = true; // right = true, left = false
+        directionY = true; // up = true, down = false
+        directionIMG = true; // true = IMGs right orientated, false = IMGs left orientated
         
     // methodes
     constructor(x,y,w,h){
@@ -20,7 +22,7 @@ class DrawableObject {
     draw(ctx,ofst){
         if (!this.isNotVisible(ofst)) {
             let x = this.x - ofst;
-            if (this.direction) {
+            if (this.getIMGdirection()) {
                 ctx.drawImage(this.img,x,this.y,this.width,this.height); 
             } else {
                 this.flipImg(ctx,x);
@@ -28,6 +30,14 @@ class DrawableObject {
             
         }
         this.drawFrames(ctx,ofst);
+    }
+
+    getIMGdirection(){
+        if (this.directionIMG) {
+            return this.directionX;
+        } else {
+            return !this.directionX;
+        }
     }
 
     drawFrames(ctx, ofst){

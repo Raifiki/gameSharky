@@ -9,8 +9,12 @@ class Bubble extends FightableObject{
     constructor(x,y,w,h,type,dir){
         super(x,y,w,h);
         this.setImgPath(type);
-        this.direction = dir;
+        this.directionX = dir;
         this.type = type;
+
+        this.health = 1;
+        this.damage = 10;
+        this.state = 'MOVE'
 
         this.hitBox.w = 1*this.width;
         this.hitBox.h = 1*this.width;
@@ -19,7 +23,7 @@ class Bubble extends FightableObject{
         this.detectBox.w = 0;
         this.detectBox.h = 0;
 
-        this.speedX = 5;
+        this.speedX = 10;
         this.speedY = 0;
 
         this.move();
@@ -27,12 +31,14 @@ class Bubble extends FightableObject{
 
     move(){
         setInterval(() => {
-            if (this.direction) {
+            if (this.directionX) {
                 this.moveRight();
             } else {
                 this.moveLeft();
             }
-            this.setBoxes();
+            this.moveUp();
+            this.setSpeed();
+            this.setBoxes(0,0);
         },10)
     }
 
@@ -41,6 +47,13 @@ class Bubble extends FightableObject{
             this.loadImg(this.IMGs.poison);
         } else {
             this.loadImg(this.IMGs.normal);
+        }
+    }
+
+    setSpeed(){
+        if (this.type == 'normal') {
+            this.speedX = Math.max(this.speedX - 0.1, 0);
+            this.speedY += 0.01;
         }
     }
 }
