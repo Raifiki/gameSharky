@@ -11,28 +11,40 @@ class Jellyfish extends FightableObject {
         this.speedX = 0.5;
         this.speedY = 1;
 
+        this.health = 50;
+        this.damage = 15;
+
         this.hitBox.w = 1*this.width;
         this.hitBox.h = 0.85*this.width;
         this.attackBox.w = 0;
         this.attackBox.h = 0;
-        this.detectBox.w = 0*this.width;
-        this.detectBox.h = 0*this.width;
+        this.detectBox.w = 2.5*this.width;
+        this.detectBox.h = 2*this.width;
 
-        this.move();
+        this.run10();
     }
 
+    run10(){
+        setInterval(() => {
+            this.attack();
+            this.move();   
+        },10)
+    }
 
     move(){
-        setInterval(() => {
-            this.checkLevelBorder();
+        this.checkLevelBorder();
+        if (this.directionY) {
+            this.moveUp();
+        } else {
+            this.moveDown();
+        }
+        if (this.directionX) {
+            this.moveRight();
+        } else {
             this.moveLeft();
-            if (this.directionY) {
-                this.moveUp();
-            } else {
-                this.moveDown();
-            }
-            this.setBoxes(-2,5);
-        },10)
+        }
+        this.setBoxes(-2,5);
+        //this.setState('move');
     }
 
     outsideLvlBorderRight(){
@@ -54,6 +66,21 @@ class Jellyfish extends FightableObject {
         }
         if (this.outsideLvlBorderTop() || this.outsideLvlBorderBottom()) {
             this.directionY = !this.directionY;
+        }
+    }
+
+    attack(){
+        if (this.state == 'ATTACK') {
+            let dx = this.detectedObject.center.x - this.center.x;
+            let dy = this.detectedObject.center.y - this.center.y;
+            let dt = 5 * 10; // time till object reach detected object (time[s]*samplerate[ms] (run))
+            this.speedX = Math.abs(dx/dt);
+            this.speedY = Math.abs(dy/dt);
+            this.directionX = dx > 0;
+            this.directionY = dy < 0;
+        } else {
+            this.speedX = 0.5;
+            this.speedY = 1;
         }
     }
 }

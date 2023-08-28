@@ -19,6 +19,7 @@ class World {
         this.character[0].keyListener = keyListener;
 
         this.run100();
+        this.run1000();
     }
 
 
@@ -54,13 +55,42 @@ class World {
         this.ctx.stroke();
     }
 
+    showWorldState(){
+        console.clear();
+        console.log(
+            '========Character========\n',
+            'HP: ',this.character[0].health,'\n',
+            'State: ',this.character[0].state,'\n',
+            'Bubbles: ',this.character[0].bubbleShots,'\n',
+            'Poison: ',this.character[0].poison,'\n',
+            )
+
+        this.level.enemies.forEach((e,idx) =>{
+            console.log('========Enemy'+idx+'========\n',
+            'HP: ',e.health,'\n',
+            'State: ',e.state,'\n',
+            )
+        })
+    }
+
     run100(){
         setInterval(() => {
             this.removeBubbles();
             this.removeEnemies();
+
             this.checkHitToCharacter();
             this.checkHitToEnemies();
+
+            this.checkDetections();
         }, 100);
+    }
+
+    run1000(){
+        setInterval(() => {
+            //delete at end
+            this.showWorldState();
+            //delete at end
+        }, 1000);
     }
 
     removeBubbles(){
@@ -84,23 +114,44 @@ class World {
     checkHitToCharacter(){
         // collision
         this.level.enemies.forEach(e =>{
-            if (this.character[0].isColliding(e)) {
-                this.character[0].isHit(e.damage);
+            if (this.character[0].isColliding(this.character[0].hitBox,e.hitBox)) {
+                this.character[0].isHit(e.damage); // hurt by colliding
+            }
+            if (e instanceof Endboss){
+                if (this.character[0].isColliding(this.character[0].hitBox,e.attackBox) && e.state == 'ATTACK') {
+                    this.character[0].isHit(e.damage); // huirt by Endboss attack
+                }
             }
         });
         // Attacke (Endbos)
     }
 
     checkHitToEnemies(){
-        // BubbleTrap
-        this.Bubbles.forEach((B,idx) =>{
-            this.level.enemies.forEach(e =>{
-                if (e.isColliding(B) && e.state != 'HURT') {
-                    e.isHit(B.damage);
+        
+        this.level.enemies.forEach(e =>{
+            // BubbleTrap
+            this.Bubbles.forEach((B,idx) =>{
+                if (e.isColliding(e.hitBox,B.hitBox) && e.state != 'HURT') {
+                    e.isHit(B.damage); // hurt by bubble
                     this.Bubbles.splice(idx,1);
                 }
-            })
-        });
-        // Slap Attacke Sharky
+            });
+            // Slap Attacke Sharky
+            if (e.isColliding(e.hitBox,this.character[0].attackBox) && this.character[0].state == 'ATTACK') {
+                e.isHit(this.character[0].damage); // hurt by character attack
+            }  
+        })
+    }
+
+    checkDetections(){
+        this.level.enemies.forEach(e =>{
+            if(e.isDetecting(this.character[0])){
+                e.setState('attack');
+                e.detectedObject = this.character[0];
+            } else {
+                e.detectedObject = [];
+                e.setState('attackFinished');
+            }
+        })
     }
 }

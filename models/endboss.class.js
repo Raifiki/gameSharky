@@ -16,8 +16,8 @@ class Endboss extends FightableObject{
 
         this.hitBox.w = 0.9*this.width;
         this.hitBox.h = 0.5*this.width;
-        this.attackBox.w = 0*this.width;
-        this.attackBox.h = 0*this.width;
+        this.attackBox.w = 0.8*this.width;
+        this.attackBox.h = 0.5*this.width;
         this.detectBox.w = 0*this.width;
         this.detectBox.h = 0*this.width;
 

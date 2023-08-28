@@ -19,8 +19,8 @@ class Character extends FightableObject{
 
         this.hitBox.w = 0.7*this.width;
         this.hitBox.h = 0.35*this.width;
-        this.attackBox.w = 0*this.width;
-        this.attackBox.h = 0*this.width;
+        this.attackBox.w = 0.8*this.width;
+        this.attackBox.h = 0.4*this.width;
         this.detectBox.w = 0*this.width;
         this.detectBox.h = 0*this.width;
 
