@@ -2,16 +2,16 @@ class Level {
     //fields
     backgroundImgs;
     background = [];
-    obstacles;
+    barrier;
     enemies;
     collectables;
     length;
     height;
 
     //methodes
-    constructor(bg, obcls, en, coll, lvllen, lvlhe){
+    constructor(bg, bar, en, coll, lvllen, lvlhe){
         this.backgroundImgs = bg;
-        this.obstacles = obcls;
+        this.barrier = bar;
         this.enemies = en;
         this. collectables = coll;
         this.length = lvllen;

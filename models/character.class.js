@@ -31,40 +31,110 @@ class Character extends FightableObject{
 
     move(){
         setInterval(() =>{
-            if (this.keyListener.RIGHT && !this.outsideLvlBorderRight()) {
+            if (this.keyListener.RIGHT && !this.borderRight()) {
                 this.moveRight();
                 this.setDirection('right');
             }
-            if (this.keyListener.LEFT && !this.outsideLvlBorderLeft()) {
+            if (this.keyListener.LEFT && !this.borderLeft()) {
                 this.moveLeft();
                 this.setDirection('left');
             }
-            if (this.keyListener.UP && !this.outsideLvlBorderTop()) {
+            if (this.keyListener.UP && !this.borderTop()) {
                 this.moveUp();
             }
-            if (this.keyListener.DOWN && !this.outsideLvlBorderBottom()) {
+            if (this.keyListener.DOWN && !this.borderBottom()) {
                 this.moveDown();
             }
-            this.setCameraOfst();
             this.setBoxes(0,15);
+            this.setCameraOfst();
         },10)
     }
 
-    outsideLvlBorderRight(){
-        return this.x + this.width > world.level.length - this.speedX/2;
+    borderRight(){
+        let lvlBorder = this.hitBox.x + this.hitBox.w > world.level.length - this.speedX/2;
+        let barrierBorder = false;
+        world.level.barrier.forEach(b => {
+            b.hitBox.forEach(hB =>{
+                barrierBorder = barrierBorder || this.barrierRight(this.hitBox,hB);
+            })
+        });
+        return barrierBorder || lvlBorder;
     }
-    outsideLvlBorderLeft(){
-        return this.x < this.speedX/2;
+
+    barrierRight(obj1Box,obj2Box){
+        let [x1,y1,w1,h1]= [obj1Box.x,obj1Box.y,obj1Box.w,obj1Box.h];
+        let [x2,y2,w2,h2]= [obj2Box.x,obj2Box.y,obj2Box.w,obj2Box.h];
+        let frame = 10;
+        y2 += frame;
+        h2 -= 2*frame;
+        return (x2 <= x1+w1 && x1+w1 <= x2+w2) && 
+               ((y2 <= y1 && y1 <= y2+h2) ||(y2 <= y1+h1 && y1+h1 <= y2+h2) ||  (y1<y2 && y1+h1 > y2+h2));
     }
-    outsideLvlBorderTop(){
-        return this.y < this.speedY/2;
+
+    borderLeft(){
+        let lvlBorder = this.hitBox.x < this.speedX/2;
+        let barrierBorder = false;
+        world.level.barrier.forEach(b => {
+            b.hitBox.forEach(hB =>{
+                barrierBorder = barrierBorder || this.barrierLeft(this.hitBox,hB);
+            })
+        });
+        return barrierBorder || lvlBorder;
     }
-    outsideLvlBorderBottom(){
-        return this.y + this.height > world.level.height - this.speedY/2;
+
+    barrierLeft(obj1Box,obj2Box){
+        let [x1,y1,w1,h1]= [obj1Box.x,obj1Box.y,obj1Box.w,obj1Box.h];
+        let [x2,y2,w2,h2]= [obj2Box.x,obj2Box.y,obj2Box.w,obj2Box.h];
+        let frame = 10;
+        y2 += frame;
+        h2 -= 2*frame;
+        return (x2 <= x1 && x1 <= x2+w2) && 
+               ((y2 <= y1 && y1 <= y2+h2) ||(y2 <= y1+h1 && y1+h1 <= y2+h2) ||  (y1<y2 && y1+h1 > y2+h2));
+    }
+
+    borderBottom(){
+        let lvlBorder = this.hitBox.y + this.hitBox.h > world.level.height - this.speedY/2 - 25;
+        let barrierBorder = false;
+        world.level.barrier.forEach(b => {
+            b.hitBox.forEach(hB =>{
+                barrierBorder = barrierBorder || this.barrierBottom(this.hitBox,hB);
+            })
+        });
+        return barrierBorder || lvlBorder;
+    }
+
+    barrierBottom(obj1Box,obj2Box){
+        let [x1,y1,w1,h1]= [obj1Box.x,obj1Box.y,obj1Box.w,obj1Box.h];
+        let [x2,y2,w2,h2]= [obj2Box.x,obj2Box.y,obj2Box.w,obj2Box.h];
+        let frame = 15;
+        x2 += frame;
+        w2 -= 2*frame;
+        return ((x2 <= x1 && x1 <= x2+w2) || (x2 <= x1+w1 && x1+w1 <= x2+w2) || (x1<x2 && x1+w1 > x2+w2)) && 
+                (y2 <= y1+h1 && y1+h1 <= y2+h2);
+    }
+
+    borderTop(){
+        let lvlBorder = this.hitBox.y < this.speedY/2;
+        let barrierBorder = false;
+        world.level.barrier.forEach(b => {
+            b.hitBox.forEach(hB =>{
+                barrierBorder = barrierBorder || this.barrierTop(this.hitBox,hB);
+            })
+        });
+        return barrierBorder || lvlBorder;
+    }
+    barrierTop(obj1Box,obj2Box){
+        let [x1,y1,w1,h1]= [obj1Box.x,obj1Box.y,obj1Box.w,obj1Box.h];
+        let [x2,y2,w2,h2]= [obj2Box.x,obj2Box.y,obj2Box.w,obj2Box.h];
+        let frame = 15;
+        x2 += frame;
+        w2 -= 2*frame;
+        return ((x2 <= x1 && x1 <= x2+w2) || (x2 <= x1+w1 && x1+w1 <= x2+w2) || (x1<x2 && x1+w1 > x2+w2)) && 
+                (y2 <= y1 && y1 <= y2+h2);
     }
 
     setCameraOfst(){
-        let newOfst = this.x - this.xOfst;
+        let newOfst = this.hitBox.x - this.xOfst;
             if (newOfst>= 0 && newOfst <= world.level.length - world.canvas.width){
                 world.cameraOfst = newOfst;
             } else if(newOfst<0){
@@ -102,7 +172,7 @@ class Character extends FightableObject{
             let y = this.y + this.height/2;
             let type = this.chooseBubbleType();
             if (type != 'noShots') {
-                world.Bubbles.push(new Bubble(x,y,30,30,type, this.directionX));
+                world.bubbles.push(new Bubble(x,y,30,30,type, this.directionX));
             } else {
                 
             }

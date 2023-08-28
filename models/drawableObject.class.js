@@ -27,7 +27,6 @@ class DrawableObject {
             } else {
                 this.flipImg(ctx,x);
             }
-            
         }
         this.drawFrames(ctx,ofst);
     }
@@ -41,27 +40,32 @@ class DrawableObject {
     }
 
     drawFrames(ctx, ofst){
-        if (this instanceof MoveableObject || this instanceof BackgroundObject) {
+        if (this instanceof MoveableObject) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'green';
             ctx.rect(this.x - ofst, this.y, this.width,this.height);
             ctx.stroke();
         }
-        this.drawFrame(ctx,ofst,this.hitBox,'blue');
-        this.drawFrame(ctx,ofst,this.attackBox,'red');
-        this.drawFrame(ctx,ofst,this.detectBox,'yellow');
-
+        if (this instanceof FightableObject) {
+            this.drawFrame(ctx,ofst,this.hitBox,'blue');
+            this.drawFrame(ctx,ofst,this.attackBox,'red');
+            this.drawFrame(ctx,ofst,this.detectBox,'yellow');
+        }   
+        if (this instanceof Barrier) {
+            this.hitBox.forEach(hB => {
+                this.drawFrame(ctx,ofst,hB,'red');
+            });
+            
+        }
     }
 
     drawFrame(ctx,ofst,Box,color){
-        if (this instanceof FightableObject) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = color;
             ctx.rect(Box.x - ofst, Box.y, Box.w,Box.h);
             ctx.stroke();
-        }
     }
 
     loadImg(path){ 

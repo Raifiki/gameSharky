@@ -22,6 +22,7 @@ class FightableObject extends MoveableObject {
     //methodes
     constructor(x,y,w,h){
         super(x,y,w,h);
+        this.setBoxes(0,0);
     }
 
 
@@ -85,14 +86,8 @@ class FightableObject extends MoveableObject {
     }
 
     isColliding(obj1Box,obj2Box){
-        let x1= obj1Box.x; // Zuweisung über Kurzschreibweise machen
-        let y1= obj1Box.y;
-        let w1= obj1Box.w;
-        let h1= obj1Box.h;
-        let x2= obj2Box.x;
-        let y2= obj2Box.y;
-        let w2= obj2Box.w;
-        let h2= obj2Box.h;
+        let [x1,y1,w1,h1]= [obj1Box.x,obj1Box.y,obj1Box.w,obj1Box.h];
+        let [x2,y2,w2,h2]= [obj2Box.x,obj2Box.y,obj2Box.w,obj2Box.h];
         return ((x2 <= x1 && x1 <= x2+w2) || (x2 <= x1+w1 && x1+w1 <= x2+w2) || (x1<x2 && x1+w1 > x2+w2)) && 
                ((y2 <= y1 && y1 <= y2+h2) ||(y2 <= y1+h1 && y1+h1 <= y2+h2) ||  (y1<y2 && y1+h1 > y2+h2));
     }

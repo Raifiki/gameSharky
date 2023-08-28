@@ -4,7 +4,7 @@ class World {
     canvas;
     level = LEVEL_1;
     character = [new Character(100,100,150,150)];
-    Bubbles = [];
+    bubbles = [];
     keyListener;
 
     cameraOfst = 0;
@@ -34,9 +34,11 @@ class World {
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
 
         this.addToMap(this.level.background);
+        this.addToMap(this.level.barrier);
         this.addToMap(this.level.enemies);
         this.addToMap(this.character);
-        this.addToMap(this.Bubbles);
+        this.addToMap(this.bubbles);
+        
         
         //delete Code
         this.drawCameraView();
@@ -88,19 +90,19 @@ class World {
     run1000(){
         setInterval(() => {
             //delete at end
-            this.showWorldState();
+            //this.showWorldState();
             //delete at end
-        }, 1000);
+        }, 5000);
     }
 
     removeBubbles(){
         let visibleBubbles = [];
-        this.Bubbles.forEach(bubble =>{
+        this.bubbles.forEach(bubble =>{
             if (bubble.x < this.cameraOfst + this.canvas.width && bubble.x > this.cameraOfst) {
                 visibleBubbles.push(bubble);
             }
         });
-        this.Bubbles = visibleBubbles;
+        this.bubbles = visibleBubbles;
     }
 
     removeEnemies(){
@@ -126,14 +128,13 @@ class World {
         // Attacke (Endbos)
     }
 
-    checkHitToEnemies(){
-        
+    checkHitToEnemies(){       
         this.level.enemies.forEach(e =>{
             // BubbleTrap
-            this.Bubbles.forEach((B,idx) =>{
-                if (e.isColliding(e.hitBox,B.hitBox) && e.state != 'HURT') {
-                    e.isHit(B.damage); // hurt by bubble
-                    this.Bubbles.splice(idx,1);
+            this.bubbles.forEach((b,idx) =>{
+                if (e.isColliding(e.hitBox,b.hitBox) && e.state != 'HURT') {
+                    e.isHit(b.damage); // hurt by bubble
+                    this.bubbles.splice(idx,1);
                 }
             });
             // Slap Attacke Sharky
