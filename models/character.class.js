@@ -38,26 +38,28 @@ class Character extends FightableObject{
     move(){
         setInterval(() =>{
             this.setState('idle');
-            if (this.keyListener.RIGHT && !this.borderRight()) {
-                this.moveRight();
-                this.setDirection('right');
-                this.setState('move');
-            }
-            if (this.keyListener.LEFT && !this.borderLeft()) {
-                this.moveLeft();
-                this.setDirection('left');
-                this.setState('move');
-            }
-            if (this.keyListener.UP && !this.borderTop()) {
-                this.moveUp();
-                this.setState('move');
-            }
-            if (this.keyListener.DOWN && !this.borderBottom()) {
-                this.moveDown();
-                this.setState('move');
-            }
-            this.setBoxes(0,15);
-            this.setCameraOfst();
+            if (this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK') {
+                if (this.keyListener.RIGHT && !this.borderRight()) {
+                    this.moveRight();
+                    this.setDirection('right');
+                    this.setState('move');
+                }
+                if (this.keyListener.LEFT && !this.borderLeft()) {
+                    this.moveLeft();
+                    this.setDirection('left');
+                    this.setState('move');
+                }
+                if (this.keyListener.UP && !this.borderTop()) {
+                    this.moveUp();
+                    this.setState('move');
+                }
+                if (this.keyListener.DOWN && !this.borderBottom()) {
+                    this.moveDown();
+                    this.setState('move');
+                }
+                this.setBoxes(0,15);
+                this.setCameraOfst();
+        }
         },10)
     }
 

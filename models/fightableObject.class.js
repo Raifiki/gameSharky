@@ -123,6 +123,7 @@ class FightableObject extends MoveableObject {
             this.health -= dmg;
             this.setState('hurt');
             if (this.health<=0) {
+                this.health = 0;
                 this.setState('dead');
             }
         }

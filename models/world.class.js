@@ -82,15 +82,13 @@ class World {
 
             this.checkHitToCharacter();
             this.checkHitToEnemies();
-
-            this.checkDetections();
         }, 100);
     }
 
     run1000(){
         setInterval(() => {
             //delete at end
-            this.showWorldState();
+            //this.showWorldState();
             //delete at end
         }, 1000);
     }
@@ -141,18 +139,6 @@ class World {
             if (e.isColliding(e.hitBox,this.character[0].attackBox) && this.character[0].state == 'ATTACK') {
                 e.hit(this.character[0].damage); // hurt by character attack
             }  
-        })
-    }
-
-    checkDetections(){
-        this.level.enemies.forEach(e =>{
-            if(e.isDetecting(this.character[0])){
-                e.setState('attack');
-                e.detectedObject = this.character[0];
-            } else {
-                e.detectedObject = [];
-                e.setState('attackFinished');
-            }
         })
     }
 }

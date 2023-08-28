@@ -21,34 +21,39 @@ class Jellyfish extends FightableObject {
         this.detectBox.w = 2.5*this.width;
         this.detectBox.h = 2*this.width;
 
-        this.run10();
+        this.JFrun10();
     }
 
-    run10(){
+    JFrun10(){
         setInterval(() => {
+            this.detect();
             this.attack();
-            this.move();   
+            this.move();
+            //console.log(new Date().getTime() - this.timeStamps.lastHit);   
         },10)
     }
 
     move(){
-        this.checkLevelBorder();
-        if (this.directionY) {
-            this.moveUp();
-        } else {
-            this.moveDown();
+        this.setState('idle');
+        if (this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK') {
+            this.checkLevelBorder();
+            if (this.directionY) {
+                this.moveUp();
+            } else {
+                this.moveDown();
+            }
+            if (this.directionX) {
+                this.moveRight();
+            } else {
+                this.moveLeft();
+            }
+            this.setBoxes(-2,5);
+            this.setState('move');
         }
-        if (this.directionX) {
-            this.moveRight();
-        } else {
-            this.moveLeft();
-        }
-        this.setBoxes(-2,5);
-        //this.setState('move');
     }
 
     outsideLvlBorderRight(){
-        return this.x > LEVEL_1.length;
+        return this.x > LEVEL_1.length; // LEVEL_1 sollte nicht verwendet werden
     }
     outsideLvlBorderLeft(){
         return this.x + this.width < 0;
@@ -57,12 +62,12 @@ class Jellyfish extends FightableObject {
         return this.y < 0;
     }
     outsideLvlBorderBottom(){
-        return this.y + this.height > LEVEL_1.height;
+        return this.y + this.height > LEVEL_1.height; // LEVEL_1 sollte nicht verwendet werden
     }
 
     checkLevelBorder(){
         if (this.outsideLvlBorderLeft()) {
-            this.x = LEVEL_1.length;
+            this.x = LEVEL_1.length; // LEVEL_1 sollte nicht verwendet werden
         }
         if (this.outsideLvlBorderTop() || this.outsideLvlBorderBottom()) {
             this.directionY = !this.directionY;
@@ -73,7 +78,7 @@ class Jellyfish extends FightableObject {
         if (this.state == 'ATTACK') {
             let dx = this.detectedObject.center.x - this.center.x;
             let dy = this.detectedObject.center.y - this.center.y;
-            let dt = 5 * 10; // time till object reach detected object (time[s]*samplerate[ms] (run))
+            let dt = 10*10; // time till object reach detected object (time[s]*samplerate[ms] (run))
             this.speedX = Math.abs(dx/dt);
             this.speedY = Math.abs(dy/dt);
             this.directionX = dx > 0;
@@ -82,5 +87,15 @@ class Jellyfish extends FightableObject {
             this.speedX = 0.5;
             this.speedY = 1;
         }
+    }
+
+    detect(){
+            if(this.isDetecting(world.character[0])){
+                this.setState('attack');
+                this.detectedObject = world.character[0];
+            } else {
+                this.detectedObject = [];
+                this.setState('attackFinished');
+            }
     }
 }
