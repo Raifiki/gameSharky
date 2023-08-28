@@ -19,11 +19,11 @@ const LEVEL_1 = new Level(
         ]
     },
     [
-        new Barrier(600,0,300,480,0),
-        new Barrier(1600,200,800,200,1),
+        //new Barrier(600,0,300,480,0),
+        //new Barrier(1600,200,800,200,1),
     ],
     [   // enemies
-        //new Pufferfish(400,200,100,100),
+        new Pufferfish(400,200,100,100),
         //new Pufferfish(600,300,100,100),
         //new Pufferfish(800,250,100,100),
 

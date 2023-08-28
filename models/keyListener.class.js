@@ -4,4 +4,5 @@ class KeyListener {
     UP = false;
     DOWN = false;
     SPACE = false;
+    S = false;
 }

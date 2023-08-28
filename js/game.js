@@ -29,23 +29,29 @@ document.addEventListener('keydown',(event) => {
     }          
     if (event.key == ' '){ // Space
         keyListener.SPACE = true;
-    }              
+    }
+    if (event.key == 's'){
+        keyListener.S = true;
+    }                
 });
 
 document.addEventListener('keyup',(event) => {
-if (event.key == 'ArrowRight'){
-    keyListener.RIGHT = false;
-}
-if (event.key == 'ArrowLeft'){
-    keyListener.LEFT = false;
-}
-if (event.key == 'ArrowUp'){
-    keyListener.UP = false;
-}
-if (event.key =='ArrowDown'){
-    keyListener.DOWN = false;
-}          
-if (event.key == ' '){ // Space
-    keyListener.SPACE = false;
-}              
+    if (event.key == 'ArrowRight'){
+        keyListener.RIGHT = false;
+    }
+    if (event.key == 'ArrowLeft'){
+        keyListener.LEFT = false;
+    }
+    if (event.key == 'ArrowUp'){
+        keyListener.UP = false;
+    }
+    if (event.key =='ArrowDown'){
+        keyListener.DOWN = false;
+    }          
+    if (event.key == ' '){ // Space
+        keyListener.SPACE = false;
+    }          
+    if (event.key == 's'){
+        keyListener.S = false;
+    }      
 }); 

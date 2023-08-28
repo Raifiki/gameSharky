@@ -25,25 +25,36 @@ class Character extends FightableObject{
         this.detectBox.h = 0*this.width;
 
         this.move();
-        this.attack();
+        this.run100();
         this.loadBubbleShot();
+    }
+
+    run100(){
+        setInterval(() => {
+            this.attack();
+        },100);
     }
 
     move(){
         setInterval(() =>{
+            this.setState('idle');
             if (this.keyListener.RIGHT && !this.borderRight()) {
                 this.moveRight();
                 this.setDirection('right');
+                this.setState('move');
             }
             if (this.keyListener.LEFT && !this.borderLeft()) {
                 this.moveLeft();
                 this.setDirection('left');
+                this.setState('move');
             }
             if (this.keyListener.UP && !this.borderTop()) {
                 this.moveUp();
+                this.setState('move');
             }
             if (this.keyListener.DOWN && !this.borderBottom()) {
                 this.moveDown();
+                this.setState('move');
             }
             this.setBoxes(0,15);
             this.setCameraOfst();
@@ -156,13 +167,18 @@ class Character extends FightableObject{
 
 
     attack(){
-        setInterval(() => {
-            this.attackBubbleTrap();
-        },100);
+        if (this.state == 'IDLE' || this.state == 'MOVE' ) {
+            if (this.keyListener.SPACE) {
+                this.setState('attack');
+                this.attackBubbleTrap();
+            }
+            if (this.keyListener.S) {
+                this.setState('attack');
+            }
+        }
     }
 
     attackBubbleTrap(){
-        if (this.keyListener.SPACE) {
             let x;
             if (this.directionX) {
                 x = this.x + this.width;
@@ -176,9 +192,8 @@ class Character extends FightableObject{
             } else {
                 
             }
-            
-        }
     }
+
 
     chooseBubbleType(){
         if (this.bubbleShots > 0) {

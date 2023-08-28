@@ -19,20 +19,39 @@ class FightableObject extends MoveableObject {
 
     state = 'IDLE';
 
+    timeStamps = {
+        lastAction: new Date().getTime(),
+        lastHit: new Date().getTime(),
+        startAttack: new Date().getTime(),
+        deadTime: new Date().getTime()*2,
+    }
+    tAttack = 1;
+    tHurt = 1;
+    tDead = 1;
+    tAction = 5;
     //methodes
     constructor(x,y,w,h){
         super(x,y,w,h);
         this.setBoxes(0,0);
+
+        this.run10();
     }
 
+    run10(){
+        setInterval(() =>{
+            this.handleTimers();
+        },10);
+    }
 
     setState(event){
         switch (this.state) {
             case 'IDLE':
                 if (event == 'hurt') {
                     this.state = 'HURT';
+                    this.timeStamps.lastHit = new Date().getTime();
                 } else if (event == 'attack'){
                     this.state = 'ATTACK';
+                    this.timeStamps.startAttack = new Date().getTime();  
                 } else if (event == 'move'){
                     this.state = 'MOVE';
                 }
@@ -40,29 +59,36 @@ class FightableObject extends MoveableObject {
             case 'MOVE':
                 if (event == 'hurt') {
                     this.state = 'HURT';
+                    this.timeStamps.lastHit = new Date().getTime();
                 } else if (event == 'attack'){
                     this.state = 'ATTACK';
+                    this.timeStamps.startAttack = new Date().getTime();  
                 } else if (event == 'idle'){
                     this.state = 'IDLE';
+                    this.timeStamps.lastAction = new Date().getTime();
                 }
                 break;   
             case 'ATTACK':
                 if (event == 'hurt') {
                     this.state = 'HURT';
+                    this.timeStamps.lastHit = new Date().getTime();
                 } else if (event == 'attackFinished'){
                     this.state = 'IDLE';
+                    this.timeStamps.lastAction = new Date().getTime();
                 }
                 break; 
             case 'HURT':
                 if (event == 'dead') {
                     this.state = 'DEAD';
+                    this.timeStamps.deadTime = new Date().getTime();
                 }
                 if (event == 'hurtFinished') {
                     this.state = 'IDLE';
+                    this.timeStamps.lastAction = new Date().getTime();
                 }
                 break; 
             case 'DEAD':
-                if (event = 'remove') {
+                if (event == 'remove') {
                     this.state = 'REMOVE';
                 }
                 break; 
@@ -92,22 +118,57 @@ class FightableObject extends MoveableObject {
                ((y2 <= y1 && y1 <= y2+h2) ||(y2 <= y1+h1 && y1+h1 <= y2+h2) ||  (y1<y2 && y1+h1 > y2+h2));
     }
 
-    isHit(dmg){
-        if (!this.isDead() && this.state != 'HUR') {
+    hit(dmg){
+        if (this.state != 'HURT') {
             this.health -= dmg;
             this.setState('hurt');
-            this.isDead();
+            if (this.health<=0) {
+                this.setState('dead');
+            }
         }
     }
 
-    isDead(){
-        if (this.health<=0) {
-            this.setState('remove'); // should be DEAD because of animation
-        }
-        return this.health<=0;
+    isHurt(duration){
+        let dt = new Date().getTime() - this.timeStamps.lastHit;
+        dt = dt/1000;
+        return dt<duration;
+    }
+
+    isAttacking(duration){
+        let dt = new Date().getTime() - this.timeStamps.startAttack;
+        dt = dt/1000;
+        return dt<duration;
+    }
+
+    isDead(duration){
+        let dt = new Date().getTime() - this.timeStamps.deadTime;
+        dt = dt/1000;
+        return dt<duration;
+    }
+
+    isLazy(duration){
+        let dt = new Date().getTime() - this.timeStamps.lastAction;
+        dt = dt/1000;
+        return dt>duration;
     }
 
     isDetecting(obj){
         return this.isColliding(this.detectBox,obj.hitBox);
+    }
+
+    handleTimers(){
+        if(!this.isAttacking(this.tAttack)){
+            this.setState('attackFinished');
+        };
+        if (!this.isHurt(this.tHurt)) {
+            this.setState('hurtFinished');
+        }
+        if (!this.isDead(this.tDead)) {
+            this.setState('remove');
+        }
+
+        //console.log('Lazy: ',this.isLazy(this.tAction) && this.state == 'IDLE'); Condition for lazy
+        
+        
     }
 }

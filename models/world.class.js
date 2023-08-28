@@ -90,9 +90,9 @@ class World {
     run1000(){
         setInterval(() => {
             //delete at end
-            //this.showWorldState();
+            this.showWorldState();
             //delete at end
-        }, 5000);
+        }, 1000);
     }
 
     removeBubbles(){
@@ -117,11 +117,11 @@ class World {
         // collision
         this.level.enemies.forEach(e =>{
             if (this.character[0].isColliding(this.character[0].hitBox,e.hitBox)) {
-                this.character[0].isHit(e.damage); // hurt by colliding
+                this.character[0].hit(e.damage); // hurt by colliding
             }
             if (e instanceof Endboss){
                 if (this.character[0].isColliding(this.character[0].hitBox,e.attackBox) && e.state == 'ATTACK') {
-                    this.character[0].isHit(e.damage); // huirt by Endboss attack
+                    this.character[0].hit(e.damage); // hurt by Endboss attack
                 }
             }
         });
@@ -133,13 +133,13 @@ class World {
             // BubbleTrap
             this.bubbles.forEach((b,idx) =>{
                 if (e.isColliding(e.hitBox,b.hitBox) && e.state != 'HURT') {
-                    e.isHit(b.damage); // hurt by bubble
+                    e.hit(b.damage); // hurt by bubble
                     this.bubbles.splice(idx,1);
                 }
             });
             // Slap Attacke Sharky
             if (e.isColliding(e.hitBox,this.character[0].attackBox) && this.character[0].state == 'ATTACK') {
-                e.isHit(this.character[0].damage); // hurt by character attack
+                e.hit(this.character[0].damage); // hurt by character attack
             }  
         })
     }
