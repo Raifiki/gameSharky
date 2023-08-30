@@ -19,16 +19,16 @@ const LEVEL_1 = new Level(
         ]
     },
     [
-        new Barrier(200,0,500,480,0),
+        //new Barrier(200,0,500,480,0),
         //new Barrier(1600,200,800,200,1),
     ],
     [   // enemies
-        new Pufferfish(400,200,100,100),
+        //new Pufferfish(400,200,100,100),
         //new Pufferfish(600,300,100,100),
         //new Pufferfish(800,250,100,100),
 
         //new Jellyfish(700,200,100,100),
-        new Jellyfish(700,150,100,100),
+        new Jellyfish(500,150,100,100),
         //new Jellyfish(1000,100,100,100),
 
         //new Endboss (800,50,300,300),
@@ -38,5 +38,5 @@ const LEVEL_1 = new Level(
         new CollectableObject (300,200,50,50,'poison'),
     ],
     3500,
-    480
+    800
 );

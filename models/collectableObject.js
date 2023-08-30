@@ -1,9 +1,5 @@
 class CollectableObject extends MoveableObject{
         // fields
-        IMGs = [
-            '../img/04_Collectables/Coins/1.png',
-            '../img/04_Collectables/Posión/DarkLeft.png',
-        ]
         hitBox
         type
         // methodes
@@ -26,9 +22,9 @@ class CollectableObject extends MoveableObject{
     setType(type){
         this.type = type;
         if (type == 'poison') {
-            this.loadImg(this.IMGs[1]);
+            this.loadImg('../img/04_Collectables/Posión/DarkLeft.png');
         } else {
-            this.loadImg(this.IMGs[0]);
+            this.loadImg('../img/04_Collectables/Coins/1.png',);
         }
     }
 }

@@ -4,17 +4,22 @@ class Bubble extends FightableObject{
         normal: '../img/01_Sharkie/4_Attack/Bubble trap/Bubble.png',
         poison: '../img/01_Sharkie/4_Attack/Bubble trap/PoisonedBubble.png',
     }
+    from;
     type;
     //methodes
-    constructor(x,y,w,h,type,dir){
-        super(x,y,w,h);
-        this.setImgPath(type);
-        this.directionX = dir;
-        this.type = type;
+    constructor(x,y,speedX,speedY,dirX,dirY,type,from){
+        super(x-30/2,y-30/2,30,30);
+        this.speedX = speedX;
+        this.speedY = speedY;
+        this.setType(type);
+        this.directionX = dirX;
+        this.directionY = dirY;
+
 
         this.health = 1;
         this.damage = 10;
-        this.state = 'MOVE'
+        this.state = 'MOVE';
+        this.from = from;
 
         this.hitBox.w = 1*this.width;
         this.hitBox.h = 1*this.width;
@@ -22,9 +27,6 @@ class Bubble extends FightableObject{
         this.attackBox.h = 0;
         this.detectBox.w = 0;
         this.detectBox.h = 0;
-
-        this.speedX = 10;
-        this.speedY = 0;
 
         this.Brun10();
     }
@@ -44,16 +46,22 @@ class Bubble extends FightableObject{
         } else {
             this.moveLeft();
         }
-        this.moveUp();
+        if (this.directionY) {
+            this.moveUp();
+        } else {
+            this.moveDown();
+        }
         this.setSpeed();
         this.setBoxes(0,0);
     }
 
-    setImgPath(type){
+    setType(type){
+        this.type = type;
         if (type == 'poison') {
             this.loadImg(this.IMGs.poison);
         } else {
             this.loadImg(this.IMGs.normal);
+            this.speedY = 0;
         }
     }
 

@@ -38,9 +38,10 @@ class World {
         this.addToMap(this.level.background);
         this.addToMap(this.level.barrier);
         this.addToMap(this.level.collectables);
+        this.addToMap(this.bubbles);
         this.addToMap(this.level.enemies);
         this.addToMap(this.character);
-        this.addToMap(this.bubbles);
+
         
         
         //delete Code
@@ -81,9 +82,8 @@ class World {
 
     run10(){
         setInterval(() => {
-           // this.removeBubbles();
-            this.removeEnemies();
-            this.removeBubbles();
+            this.removeFromMap(this.bubbles);
+            this.removeFromMap(this.level.enemies);
             
             this.checkHitToCharacter();
             this.checkHitToEnemies();
@@ -98,18 +98,10 @@ class World {
         }, 1000);
     }
 
-    removeBubbles(){
-        this.bubbles.forEach((b,idx) => {
-            if (b.state == 'REMOVE'){
-                this.bubbles.splice(idx,1);
-            }
-        })
-    }
-
-    removeEnemies(){
-        this.level.enemies.forEach((e,idx) => {
+    removeFromMap(ary){
+        ary.forEach((e,idx,ary) => {
             if (e.state == 'REMOVE'){
-                this.level.enemies.splice(idx,1);
+                ary.splice(idx,1);
             }
         })
     }
@@ -126,8 +118,13 @@ class World {
                 }
             }
         });
-        // Attacke (Endbos)
-
+        // Bubble
+        this.bubbles.forEach((b,idx) =>{
+            if (this.character[0].isColliding(this.character[0].hitBox,b.hitBox) && this.character[0].state != 'HURT' && b.from != 'character') {
+                this.character[0].hit(b.damage); // hurt by bubble
+                this.bubbles.splice(idx,1);
+            }
+        });
         // Collectables
         this.level.collectables.forEach((c,idx) => {
             if (this.character[0].isColliding(this.character[0].hitBox,c.hitBox)) {
@@ -148,9 +145,11 @@ class World {
         this.level.enemies.forEach(e =>{
             // BubbleTrap
             this.bubbles.forEach((b,idx) =>{
-                if (e.isColliding(e.hitBox,b.hitBox) && e.state != 'HURT') {
-                    e.hit(b.damage); // hurt by bubble
-                    this.bubbles.splice(idx,1);
+                if (e.isColliding(e.hitBox,b.hitBox) && e.state != 'HURT' && b.from != 'enemy') {
+                    if (!(e instanceof Jellyfish && b.type == 'poison')) {
+                        e.hit(b.damage); // hurt by bubble
+                        this.bubbles.splice(idx,1);
+                    }
                 }
             });
             // Slap Attacke Sharky

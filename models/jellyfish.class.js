@@ -1,10 +1,14 @@
 class Jellyfish extends FightableObject {
     //fields
-
+    cntItems = 1;
+    type = 'toxic';
+    radiusCnt = 0;
+    frequency = 1/1000;
+    attackCnt = 0;
     //methodes
     constructor(x,y,w,h){
         super(x,y,w,h);
-        this.loadImg('../img/02_Enemy/2_Jellyfish/Regular damage/Lila 1.png');
+        this.setType(this.type)
         this.directionIMG = false;
         this.directionX = false;
 
@@ -14,12 +18,12 @@ class Jellyfish extends FightableObject {
         this.health = 50;
         this.damage = 15;
 
-        this.hitBox.w = 1*this.width;
-        this.hitBox.h = 0.85*this.width;
+        this.hitBox.w = 0.8*this.width;
+        this.hitBox.h = 0.65*this.width;
         this.attackBox.w = 0;
         this.attackBox.h = 0;
-        this.detectBox.w = 2.5*this.width;
-        this.detectBox.h = 2*this.width;
+        this.detectBox.w = 3.5*this.width;
+        this.detectBox.h = 3.5*this.width;
 
         this.JFrun10();
     }
@@ -33,6 +37,16 @@ class Jellyfish extends FightableObject {
                 this.dropItem();
             } 
         },10)
+    }
+
+
+    setType(type){
+        this.type = type;
+        if (type == 'normal') {
+            this.loadImg('../img/02_Enemy/2_Jellyfish/TypeNormal/L1.png');
+        } else {
+            this.loadImg('../img/02_Enemy/2_Jellyfish/TypeToxic/G1.png');
+        }
     }
 
     move(){
@@ -56,43 +70,80 @@ class Jellyfish extends FightableObject {
 
 
     setMoveBehavior(){
-        if (this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) {
+        if ((this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) && !this.state == 'ATTACK') {
             this.directionX = !this.directionX;
         }
-        if (this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom')) {
+        if ((this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom')) && !this.state == 'ATTACK') {
             this.directionY = !this.directionY;
         }
     }
 
-
     attack(){
-        if (this.state == 'ATTACK') {
-            let dx = this.detectedObject.center.x - this.center.x;
-            let dy = this.detectedObject.center.y - this.center.y;
-            let dt = 10*10; // time till object reach detected object (time[s]*samplerate[ms] (run))
-            this.speedX = Math.abs(dx/dt);
-            this.speedY = Math.abs(dy/dt);
-            this.directionX = dx > 0;
-            this.directionY = dy < 0;
-        } else {
-            this.speedX = 0;
-            this.speedY = 0;
+        if (this.type == 'normal' && this.state == 'ATTACK') {
+            this.attackMove(0,10)
+        } else if(this.state == 'ATTACK') {
+            this.attackMove(150,1);
+            this.attackShot();
         }
+        this.radiusCnt++;
+    }
+
+    initRadiusCnt(){
+        if (this.state != 'ATTACK' && this.state != 'HURT') {
+            let dx = this.detectedObject.center.x - this.center.x ;
+            let dy = this.detectedObject.center.y - this.center.y ;
+            let angle = Math.atan2(dy,dx);
+            this.radiusCnt = angle * 1/this.frequency/2/Math.PI;
+        }
+    }
+
+    attackMove(radius,timeSpeed){
+        let [spdX,spdY,dirX,dirY] = this.calcKinematics(radius,timeSpeed);
+        this.speedX = spdX;
+        this.speedY = spdY;
+        this.directionX = dirX;
+        this.directionY = dirY;
+    }
+
+    calcKinematics(radius,timeSpeed){
+        let dx = this.detectedObject.center.x + Math.cos(this.radiusCnt*this.frequency*2*Math.PI)*radius - this.center.x ;
+        let dy = this.detectedObject.center.y + Math.sin(this.radiusCnt*this.frequency*2*Math.PI)*radius - this.center.y ;
+        let dt = timeSpeed*10; // time till object reach detected object (time[s]*samplerate[ms] (run))
+        let spdX = Math.abs(dx/dt);
+        let spdY = Math.abs(dy/dt);
+        let dirX = dx > 0;
+        let dirY = dy < 0;
+        return [spdX,spdY,dirX,dirY]
+    }
+
+    attackShot(){
+        if (this.attackCnt >= 100){
+            let [spdX,spdY,dirX,dirY] = this.calcKinematics(0,10);
+            world.bubbles.push(new Bubble(this.center.x,this.center.y,spdX,spdY, dirX, dirY,'poison','enemy'));
+            this.attackCnt = 0;
+        }else {
+            this.attackCnt++;
+        }
+        
     }
 
     detect(){
             if(this.isDetecting(world.character[0])){
                 this.setState('attack');
                 this.detectedObject = world.character[0];
+                this.initRadiusCnt();
             } else {
                 this.detectedObject = [];
                 this.setState('attackFinished');
+                this.speedX = 0;
+                this.speedY = 0;
             }
     }
 
     dropItem(){
-        if (this.state == 'DEAD') {
-            world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));            
+        if (this.state == 'REMOVE' && this.cntItems>0) {
+            world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));
+            this.cntItems--;            
         }
     }
 }

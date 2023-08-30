@@ -104,10 +104,10 @@ class FightableObject extends MoveableObject {
         this.detectBox.y = this.center.y - this.detectBox.h/2 + yOfs;;
         if (this.directionX) {
             this.attackBox.x = this.center.x + xOfs;    
-            this.detectBox.x = this.center.x - this.detectBox.w/4 + xOfs;
+            this.detectBox.x = this.center.x - this.detectBox.w/2 + xOfs;
         } else {
             this.attackBox.x = this.center.x - this.attackBox.w + xOfs;            
-            this.detectBox.x = this.center.x - this.detectBox.w*3/4 + xOfs;
+            this.detectBox.x = this.center.x - this.detectBox.w/2 + xOfs;
         }
     }
 

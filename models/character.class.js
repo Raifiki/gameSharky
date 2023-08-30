@@ -101,16 +101,10 @@ class Character extends FightableObject{
     }
 
     attackBubbleTrap(){
-            let x;
-            if (this.directionX) {
-                x = this.x + this.width;
-            } else {
-                x = this.x - 30;
-            }
-            let y = this.y + this.height/2;
+            let [x,y] = [this.center.x,this.center.y+15];
             let type = this.chooseBubbleType();
             if (type != 'noShots') {
-                world.bubbles.push(new Bubble(x,y,30,30,type, this.directionX));
+                world.bubbles.push(new Bubble(x,y,10,0, this.directionX,true,type,'character'));
             } else {
                 
             }

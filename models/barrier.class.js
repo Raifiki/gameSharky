@@ -25,9 +25,9 @@ class Barrier extends DrawableObject{
                 },
                 {
                     x: this.x,
-                    y: this.y + this.height*3/4,
+                    y: this.y + this.height*4/5,
                     w: this.width,
-                    h: this.height/4,
+                    h: this.height/5,
                 }
             ];
         } else {

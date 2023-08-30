@@ -1,6 +1,6 @@
 class Pufferfish extends FightableObject {
     //fields
-
+    cntItems = 1;
     //methodes
     constructor(x,y,w,h){
         super(x,y,w,h);
@@ -56,8 +56,9 @@ class Pufferfish extends FightableObject {
     }
 
     dropItem(){
-        if (this.state == 'DEAD') {
-            world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));            
+        if (this.state == 'REMOVE' && this.cntItems > 0) {
+            world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));       
+            this.cntItems--;        
         }
     }
 }
