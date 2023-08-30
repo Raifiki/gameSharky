@@ -42,7 +42,7 @@ class Pufferfish extends FightableObject {
             } else {
                 this.moveLeft();
             }
-            this.setBoxes(-5,-10);
+            this.setBoxes(-5,-10,0,0);
         }
     }
 

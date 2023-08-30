@@ -97,17 +97,17 @@ class FightableObject extends MoveableObject {
         }
     }
 
-    setBoxes(xOfs,yOfs){
+    setBoxes(xOfs,yOfs,xOfsAtk,xOfsDet){
         this.hitBox.x = this.center.x - this.hitBox.w/2 + xOfs;
         this.hitBox.y = this.center.y - this.hitBox.h/2 + yOfs;
         this.attackBox.y = this.center.y - this.attackBox.h/2 + yOfs;;
         this.detectBox.y = this.center.y - this.detectBox.h/2 + yOfs;;
         if (this.directionX) {
-            this.attackBox.x = this.center.x + xOfs;    
-            this.detectBox.x = this.center.x - this.detectBox.w/2 + xOfs;
+            this.attackBox.x = this.center.x - this.attackBox.w/2 + xOfs + xOfsAtk;    
+            this.detectBox.x = this.center.x - this.detectBox.w/2 + xOfs + xOfsDet;    
         } else {
-            this.attackBox.x = this.center.x - this.attackBox.w + xOfs;            
-            this.detectBox.x = this.center.x - this.detectBox.w/2 + xOfs;
+            this.attackBox.x = this.center.x - this.attackBox.w/2 - xOfs - xOfsAtk;                
+            this.detectBox.x = this.center.x - this.detectBox.w/2 - xOfs - xOfsDet;    ;
         }
     }
 

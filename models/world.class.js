@@ -3,7 +3,7 @@ class World {
     ctx;
     canvas;
     level = LEVEL_1;
-    character = [new Character(100,100,150,150)];
+    character = [new Character(2500,100,150,150)];
     bubbles = [];
     keyListener;
 
@@ -45,7 +45,7 @@ class World {
         
         
         //delete Code
-        this.drawCameraView();
+        //this.drawCameraView();
         //delete Code
 
         let self = this;
@@ -93,7 +93,7 @@ class World {
     run1000(){
         setInterval(() => {
             //delete at end
-            //this.showWorldState();
+            this.showWorldState();
             //delete at end
         }, 1000);
     }
@@ -146,7 +146,8 @@ class World {
             // BubbleTrap
             this.bubbles.forEach((b,idx) =>{
                 if (e.isColliding(e.hitBox,b.hitBox) && e.state != 'HURT' && b.from != 'enemy') {
-                    if (!(e instanceof Jellyfish && b.type == 'poison')) {
+                    if (!(e.type == 'toxic' && b.type == 'poison')) {
+                        console.log('enemy hurt')
                         e.hit(b.damage); // hurt by bubble
                         this.bubbles.splice(idx,1);
                     }

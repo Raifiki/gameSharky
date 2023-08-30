@@ -1,14 +1,14 @@
 class Jellyfish extends FightableObject {
     //fields
     cntItems = 1;
-    type = 'toxic';
+    type = 'normal';
     radiusCnt = 0;
     frequency = 1/1000;
     attackCnt = 0;
     //methodes
-    constructor(x,y,w,h){
+    constructor(x,y,w,h,type){
         super(x,y,w,h);
-        this.setType(this.type)
+        this.setType(type)
         this.directionIMG = false;
         this.directionX = false;
 
@@ -32,7 +32,7 @@ class Jellyfish extends FightableObject {
         setInterval(() => {
             if (gameState == 'RUN') {
                 this.detect();
-                this.attack();
+                //this.attack();
                 this.move();
                 this.dropItem();
             } 
@@ -63,17 +63,17 @@ class Jellyfish extends FightableObject {
             } else {
                 this.moveLeft();
             }
-            this.setBoxes(-2,5);
+            this.setBoxes(-2,5,0,0);
             this.setState('move');
         }
     }
 
 
     setMoveBehavior(){
-        if ((this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) && !this.state == 'ATTACK') {
+        if ((this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right'))){// && !this.state == 'ATTACK') {
             this.directionX = !this.directionX;
         }
-        if ((this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom')) && !this.state == 'ATTACK') {
+        if ((this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom'))){// && !this.state == 'ATTACK') {
             this.directionY = !this.directionY;
         }
     }
@@ -135,14 +135,18 @@ class Jellyfish extends FightableObject {
             } else {
                 this.detectedObject = [];
                 this.setState('attackFinished');
-                this.speedX = 0;
-                this.speedY = 0;
+                //this.speedX = 0;
+                //this.speedY = 0;
             }
     }
 
     dropItem(){
         if (this.state == 'REMOVE' && this.cntItems>0) {
-            world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));
+            if (this.type == 'normal') {
+                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));
+            } else {
+                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,50,50,'poison'));
+            }
             this.cntItems--;            
         }
     }
