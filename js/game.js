@@ -3,6 +3,7 @@ let world;
 let canvas;
 let canvas_w = 720;
 let canvas_h = 480;
+let gameState = 'IDLE';
 
 let keyListener = new KeyListener();
 

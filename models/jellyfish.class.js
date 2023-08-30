@@ -8,8 +8,8 @@ class Jellyfish extends FightableObject {
         this.directionIMG = false;
         this.directionX = false;
 
-        this.speedX = 0.5;
-        this.speedY = 1;
+        this.speedX = 0;
+        this.speedY = 0;
 
         this.health = 50;
         this.damage = 15;
@@ -26,17 +26,19 @@ class Jellyfish extends FightableObject {
 
     JFrun10(){
         setInterval(() => {
-            this.detect();
-            this.attack();
-            this.move();
-            //console.log(new Date().getTime() - this.timeStamps.lastHit);   
+            if (gameState == 'RUN') {
+                this.detect();
+                this.attack();
+                this.move();
+                this.dropItem();
+            } 
         },10)
     }
 
     move(){
         this.setState('idle');
         if (this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK') {
-            this.checkLevelBorder();
+            this.setMoveBehavior();
             if (this.directionY) {
                 this.moveUp();
             } else {
@@ -52,27 +54,16 @@ class Jellyfish extends FightableObject {
         }
     }
 
-    outsideLvlBorderRight(){
-        return this.x > LEVEL_1.length; // LEVEL_1 sollte nicht verwendet werden
-    }
-    outsideLvlBorderLeft(){
-        return this.x + this.width < 0;
-    }
-    outsideLvlBorderTop(){
-        return this.y < 0;
-    }
-    outsideLvlBorderBottom(){
-        return this.y + this.height > LEVEL_1.height; // LEVEL_1 sollte nicht verwendet werden
-    }
 
-    checkLevelBorder(){
-        if (this.outsideLvlBorderLeft()) {
-            this.x = LEVEL_1.length; // LEVEL_1 sollte nicht verwendet werden
+    setMoveBehavior(){
+        if (this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) {
+            this.directionX = !this.directionX;
         }
-        if (this.outsideLvlBorderTop() || this.outsideLvlBorderBottom()) {
+        if (this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom')) {
             this.directionY = !this.directionY;
         }
     }
+
 
     attack(){
         if (this.state == 'ATTACK') {
@@ -84,8 +75,8 @@ class Jellyfish extends FightableObject {
             this.directionX = dx > 0;
             this.directionY = dy < 0;
         } else {
-            this.speedX = 0.5;
-            this.speedY = 1;
+            this.speedX = 0;
+            this.speedY = 0;
         }
     }
 
@@ -97,5 +88,11 @@ class Jellyfish extends FightableObject {
                 this.detectedObject = [];
                 this.setState('attackFinished');
             }
+    }
+
+    dropItem(){
+        if (this.state == 'DEAD') {
+            world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));            
+        }
     }
 }

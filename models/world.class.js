@@ -18,7 +18,9 @@ class World {
         this.keyListener = keyListener;
         this.character[0].keyListener = keyListener;
 
-        this.run100();
+        gameState = 'RUN';
+
+        this.run10();
         this.run1000();
     }
 
@@ -35,6 +37,7 @@ class World {
 
         this.addToMap(this.level.background);
         this.addToMap(this.level.barrier);
+        this.addToMap(this.level.collectables);
         this.addToMap(this.level.enemies);
         this.addToMap(this.character);
         this.addToMap(this.bubbles);
@@ -65,6 +68,7 @@ class World {
             'State: ',this.character[0].state,'\n',
             'Bubbles: ',this.character[0].bubbleShots,'\n',
             'Poison: ',this.character[0].poison,'\n',
+            'Coins: ',this.character[0].coins,'\n',
             )
 
         this.level.enemies.forEach((e,idx) =>{
@@ -75,14 +79,15 @@ class World {
         })
     }
 
-    run100(){
+    run10(){
         setInterval(() => {
-            this.removeBubbles();
+           // this.removeBubbles();
             this.removeEnemies();
-
+            this.removeBubbles();
+            
             this.checkHitToCharacter();
             this.checkHitToEnemies();
-        }, 100);
+        }, 10);
     }
 
     run1000(){
@@ -94,13 +99,11 @@ class World {
     }
 
     removeBubbles(){
-        let visibleBubbles = [];
-        this.bubbles.forEach(bubble =>{
-            if (bubble.x < this.cameraOfst + this.canvas.width && bubble.x > this.cameraOfst) {
-                visibleBubbles.push(bubble);
+        this.bubbles.forEach((b,idx) => {
+            if (b.state == 'REMOVE'){
+                this.bubbles.splice(idx,1);
             }
-        });
-        this.bubbles = visibleBubbles;
+        })
     }
 
     removeEnemies(){
@@ -124,6 +127,21 @@ class World {
             }
         });
         // Attacke (Endbos)
+
+        // Collectables
+        this.level.collectables.forEach((c,idx) => {
+            if (this.character[0].isColliding(this.character[0].hitBox,c.hitBox)) {
+                if (c.type == 'coin') {
+                    this.character[0].coins++;
+                    this.level.collectables.splice(idx,1);
+                }
+                if (c.type == 'poison') {
+                    this.character[0].poison++;
+                    this.level.collectables.splice(idx,1); 
+                }
+                              
+            }
+        })
     }
 
     checkHitToEnemies(){       
@@ -141,4 +159,5 @@ class World {
             }  
         })
     }
+
 }

@@ -21,12 +21,18 @@ class Endboss extends FightableObject{
         this.detectBox.w = 0*this.width;
         this.detectBox.h = 0*this.width;
 
-        this.move();
+        this.Whrun10();
+    }
+
+    Whrun10(){
+        setInterval(() => {
+            if (gameState == 'RUN') {
+                this.move();
+            }
+        },10)
     }
 
     move(){
-        setInterval(() => {
-            this.setBoxes(-2,30);
-        },10)
+        this.setBoxes(-2,30);
     }
 }

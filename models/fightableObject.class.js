@@ -166,10 +166,6 @@ class FightableObject extends MoveableObject {
         }
         if (!this.isDead(this.tDead)) {
             this.setState('remove');
-        }
-
-        //console.log('Lazy: ',this.isLazy(this.tAction) && this.state == 'IDLE'); Condition for lazy
-        
-        
+        }  
     }
 }

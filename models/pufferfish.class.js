@@ -22,24 +22,42 @@ class Pufferfish extends FightableObject {
         this.detectBox.w = 0*this.width;
         this.detectBox.h = 0*this.width;
 
-        this.move();
+        this.PFrun10();
     }
-
-
-    move(){
+    PFrun10(){
         setInterval(() => {
-            if (this.outsideLvlBorderLeft()) {
-                this.x = world.level.length;
-            }
-            this.moveLeft();
-            this.setBoxes(-5,-10);
+            if (gameState == 'RUN') {
+                this.move();
+                this.dropItem();
+             }
         },10)
     }
 
-    outsideLvlBorderRight(){
-        return this.x > world.level.length;
+    move(){
+        this.setState('idle');
+        if (this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK') {
+            this.setMoveBehavior();
+            if (this.directionX) {
+                this.moveRight();
+            } else {
+                this.moveLeft();
+            }
+            this.setBoxes(-5,-10);
+        }
     }
-    outsideLvlBorderLeft(){
-        return this.x + this.width < 0;
+
+    setMoveBehavior(){
+        if (this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) {
+            this.directionX = !this.directionX;
+        }
+        if (this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom')) {
+            this.directionY = !this.directionY;
+        }
+    }
+
+    dropItem(){
+        if (this.state == 'DEAD') {
+            world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));            
+        }
     }
 }
