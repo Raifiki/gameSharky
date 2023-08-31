@@ -3,7 +3,7 @@ class World {
     ctx;
     canvas;
     level = LEVEL_1;
-    character = [new Character(2500,100,150,150)];
+    character = [new Character(1800,100,150,150)];
     bubbles = [];
     keyListener;
 
@@ -45,7 +45,7 @@ class World {
         
         
         //delete Code
-        //this.drawCameraView();
+        this.drawCameraView();
         //delete Code
 
         let self = this;
@@ -92,8 +92,9 @@ class World {
 
     run1000(){
         setInterval(() => {
+            this.addEndbos();
             //delete at end
-            this.showWorldState();
+            //this.showWorldState();
             //delete at end
         }, 1000);
     }
@@ -160,4 +161,14 @@ class World {
         })
     }
 
+    addEndbos(){
+        let EB;
+        this.level.enemies.forEach(e =>{
+           (e instanceof Endboss)?EB= EB || true:EB= EB ||false;
+        })
+        if (this.character[0].x >= 2400 && !EB) {
+            this.level.barrier.push(new Barrier(2200,0,200,600,2));
+            this.level.enemies.push(new Endboss (3000,50,300,300))
+        }
+    }
 }

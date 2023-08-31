@@ -8,7 +8,7 @@ class Pufferfish extends FightableObject {
         this.directionIMG = false;
         this.directionX = false;
 
-        this.speedX = 0;
+        this.speedX = 5;
         this.speedY = 0;
 
         this.health = 20;

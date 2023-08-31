@@ -60,7 +60,7 @@ class Character extends FightableObject{
                     this.moveDown();
                     this.setState('move');
                 }
-                this.setBoxes(0,15,80,0);
+                this.setBoxes(15,-this.hitBox.w/2,0,0);
                 this.setCameraOfst();
         }
         },10)

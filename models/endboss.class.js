@@ -24,9 +24,9 @@ class Endboss extends FightableObject{
         this.hitBox.w = 0.9*this.width;
         this.hitBox.h = 0.5*this.width;
         this.attackBox.w = 0.6*this.width;
-        this.attackBox.h = 0.5*this.width;
-        this.detectBox.w = 2*this.width;
-        this.detectBox.h = 1*this.width;
+        this.attackBox.h = 0.3*this.width;
+        this.detectBox.w = 0.8*this.width;
+        this.detectBox.h = 0.8*this.width;
 
         this.detectedObject = [];
         this.tAttack = 5;
@@ -57,7 +57,8 @@ class Endboss extends FightableObject{
             } else {
                 this.moveLeft();
             }
-            this.setBoxes(-2,30,50,170);
+            this.setBoxes(30,-this.hitBox.w/2+2,50,-100);
+            //this.resizeBoxes(true);
             this.setState('move');           
         }
     }
@@ -81,13 +82,13 @@ class Endboss extends FightableObject{
             this.speedX = (this.speedX + Math.random()*0.01) %2;
             this.speedY = (this.speedY + Math.random()*0.01) %2;
             if ((Math.random())<0.005) {
-                //this.directionX = !this.directionX;
+                this.directionX = !this.directionX;
             }
             if ((Math.random())<0.005) {
-                //this.directionY = !this.directionY;
+                this.directionY = !this.directionY;
             }
-            //this.speedX =0; // remove at end
-            //this.speedY=0; // remove at end
+            this.speedX =0; // remove at end
+            this.speedY=0; // remove at end
         }
     }
 
@@ -145,6 +146,7 @@ class Endboss extends FightableObject{
             this.speedY = spdY;
             this.directionX = dirX;
             this.directionY = dirY;
+            this.resizeBoxes(false);
         } else {
             this.characterDetected = false;
             this.detectedObject = [];
@@ -174,5 +176,15 @@ class Endboss extends FightableObject{
         let dirX = dx < 0;
         let dirY = dy > 0;
         return [5,5,dirX,dirY]
+    }
+
+    resizeBoxes(reset){
+        if (!reset){
+            this.detectBox.w = 0.8*this.width;
+            this.detectBox.h = 0.8*this.width;
+        } else {
+            this.detectBox.w += 0.4;
+            this.detectBox.h += 0.2;
+        }
     }
 }

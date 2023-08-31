@@ -12,8 +12,8 @@ class Jellyfish extends FightableObject {
         this.directionIMG = false;
         this.directionX = false;
 
-        this.speedX = 0;
-        this.speedY = 0;
+        this.speedX = 2;
+        this.speedY = 2;
 
         this.health = 50;
         this.damage = 15;
@@ -32,7 +32,7 @@ class Jellyfish extends FightableObject {
         setInterval(() => {
             if (gameState == 'RUN') {
                 this.detect();
-                //this.attack();
+                this.attack();
                 this.move();
                 this.dropItem();
             } 
