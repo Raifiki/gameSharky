@@ -3,7 +3,7 @@ class World {
     ctx;
     canvas;
     level = LEVEL_1;
-    character = [new Character(1800,100,150,150)];
+    character = [new Character(100,100,150,150)];
     bubbles = [];
     keyListener;
 
@@ -168,7 +168,16 @@ class World {
         })
         if (this.character[0].x >= 2400 && !EB) {
             this.level.barrier.push(new Barrier(2200,0,200,600,2));
-            this.level.enemies.push(new Endboss (3000,50,300,300))
+            this.level.enemies.push(new Endboss (3000,50,300,300));
+            this.addJellyfish();
         }
+    }
+
+    addJellyfish(){
+        setInterval(() => {
+            let y = Math.random()*this.level.height;
+            let x = this.level.length - 101;
+            this.level.enemies.push(new Jellyfish(x,y,100,100,'toxic'))
+        }, 20000);
     }
 }

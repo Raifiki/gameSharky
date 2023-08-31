@@ -5,7 +5,7 @@ class Endboss extends FightableObject{
         y: canvas_h/2,
     }
     bubbleDetected = false;
-    bubble;
+    detectedBubble;
     characterDetected = false;
     //methodes
     constructor(x,y,w,h){
@@ -58,7 +58,7 @@ class Endboss extends FightableObject{
                 this.moveLeft();
             }
             this.setBoxes(30,-this.hitBox.w/2+2,50,-100);
-            //this.resizeBoxes(true);
+            this.resizeBoxes(true);
             this.setState('move');           
         }
     }
@@ -66,29 +66,31 @@ class Endboss extends FightableObject{
 
 
     setMoveBehavior(){
-        if (this.bubbleDetected) {
-            let [spdX,spdY,dirX,dirY] = this.calcEscapeKinematics();
-            this.speedX = spdX;
-            this.speedY = spdY;
-            this.directionX = dirX;
-            this.directionY = dirY;
-        } else if (this.state != 'ATTACK') {
-            if (this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) {
-                this.directionX = !this.directionX;
+        if (this.state != 'ATTACK'){
+            if (this.bubbleDetected) {
+                let [spdX,spdY,dirX,dirY] = this.calcEscapeKinematics();
+                this.speedX = spdX;
+                this.speedY = spdY;
+                this.directionX = dirX;
+                this.directionY = dirY;
+            } else {
+                if (this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) {
+                    this.directionX = !this.directionX;
+                }
+                if (this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom')) {
+                    this.directionY = !this.directionY;
+                }
+                this.speedX = (this.speedX + Math.random()*0.01) %2;
+                this.speedY = (this.speedY + Math.random()*0.01) %2;
+                if ((Math.random())<0.005) {
+                    this.directionX = !this.directionX;
+                }
+                if ((Math.random())<0.005) {
+                    this.directionY = !this.directionY;
+                }
+                //this.speedX =0; // remove at end
+                //this.speedY=0; // remove at end
             }
-            if (this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom')) {
-                this.directionY = !this.directionY;
-            }
-            this.speedX = (this.speedX + Math.random()*0.01) %2;
-            this.speedY = (this.speedY + Math.random()*0.01) %2;
-            if ((Math.random())<0.005) {
-                this.directionX = !this.directionX;
-            }
-            if ((Math.random())<0.005) {
-                this.directionY = !this.directionY;
-            }
-            this.speedX =0; // remove at end
-            this.speedY=0; // remove at end
         }
     }
 
@@ -114,11 +116,11 @@ class Endboss extends FightableObject{
         world.bubbles.forEach(b => {
             if (this.isDetecting(b) && b.type != 'poison') {
                 this.bubbleDetected= true;
-                this.bubble = b;
+                this.detectedBubble = b;
             }
         });
         if (!this.bubbleDetected){
-            this.bubble = [];
+            this.detectedBubble = [];
         }
     }
 
@@ -171,8 +173,8 @@ class Endboss extends FightableObject{
     }
 
     calcEscapeKinematics(){
-        let dx = this.bubble.center.x - this.center.x;
-        let dy = this.bubble.center.y - this.center.y;
+        let dx = this.detectedBubble.center.x - this.center.x;
+        let dy = this.detectedBubble.center.y - this.center.y;
         let dirX = dx < 0;
         let dirY = dy > 0;
         return [5,5,dirX,dirY]

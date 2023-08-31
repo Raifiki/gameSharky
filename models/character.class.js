@@ -7,6 +7,10 @@ class Character extends FightableObject{
     bubbleShots = 2;
 
     xOfst = 100;
+
+
+    
+
     //method
     constructor(x,y,w,h){
         super(x,y,w,h);
@@ -25,45 +29,52 @@ class Character extends FightableObject{
         this.detectBox.w = 0*this.width;
         this.detectBox.h = 0*this.width;
 
-        this.move();
-        this.run100();
+        this.Crun10();
+        this.Crun100();
         this.loadBubbleShot();
+
+        this.addAnimationIMGs();
     }
 
-    run100(){
+    Crun10(){
         setInterval(() => {
             if (gameState == 'RUN') {
                 this.attack();
+                this.move();
             }
-        },100);
+        },10);
+    }
+
+    Crun100(){
+        setInterval(() =>{
+            this.animate();
+        },100)
     }
 
     move(){
-        setInterval(() =>{
-            this.setState('idle');
-            if (this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK') {
-                if (this.keyListener.RIGHT) {
-                    this.moveRight();
-                    this.setDirection('right');
-                    this.setState('move');
-                }
-                if (this.keyListener.LEFT) {
-                    this.moveLeft();
-                    this.setDirection('left');
-                    this.setState('move');
-                }
-                if (this.keyListener.UP) {
-                    this.moveUp();
-                    this.setState('move');
-                }
-                if (this.keyListener.DOWN) {
-                    this.moveDown();
-                    this.setState('move');
-                }
-                this.setBoxes(15,-this.hitBox.w/2,0,0);
-                this.setCameraOfst();
+        this.setState('idle');
+        if (this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK') {
+            if (this.keyListener.RIGHT) {
+                this.moveRight();
+                this.setDirection('right');
+                this.setState('move');
+            }
+            if (this.keyListener.LEFT) {
+                this.moveLeft();
+                this.setDirection('left');
+                this.setState('move');
+            }
+            if (this.keyListener.UP) {
+                this.moveUp();
+                this.setState('move');
+            }
+            if (this.keyListener.DOWN) {
+                this.moveDown();
+                this.setState('move');
+            }
+            this.setBoxes(15,-this.hitBox.w/2,0,0);
+            this.setCameraOfst();
         }
-        },10)
     }
 
     setCameraOfst(){
@@ -126,6 +137,25 @@ class Character extends FightableObject{
                 this.bubbleShots++;
             }
         },3000);
+    }
+
+    addAnimationIMGs(){
+        this.animationIMGs = ANIMATION_IMGS_CHARACTER;
+        this.addIMG2Cache(this.animationIMGs.IDLE);
+        this.addIMG2Cache(this.animationIMGs.LONG_IDLE);
+        this.addIMG2Cache(this.animationIMGs.SWIM);
+        this.addIMG2Cache(this.animationIMGs.ATTACK_BUBBLETRAP_NORMALBUBBLE);
+        this.addIMG2Cache(this.animationIMGs.ATTACK_BUBBLETRAP_POISONBUBBLE);
+        this.addIMG2Cache(this.animationIMGs.ATTACK_BUBBLETRAP_WOBUBBLE);
+        this.addIMG2Cache(this.animationIMGs.ATTACK_SLAP);
+        this.addIMG2Cache(this.animationIMGs.HURT_POISON);
+        this.addIMG2Cache(this.animationIMGs.HURT_ELECTRICSHOCK);
+        this.addIMG2Cache(this.animationIMGs.DEAD_POISON);
+        this.addIMG2Cache(this.animationIMGs.DEAD_ELECTROSHOCK);
+    }
+
+    animate(){
+        this.playAnimation(this.animationIMGs.SWIM);
     }
 }
 
