@@ -7,10 +7,12 @@ class Endboss extends FightableObject{
     bubbleDetected = false;
     detectedBubble;
     characterDetected = false;
+
+    introduceStartTime = new Date().getTime();
+    introduceActive = true;
     //methodes
     constructor(x,y,w,h){
         super(x,y,w,h);
-        this.loadImg('../img/02_Enemy/3_FinalEnemy/2_Swim/1.png');
         this.directionIMG = false;
         this.directionX = false;
         this.directionY = true;
@@ -18,18 +20,19 @@ class Endboss extends FightableObject{
         this.speedX = 0;
         this.speedY = 0;
 
-        this.health = 1000;
+        this.health = 100;
         this.damage = 0;
 
-        this.hitBox.w = 0.9*this.width;
-        this.hitBox.h = 0.5*this.width;
-        this.attackBox.w = 0.6*this.width;
-        this.attackBox.h = 0.3*this.width;
-        this.detectBox.w = 0.8*this.width;
+        this.hitBox.w = 0.8*this.width;
+        this.hitBox.h = 0.3*this.width;
+        this.attackBox.w = 0.3*this.width;
+        this.attackBox.h = 0.2*this.width;
+        this.detectBox.w = 1.5*this.width;
         this.detectBox.h = 0.8*this.width;
 
         this.detectedObject = [];
         this.tAttack = 5;
+        this.tDead = 10;
 
         this.addAnimationIMGs();
 
@@ -40,9 +43,13 @@ class Endboss extends FightableObject{
     Whrun10(){
         setInterval(() => {
             if (gameState == 'RUN') {
-                this.move();
-                this.detect();
-                //this.attack();
+                if (this.introduceActive) {
+                    this.introduce();
+                } else {
+                    this.move();
+                    this.detect();
+                    this.attack();
+                }
             }
         },10)
     }
@@ -51,6 +58,24 @@ class Endboss extends FightableObject{
         setInterval(() =>{
             this.animate();
         },150)
+    }
+
+
+    introduce(){
+        let dt = (new Date().getTime() - this.introduceStartTime)/1000;
+        if (dt<5) {
+            this.directionY =false;
+            this.speedY += 0.015;
+            if (dt<1.5) {
+                this.moveDown();
+                this.setBoxes(40,-this.hitBox.w/2,60,-100);
+            } else {
+                this.setState('move');
+            }           
+        } else {
+            this.introduceActive = false;
+            this.speedY = 0;;
+        }
     }
 
     move(){
@@ -67,12 +92,11 @@ class Endboss extends FightableObject{
             } else {
                 this.moveLeft();
             }
-            this.setBoxes(30,-this.hitBox.w/2+2,50,-100);
-            this.resizeBoxes(true);
-            this.setState('move');           
+            this.setBoxes(40,-this.hitBox.w/2,60,-100);
+            this.resizeDetectBoxe(true);
+            this.setState('move');    
         }
     }
-
 
 
     setMoveBehavior(){
@@ -98,8 +122,6 @@ class Endboss extends FightableObject{
                 if ((Math.random())<0.005) {
                     this.directionY = !this.directionY;
                 }
-                this.speedX =0; // remove at end
-                this.speedY=0; // remove at end
             }
         }
     }
@@ -146,27 +168,28 @@ class Endboss extends FightableObject{
         if (dt <= 0.5) { // angry
             this.speedX = 0;
             this.speedY = 0;
-        } else if(dt <= 0.98) { // smash
-            let [spdX,spdY,dirX,dirY] = this.calcAttackKinematics(this.smashAttack.x,this.smashAttack.y,1);
+        } else if(dt <= 1) { // smash
+            let [spdX,spdY,dirX,dirY] = this.calcAttackKinematics(this.smashAttack.x,this.smashAttack.y,0.75,100);
             this.speedX = spdX;
             this.speedY = spdY;
             this.directionX = dirX;
             this.directionY = dirY;
         } else  if(dt <= 4.9){
-            let [spdX,spdY,dirX,dirY] = this.calcAttackKinematics(this.detectedObject.x,this.detectedObject.y,50);
+            let [spdX,spdY,dirX,dirY] = this.calcAttackKinematics(this.detectedObject.x,this.detectedObject.y,50,0);
             this.speedX = spdX;
             this.speedY = spdY;
             this.directionX = dirX;
             this.directionY = dirY;
-            this.resizeBoxes(false);
+            this.resizeDetectBoxe(false);
         } else {
             this.characterDetected = false;
             this.detectedObject = [];
         }
     }
 
-    calcAttackKinematics(x,y,t){
-        let dx = x - this.center.x;
+    calcAttackKinematics(x,y,t,ofs){
+        let xOfs = this.directionX? ofs:-ofs;
+        let dx = x - this.center.x - xOfs;
         let dy = y - this.center.y;
         let dt = t*10; // time till object reach detected object (time[s]*samplerate[ms] (run))
         let spdX = Math.abs(dx/dt);
@@ -190,13 +213,13 @@ class Endboss extends FightableObject{
         return [5,5,dirX,dirY]
     }
 
-    resizeBoxes(reset){
+    resizeDetectBoxe(reset){
         if (!reset){
-            this.detectBox.w = 0.8*this.width;
+            this.detectBox.w = 1.5*this.width;
             this.detectBox.h = 0.8*this.width;
         } else {
-            this.detectBox.w += 0.4;
-            this.detectBox.h += 0.2;
+            this.detectBox.w += 0.8;
+            this.detectBox.h += 0.4;
         }
     }
 
@@ -205,11 +228,48 @@ class Endboss extends FightableObject{
         this.addIMG2Cache(this.animationIMGs.INTRODUCE);
         this.addIMG2Cache(this.animationIMGs.SWIM);
         this.addIMG2Cache(this.animationIMGs.ATTACK);
-        this.addIMG2Cache(this.animationIMGs.HURT);
+        this.addIMG2Cache(this.animationIMGs.HURT_BUBBLE);
         this.addIMG2Cache(this.animationIMGs.DEAD);
     }
 
     animate(){
-        this.playAnimation(this.animationIMGs.DEAD);
+        if (this.state == 'IDLE') {
+            if (this.introduceActive) {
+                this.playAnimation(this.animationIMGs.INTRODUCE);
+            }
+        }
+        if (this.state == 'MOVE') {
+            this.playAnimation(this.animationIMGs.SWIM,'repeat');
+        }
+
+        if (this.state == 'ATTACK') {
+            this.animateATTACK();
+        }
+
+        if (this.state == 'HURT') {
+            this.animateHURT();
+        }
+        if (this.state == 'DEAD') {
+            this.playAnimation(this.animationIMGs.DEAD);
+        }
+    }
+
+    animateHURT(){
+        if (this.hitBy == 'bubble') {
+            this.playAnimation(this.animationIMGs.HURT_BUBBLE,'repeat');
+        } else {
+            this.playAnimation(this.animationIMGs.HURT_SLAP,'repeat');
+        }
+    }
+
+    animateATTACK(){
+        let dt = (new Date().getTime() - this.timeStamps.startAttack)/1000
+        if (dt <= 0.5) { // angry
+            // angry animation fehlt bei den Bildern
+        } else if(dt <= 1) { // smash
+            this.playAnimation(this.animationIMGs.ATTACK,'repeat');
+        } else  if(dt <= 4.9){
+            this.playAnimation(this.animationIMGs.SWIM,'repeat');
+        } 
     }
 }

@@ -23,11 +23,7 @@ class DrawableObject {
         if (!this.isNotVisible(ofst)) {
             let x = this.x - ofst;
             if (this.getIMGdirection()) {
-                try {
-                    ctx.drawImage(this.img,x,this.y,this.width,this.height); 
-                } catch (error) {
-                    debugger
-                }
+                ctx.drawImage(this.img,x,this.y,this.width,this.height); 
             } else {
                 this.flipImg(ctx,x);
             }

@@ -258,6 +258,12 @@ const ANIMATION_IMGS_JELLYFISH = {
                 '../img/02_Enemy/2_Jellyfish/1_Swim/normal/p4.png',
             ],
         },
+        HURT:[
+            '../img/02_Enemy/2_Jellyfish/1_Swim/normal/p1.png',
+            '../img/02_Enemy/2_Jellyfish/1_Swim/normal/y2.png',
+            '../img/02_Enemy/2_Jellyfish/1_Swim/normal/p3.png',
+            '../img/02_Enemy/2_Jellyfish/1_Swim/normal/y4.png',
+        ]
     },
     toxic:{
         green:{
@@ -304,6 +310,12 @@ const ANIMATION_IMGS_JELLYFISH = {
                 '../img/02_Enemy/2_Jellyfish/1_Swim/toxic/pi4.png',
             ],
         },
+        HURT:[
+            '../img/02_Enemy/2_Jellyfish/1_Swim/toxic/pi1.png',
+            '../img/02_Enemy/2_Jellyfish/1_Swim/toxic/g2.png',
+            '../img/02_Enemy/2_Jellyfish/1_Swim/toxic/pi3.png',
+            '../img/02_Enemy/2_Jellyfish/1_Swim/toxic/g4.png',
+        ]
     },
 }
 
@@ -343,21 +355,30 @@ const ANIMATION_IMGS_EB_WHALE = {
         '../img/02_Enemy/3_FinalEnemy/3_Attack/5.png',
         '../img/02_Enemy/3_FinalEnemy/3_Attack/6.png',
     ],
-    HURT:[
+    HURT_BUBBLE:[
         '../img/02_Enemy/3_FinalEnemy/4_Hurt/1.png',
         '../img/02_Enemy/3_FinalEnemy/4_Hurt/2.png',
         '../img/02_Enemy/3_FinalEnemy/4_Hurt/3.png',
         '../img/02_Enemy/3_FinalEnemy/4_Hurt/4.png',
     ],
+    HURT_SLAP:[
+        '../img/02_Enemy/3_FinalEnemy/4_Hurt/1.png',
+        '../img/02_Enemy/3_FinalEnemy/4_Hurt/3.png',
+    ],
     DEAD:[
         '../img/02_Enemy/3_FinalEnemy/5_Dead/1.png',
+        '../img/02_Enemy/3_FinalEnemy/5_Dead/2.png',
+        '../img/02_Enemy/3_FinalEnemy/5_Dead/1.png',
+        '../img/02_Enemy/3_FinalEnemy/5_Dead/2.png',
+        '../img/02_Enemy/3_FinalEnemy/5_Dead/3.png',
         '../img/02_Enemy/3_FinalEnemy/5_Dead/2.png',
         '../img/02_Enemy/3_FinalEnemy/5_Dead/3.png',
         '../img/02_Enemy/3_FinalEnemy/5_Dead/4.png',
         '../img/02_Enemy/3_FinalEnemy/5_Dead/5.png',
+        '../img/02_Enemy/3_FinalEnemy/5_Dead/4.png',
+        '../img/02_Enemy/3_FinalEnemy/5_Dead/5.png',
         '../img/02_Enemy/3_FinalEnemy/5_Dead/6.png',
-        '../img/02_Enemy/3_FinalEnemy/5_Dead/6.png',
-        '../img/02_Enemy/3_FinalEnemy/5_Dead/6.png',
+        '../img/02_Enemy/3_FinalEnemy/5_Dead/5.png',
         '../img/02_Enemy/3_FinalEnemy/5_Dead/6.png',
     ],
 }

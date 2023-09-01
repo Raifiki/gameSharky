@@ -157,7 +157,8 @@ class World {
                 if (e.isColliding(e.hitBox,b.hitBox) && e.state != 'HURT' && b.from != 'enemy') {
                     if (!(e.type == 'toxic' && b.type == 'poison')) {
                         console.log('enemy hurt')
-                        e.hit(b.damage); // hurt by bubble
+                        e.hit(b.damage);
+                        e.hitBy = 'bubble';
                         this.bubbles.splice(idx,1);
                     }
                 }
@@ -165,6 +166,7 @@ class World {
             // Slap Attacke Sharky
             if (e.isColliding(e.hitBox,this.character[0].attackBox) && this.character[0].state == 'ATTACK' && this.character[0].attackType == 'slap') {
                 e.hit(this.character[0].damage); // hurt by character attack
+                e.hitBy = 'slap';
             }  
         })
     }
@@ -176,7 +178,7 @@ class World {
         })
         if (this.character[0].x >= 2400 && !EB) {
             this.level.barrier.push(new Barrier(2200,0,200,600,2));
-            this.level.enemies.push(new Endboss (3000,50,300,300));
+            this.level.enemies.push(new Endboss (3000,0,300,300));
             this.addJellyfish();
         }
     }

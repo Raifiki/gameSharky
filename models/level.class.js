@@ -40,10 +40,10 @@ class Level {
         let x;
         if (img == 1) {
             let t;
-            (sector==0)?t=0:t=0.5;
+            (sector==0)?t=0:t=1;
             x = sector * 2 * canvas_w-t;
         } else {
-            x = (sector * 2 + 1) * canvas_w-0.5;
+            x = (sector * 2 + 1) * canvas_w-1;
         }
         let y = 0;
         let w = canvas_w;

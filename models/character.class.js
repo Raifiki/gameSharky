@@ -3,9 +3,9 @@ class Character extends FightableObject{
     keyListener;
 
     coins = 0;
-    poison = 0;
+    poison = 2;
     bubbleShots = 2;
-    bubbleType = 'normal'
+    bubbleType = 'poison'
 
     xOfst = 100;
     //method
@@ -43,6 +43,7 @@ class Character extends FightableObject{
             if (gameState == 'RUN') {
                 this.attack();
                 this.move();
+                this.chooseBubbleType();
             }
         },1);
     }
@@ -135,13 +136,18 @@ class Character extends FightableObject{
                 let [x,y] = [this.center.x+xOfs,this.center.y+20];
                 world.bubbles.push(new Bubble(x,y,5,0, this.directionX,true,this.bubbleType,'character'));
                 this.bubbleShots--;
+                (this.bubbleType == 'poison')? this.poison--:'';
             },800);
         }
     }
 
 
     chooseBubbleType(){
-        
+        if (this.poison > 0) {
+            
+        } else {
+            this.bubbleType = 'normal';
+        }
     }
 
     loadBubbleShot(){

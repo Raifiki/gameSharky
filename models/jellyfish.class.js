@@ -3,7 +3,7 @@ class Jellyfish extends FightableObject {
     cntItems = 1;
     type = 'normal';
     radiusCnt = 0;
-    frequency = 1/1000;
+    frequency = 1/500;
     attackCnt = 0;
     //methodes
     constructor(x,y,w,h,type){
@@ -18,12 +18,13 @@ class Jellyfish extends FightableObject {
         this.health = 50;
         this.damage = 15;
 
+        this.tDead = 2;
+
         this.hitBox.w = 0.8*this.width;
         this.hitBox.h = 0.65*this.width;
         this.attackBox.w = 0;
         this.attackBox.h = 0;
-        this.detectBox.w = 3.5*this.width;
-        this.detectBox.h = 3.5*this.width;
+        this.setDetectBoxSize(3.5);
 
         this.addAnimationIMGs();
 
@@ -78,17 +79,17 @@ class Jellyfish extends FightableObject {
 
 
     setMoveBehavior(){
-        if ((this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right'))){// && !this.state == 'ATTACK') {
+        if ((this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) && !this.state == 'ATTACK'){
             this.directionX = !this.directionX;
         }
-        if ((this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom'))){// && !this.state == 'ATTACK') {
+        if ((this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom'))&& !this.state == 'ATTACK'){
             this.directionY = !this.directionY;
         }
     }
 
     attack(){
         if (this.type == 'normal' && this.state == 'ATTACK') {
-            this.attackMove(0,10)
+            this.attackMove(0,6);
         } else if(this.state == 'ATTACK') {
             this.attackMove(150,1);
             this.attackShot();
@@ -140,12 +141,19 @@ class Jellyfish extends FightableObject {
                 this.setState('attack');
                 this.detectedObject = world.character[0];
                 this.initRadiusCnt();
+                this.setDetectBoxSize(5.5);
             } else {
                 this.detectedObject = [];
                 this.setState('attackFinished');
-                //this.speedX = 0;
-                //this.speedY = 0;
+                this.setDetectBoxSize(3.5);
+                this.speedX = 0.5;
+                this.speedY = 0.5;
             }
+    }
+
+    setDetectBoxSize(size){
+        this.detectBox.w = size*this.width;
+        this.detectBox.h = size*this.width;
     }
 
     dropItem(){
@@ -177,7 +185,70 @@ class Jellyfish extends FightableObject {
     }
 
     animate(){
-        this.playAnimation(this.animationIMGs.toxic.pink.SWIM);
+        if (this.state == 'MOVE') {
+            this.animateMOVE();
+        }
+
+        if (this.state == 'ATTACK') {
+            this.animateATTACK();
+        }
+
+        if (this.state == 'HURT'){
+            this.animateHURT();
+        }
+
+        if (this.state == 'DEAD') {
+            this.animateDEAD();
+        }
     }
 
+    animateMOVE(){
+        if (this.type == 'normal') {
+            this.playAnimation(this.animationIMGs.normal.purple.SWIM,'repeat');
+        } else {
+            this.playAnimation(this.animationIMGs.toxic.pink.SWIM,'repeat');
+        }
+    }
+
+    animateATTACK(){
+        if (this.type == 'normal') {
+            this.playAnimation(this.animationIMGs.normal.yellow.SWIM,'repeat');
+        } else {
+            this.playAnimation(this.animationIMGs.toxic.green.SWIM,'repeat');
+        }
+    }
+
+    animateHURT(){
+        if (this.type == 'normal') {
+            this.playAnimation(this.animationIMGs.normal.HURT,'repeat');
+        } else {
+            this.playAnimation(this.animationIMGs.toxic.HURT,'repeat');
+        }
+    }
+
+    animateDEAD(){
+        if (this.hitBy == 'bubble') {
+            this.animateDeadByBubble();
+        } else {
+            this.animateDeadBySlap();
+        }
+    }
+
+    animateDeadByBubble(){
+        this.width = 60;
+        this.height = 60;
+        if (this.type == 'normal') {
+            this.playAnimation(this.animationIMGs.normal.purple.DEAD_BUBBLE,'repeat');
+        } else {
+            this.playAnimation(this.animationIMGs.toxic.pink.DEAD_BUBBLE,'repeat');
+        }
+    }
+
+    animateDeadBySlap(){
+        if (this.type == 'normal') {
+            this.playAnimation(this.animationIMGs.normal.purple.DEAD_SLAP,'repeat');
+        } else {
+            this.playAnimation(this.animationIMGs.toxic.pink.DEAD_SLAP,'repeat');
+        }
+    }
 }
