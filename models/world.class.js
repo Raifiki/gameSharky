@@ -3,7 +3,7 @@ class World {
     ctx;
     canvas;
     level = LEVEL_1;
-    character = [new Character(100,100,150,150)];
+    character = [new Character(100,100,200,200)];
     bubbles = [];
     keyListener;
 
@@ -108,38 +108,46 @@ class World {
     }
 
     checkHitToCharacter(){
-        // collision
-        this.level.enemies.forEach(e =>{
-            if (this.character[0].isColliding(this.character[0].hitBox,e.hitBox)) {
-                this.character[0].hit(e.damage); // hurt by colliding
-            }
-            if (e instanceof Endboss){
-                if (this.character[0].isColliding(this.character[0].hitBox,e.attackBox) && e.state == 'ATTACK') {
-                    this.character[0].hit(e.damage); // hurt by Endboss attack
+        if (this.character[0].state != 'DEAD') {
+            // collision
+            this.level.enemies.forEach(e =>{
+                if (this.character[0].isColliding(this.character[0].hitBox,e.hitBox) && e.state != 'DEAD') {
+                    this.character[0].hit(e.damage); // hurt by colliding
+                    if (e instanceof Jellyfish) {
+                        this.character[0].hitBy = 'poison';
+                    } else {
+                        this.character[0].hitBy = 'electroShock';
+                    }
                 }
-            }
-        });
-        // Bubble
-        this.bubbles.forEach((b,idx) =>{
-            if (this.character[0].isColliding(this.character[0].hitBox,b.hitBox) && this.character[0].state != 'HURT' && b.from != 'character') {
-                this.character[0].hit(b.damage); // hurt by bubble
-                this.bubbles.splice(idx,1);
-            }
-        });
-        // Collectables
-        this.level.collectables.forEach((c,idx) => {
-            if (this.character[0].isColliding(this.character[0].hitBox,c.hitBox)) {
-                if (c.type == 'coin') {
-                    this.character[0].coins++;
-                    this.level.collectables.splice(idx,1);
+                if (e instanceof Endboss){
+                    if (this.character[0].isColliding(this.character[0].hitBox,e.attackBox) && e.state == 'ATTACK') {
+                        this.character[0].hit(e.damage); // hurt by Endboss attack
+                        this.character[0].hitBy = 'electroShock';
+                    }
                 }
-                if (c.type == 'poison') {
-                    this.character[0].poison++;
-                    this.level.collectables.splice(idx,1); 
+            });
+            // Bubble
+            this.bubbles.forEach((b,idx) =>{
+                if (this.character[0].isColliding(this.character[0].hitBox,b.hitBox) && this.character[0].state != 'HURT' && b.from != 'character') {
+                    this.character[0].hit(b.damage); // hurt by bubble
+                    this.bubbles.splice(idx,1);
+                    this.character[0].hitBy = 'poison';
                 }
-                              
-            }
-        })
+            });
+            // Collectables
+            this.level.collectables.forEach((c,idx) => {
+                if (this.character[0].isColliding(this.character[0].hitBox,c.hitBox)) {
+                    if (c.type == 'coin') {
+                        this.character[0].coins++;
+                        this.level.collectables.splice(idx,1);
+                    }
+                    if (c.type == 'poison') {
+                        this.character[0].poison++;
+                        this.level.collectables.splice(idx,1); 
+                    }             
+                }
+            })
+        }
     }
 
     checkHitToEnemies(){       
@@ -155,7 +163,7 @@ class World {
                 }
             });
             // Slap Attacke Sharky
-            if (e.isColliding(e.hitBox,this.character[0].attackBox) && this.character[0].state == 'ATTACK') {
+            if (e.isColliding(e.hitBox,this.character[0].attackBox) && this.character[0].state == 'ATTACK' && this.character[0].attackType == 'slap') {
                 e.hit(this.character[0].damage); // hurt by character attack
             }  
         })

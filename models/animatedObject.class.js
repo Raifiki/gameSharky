@@ -1,8 +1,9 @@
 class AnmiatedObject extends DrawableObject {
     //field
     imgCache = [];
-    currentIMG = 0;
+    imgIdx = 0;
     animationIMGs;
+    currentAnimation;
     //method
     constructor(x,y,h,w){
         super(x,y,w,h);
@@ -16,10 +17,30 @@ class AnmiatedObject extends DrawableObject {
         });
     }
 
-    playAnimation(imgPaths){
-        let idx = this.currentIMG % imgPaths.length;
-        let path = imgPaths[idx];
+    playAnimation(imgPaths,repeat){
+        this.setIdx(imgPaths,repeat);
+        let path = imgPaths[this.imgIdx];
         this.img = this.imgCache[path];
-        this.currentIMG++;
+    }
+
+
+    setIdx(animation,repeat){
+        if (this.animationHasChanged(animation) || (this.isIdxOutOfRange() && repeat == 'repeat')){
+            this.imgIdx = 0;
+        } else{
+            this.imgIdx = Math.min(this.currentAnimation.length-1, this.imgIdx+1);
+        }
+    }
+
+    animationHasChanged(animation){
+        let animationChanged = animation != this.currentAnimation;
+        if (animationChanged) {
+            this.currentAnimation = animation;
+        }
+        return animationChanged;
+    }
+
+    isIdxOutOfRange(){
+        return this.imgIdx >= this.currentAnimation.length-1;
     }
 }

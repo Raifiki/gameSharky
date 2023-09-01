@@ -10,7 +10,7 @@ class Endboss extends FightableObject{
     //methodes
     constructor(x,y,w,h){
         super(x,y,w,h);
-        this.loadImg('../img/02_Enemy/3_FinalEnemy/floating/1.png');
+        this.loadImg('../img/02_Enemy/3_FinalEnemy/2_Swim/1.png');
         this.directionIMG = false;
         this.directionX = false;
         this.directionY = true;
@@ -30,7 +30,11 @@ class Endboss extends FightableObject{
 
         this.detectedObject = [];
         this.tAttack = 5;
+
+        this.addAnimationIMGs();
+
         this.Whrun10();
+        this.Whrun150();
     }
 
     Whrun10(){
@@ -38,9 +42,15 @@ class Endboss extends FightableObject{
             if (gameState == 'RUN') {
                 this.move();
                 this.detect();
-                this.attack();
+                //this.attack();
             }
         },10)
+    }
+
+    Whrun150(){
+        setInterval(() =>{
+            this.animate();
+        },150)
     }
 
     move(){
@@ -88,8 +98,8 @@ class Endboss extends FightableObject{
                 if ((Math.random())<0.005) {
                     this.directionY = !this.directionY;
                 }
-                //this.speedX =0; // remove at end
-                //this.speedY=0; // remove at end
+                this.speedX =0; // remove at end
+                this.speedY=0; // remove at end
             }
         }
     }
@@ -188,5 +198,18 @@ class Endboss extends FightableObject{
             this.detectBox.w += 0.4;
             this.detectBox.h += 0.2;
         }
+    }
+
+    addAnimationIMGs(){
+        this.animationIMGs = ANIMATION_IMGS_EB_WHALE;
+        this.addIMG2Cache(this.animationIMGs.INTRODUCE);
+        this.addIMG2Cache(this.animationIMGs.SWIM);
+        this.addIMG2Cache(this.animationIMGs.ATTACK);
+        this.addIMG2Cache(this.animationIMGs.HURT);
+        this.addIMG2Cache(this.animationIMGs.DEAD);
+    }
+
+    animate(){
+        this.playAnimation(this.animationIMGs.DEAD);
     }
 }

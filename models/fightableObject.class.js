@@ -14,6 +14,9 @@ class FightableObject extends MoveableObject {
         w: 0,
         h: 0,
     };
+    
+    hitBy;
+    attackType;
 
     detectedObject;
 
@@ -28,7 +31,7 @@ class FightableObject extends MoveableObject {
     tAttack = 1;
     tHurt = 1;
     tDead = 1;
-    tAction = 5;
+    tAction = 1;
     //methodes
     constructor(x,y,w,h){
         super(x,y,w,h);

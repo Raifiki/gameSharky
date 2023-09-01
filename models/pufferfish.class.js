@@ -1,19 +1,23 @@
 class Pufferfish extends FightableObject {
     //fields
     cntItems = 1;
+    type;
     //methodes
-    constructor(x,y,w,h){
+    constructor(x,y,w,h,type){
         super(x,y,w,h);
-        this.loadImg('../img/02_Enemy/1_Pufferfish/1_Swim/1.swim1.png');
+        
         this.directionIMG = false;
         this.directionX = false;
-
-        this.speedX = 5;
+        this.setType(type);
         this.speedY = 0;
 
         this.health = 20;
         this.damage = 10;
         this.state = 'MOVE';
+
+
+        this.tDead = 1;
+        this.tHurt = 0.7;
 
         this.hitBox.w = 0.95*this.width;
         this.hitBox.h = 0.7*this.width;
@@ -22,8 +26,29 @@ class Pufferfish extends FightableObject {
         this.detectBox.w = 0*this.width;
         this.detectBox.h = 0*this.width;
 
+        this.addAnimationIMGs();
+
         this.PFrun10();
+        this.PFrun100();
     }
+
+    setType(type){
+        this.type = type;
+        if (type == 'green') {
+            this.loadImg('../img/02_Enemy/1_Pufferfish/1_Swim/g1.png');
+            this.speedX = 1;
+        }
+        if (type == 'orange') {
+            this.loadImg('../img/02_Enemy/1_Pufferfish/1_Swim/o1.png');
+            this.speedX = 1.5;
+        }
+        if (type == 'red') {
+            this.loadImg('../img/02_Enemy/1_Pufferfish/1_Swim/r1.png');
+            this.speedX = 2;
+        }
+    }
+
+
     PFrun10(){
         setInterval(() => {
             if (gameState == 'RUN') {
@@ -31,6 +56,12 @@ class Pufferfish extends FightableObject {
                 this.dropItem();
              }
         },10)
+    }
+
+    PFrun100(){
+        setInterval(() =>{
+            this.animate();
+        },100)
     }
 
     move(){
@@ -42,7 +73,18 @@ class Pufferfish extends FightableObject {
             } else {
                 this.moveLeft();
             }
-            this.setBoxes(-5,-10,0,0);
+            this.setBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
+            this.setState('move');
+        } else if (this.state == 'DEAD'){
+            this.speedX = 1;
+            this.speedY = 5;
+            if (this.directionX) {
+                this.moveRight();
+            } else {
+                this.moveLeft();
+            }
+            this.moveUp();
+            this.setBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
         }
     }
 
@@ -56,9 +98,57 @@ class Pufferfish extends FightableObject {
     }
 
     dropItem(){
-        if (this.state == 'REMOVE' && this.cntItems > 0) {
+        if (this.state == 'DEAD' && this.cntItems > 0) {
             world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));       
             this.cntItems--;        
+        }
+    }
+
+
+    addAnimationIMGs(){
+        this.animationIMGs = ANIMATION_IMGS_PUFFERFISH;
+        this.addIMG2Cache(this.animationIMGs.green.SWIM);
+        this.addIMG2Cache(this.animationIMGs.green.DEAD);
+        this.addIMG2Cache(this.animationIMGs.orange.SWIM);
+        this.addIMG2Cache(this.animationIMGs.orange.DEAD);
+        this.addIMG2Cache(this.animationIMGs.red.SWIM);
+        this.addIMG2Cache(this.animationIMGs.red.DEAD);
+    }
+
+
+    animate(){
+        if (this.state == 'MOVE') {
+            this.animateMOVE();
+        }
+        if (this.state == 'HURT') {
+            this.playAnimation(this.animationIMGs.HURT,'repeat');
+        }   
+        if (this.state == 'DEAD') {
+            this.animateDEAD();
+        } 
+    }
+
+    animateMOVE(){
+        if (this.type == 'green') {
+            this.playAnimation(this.animationIMGs.green.SWIM,'repeat');
+        }
+        if (this.type == 'orange') {
+            this.playAnimation(this.animationIMGs.orange.SWIM,'repeat');
+        }
+        if (this.type == 'red') {
+            this.playAnimation(this.animationIMGs.red.SWIM,'repeat');
+        }
+    }
+
+    animateDEAD(){
+        if (this.type == 'green') {
+            this.playAnimation(this.animationIMGs.green.DEAD,'repeat');
+        }
+        if (this.type == 'orange') {
+            this.playAnimation(this.animationIMGs.orange.DEAD,'repeat');
+        }
+        if (this.type == 'red') {
+            this.playAnimation(this.animationIMGs.red.DEAD,'repeat');
         }
     }
 }

@@ -12,8 +12,8 @@ class Jellyfish extends FightableObject {
         this.directionIMG = false;
         this.directionX = false;
 
-        this.speedX = 2;
-        this.speedY = 2;
+        this.speedX = 0;
+        this.speedY = 0;
 
         this.health = 50;
         this.damage = 15;
@@ -25,7 +25,10 @@ class Jellyfish extends FightableObject {
         this.detectBox.w = 3.5*this.width;
         this.detectBox.h = 3.5*this.width;
 
+        this.addAnimationIMGs();
+
         this.JFrun10();
+        this.JFrun150();
     }
 
     JFrun10(){
@@ -39,13 +42,18 @@ class Jellyfish extends FightableObject {
         },10)
     }
 
+    JFrun150(){
+        setInterval(() =>{
+            this.animate();
+        },150)
+    }
 
     setType(type){
         this.type = type;
         if (type == 'normal') {
-            this.loadImg('../img/02_Enemy/2_Jellyfish/TypeNormal/L1.png');
+            this.loadImg('../img/02_Enemy/2_Jellyfish/1_Swim/normal/p1.png');
         } else {
-            this.loadImg('../img/02_Enemy/2_Jellyfish/TypeToxic/G1.png');
+            this.loadImg('../img/02_Enemy/2_Jellyfish/1_Swim/toxic/g1.png');
         }
     }
 
@@ -128,7 +136,7 @@ class Jellyfish extends FightableObject {
     }
 
     detect(){
-            if(this.isDetecting(world.character[0])){
+            if(this.isDetecting(world.character[0]) && world.character[0].state != 'DEAD'){
                 this.setState('attack');
                 this.detectedObject = world.character[0];
                 this.initRadiusCnt();
@@ -150,4 +158,26 @@ class Jellyfish extends FightableObject {
             this.cntItems--;            
         }
     }
+
+
+    addAnimationIMGs(){
+        this.animationIMGs = ANIMATION_IMGS_JELLYFISH;
+        this.addIMG2Cache(this.animationIMGs.normal.yellow.SWIM);
+        this.addIMG2Cache(this.animationIMGs.normal.yellow.DEAD_BUBBLE);
+        this.addIMG2Cache(this.animationIMGs.normal.yellow.DEAD_SLAP);
+        this.addIMG2Cache(this.animationIMGs.normal.purple.SWIM);
+        this.addIMG2Cache(this.animationIMGs.normal.purple.DEAD_BUBBLE);
+        this.addIMG2Cache(this.animationIMGs.normal.purple.DEAD_SLAP);
+        this.addIMG2Cache(this.animationIMGs.toxic.green.SWIM);
+        this.addIMG2Cache(this.animationIMGs.toxic.green.DEAD_BUBBLE);
+        this.addIMG2Cache(this.animationIMGs.toxic.green.DEAD_SLAP);
+        this.addIMG2Cache(this.animationIMGs.toxic.pink.SWIM);
+        this.addIMG2Cache(this.animationIMGs.toxic.pink.DEAD_BUBBLE);
+        this.addIMG2Cache(this.animationIMGs.toxic.pink.DEAD_SLAP);
+    }
+
+    animate(){
+        this.playAnimation(this.animationIMGs.toxic.pink.SWIM);
+    }
+
 }

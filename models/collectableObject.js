@@ -9,7 +9,10 @@ class CollectableObject extends MoveableObject{
         this.directionX = true;
         this.setHitBox();
 
+        this.addAnimationIMGs();
+
         this.Crun10();
+        this.Crun200();
     }
 
     Crun10(){
@@ -18,6 +21,12 @@ class CollectableObject extends MoveableObject{
                 this.move();
             } 
         },10)
+    }
+
+    Crun200(){
+        setInterval(() =>{
+            this.animate();
+        },200)
     }
 
     move(){
@@ -40,6 +49,21 @@ class CollectableObject extends MoveableObject{
             this.directionY = false;
         } else {
             this.loadImg('../img/04_Collectables/Coins/1.png',);
+        }
+    }
+
+    addAnimationIMGs(){
+        this.animationIMGs = ANIMATION_IMGS_COLLECTABLES;
+        this.addIMG2Cache(this.animationIMGs.COIN);
+        this.addIMG2Cache(this.animationIMGs.POISON);
+    }
+
+    animate(){
+        if (this.type == 'poison') {
+            this.playAnimation(this.animationIMGs.POISON,'repeat');
+        }
+        if (this.type == 'coin') {
+            this.playAnimation(this.animationIMGs.COIN,'repeat');
         }
     }
 }

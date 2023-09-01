@@ -1,8 +1,8 @@
 class Bubble extends FightableObject{
     //fields
     IMGs = {
-        normal: '../img/01_Sharkie/4_Attack/Bubble trap/Bubble.png',
-        poison: '../img/01_Sharkie/4_Attack/Bubble trap/PoisonedBubble.png',
+        normal: '../img/01_Sharkie/4_Attack/BubbleTrap/Bubble.png',
+        poison: '../img/01_Sharkie/4_Attack/BubbleTrap/PoisonedBubble.png',
     }
     from;
     type;
@@ -52,7 +52,7 @@ class Bubble extends FightableObject{
             this.moveDown();
         }
         this.setSpeed();
-        this.setBoxes(0,0);
+        this.setBoxes(0,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
     }
 
     setType(type){
@@ -67,8 +67,8 @@ class Bubble extends FightableObject{
 
     setSpeed(){
         if (this.type == 'normal') {
-            this.speedX = Math.max(this.speedX - 0.1, 0);
-            this.speedY += 0.01;
+            this.speedX = Math.max(this.speedX - 0.05, 0);
+            this.speedY += 0.025;
         }
     }
 
