@@ -6,7 +6,7 @@ class Statusicon {
     height;
     img = new Image();
     type;
-
+    character;
     amount = 0;
 
     imgCoin = '../img/05_Statusicons/Coin.png';
@@ -21,12 +21,11 @@ class Statusicon {
         this.width = w;
         this.height = h;
         this.setIconType(type);
-        
     }
 
     draw(ctx){
+        this.update();
         ctx.drawImage(this.img,this.x,this.y,this.width,this.height); 
-
         // delete at end
         ctx.beginPath();
         ctx.lineWidth = '2';
@@ -60,6 +59,26 @@ class Statusicon {
                 break;
             case 'bubble':
                 this.loadImg(this.imgBubble);
+                break;
+        }
+    }
+
+    
+    update(){
+        switch (this.type) {
+            case 'coin':
+                this.amount = this.character.coins;
+                break;
+            case 'poison':
+                this.amount = this.character.poison;
+                break;
+            case 'bubble':
+                this.amount = this.character.bubbleShots;
+                if (this.character.bubbleType == 'poison') {
+                    this.loadImg(this.imgBubblePoison);
+                } else {
+                    this.loadImg(this.imgBubble);
+                }
                 break;
         }
     }

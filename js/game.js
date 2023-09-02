@@ -33,7 +33,10 @@ document.addEventListener('keydown',(event) => {
     }
     if (event.key == 's'){
         keyListener.S = true;
-    }                
+    }
+    if (event.key == 'd'){
+        keyListener.D = true;
+    }             
 });
 
 document.addEventListener('keyup',(event) => {
@@ -54,5 +57,8 @@ document.addEventListener('keyup',(event) => {
     }          
     if (event.key == 's'){
         keyListener.S = false;
+    }  
+    if (event.key == 'd'){
+        keyListener.D = false;
     }      
 }); 

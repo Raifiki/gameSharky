@@ -20,13 +20,18 @@ class World {
     constructor(canvas,keyListener){
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.drawMap();
 
         this.keyListener = keyListener;
         this.character[0].keyListener = keyListener;
 
+        this.statusBars[0].character = this.character[0];
+        this.statusIcons[0].character = this.character[0];
+        this.statusIcons[1].character = this.character[0];
+        this.statusIcons[2].character = this.character[0];
+
         gameState = 'RUN';
 
+        this.drawMap();
         this.run10();
         this.run1000();
     }
@@ -159,7 +164,6 @@ class World {
                     }             
                 }
             })
-            this.updateCharacterStatus();
         }
     }
 
@@ -180,9 +184,6 @@ class World {
                 e.hit(this.character[0].damage); // hurt by character attack
                 e.hitBy = 'slap';
             }
-            if (e instanceof Endboss) {
-                this.updateEndbosStatus();
-            }
         })
     }
 
@@ -198,6 +199,7 @@ class World {
             this.addJellyfish();
             this.addPufferfish();
             this.statusBars.push(new Statusbar(canvas_w - 280,20,250,70,false));
+            this.statusBars[1].character =this.endboss;
         }
     }
 
@@ -216,15 +218,5 @@ class World {
             let x = this.level.length - 101;
             this.level.enemies.push(new Pufferfish(x,y,80,80,'red'))
         }, 25000);
-    }
-
-    updateCharacterStatus(){
-        this.statusBars[0].percentageLP = this.character[0].health;
-        this.statusIcons[0].amount = this.character[0].coins;
-        this.statusIcons[1].amount = this.character[0].poison;
-        this.statusIcons[2].amount = this.character[0].bubbleShots;
-    }
-    updateEndbosStatus(){
-        this.statusBars[1].percentageLP = this.endboss.health/200 * 100;
     }
 }

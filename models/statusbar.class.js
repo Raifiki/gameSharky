@@ -7,6 +7,7 @@ class Statusbar {
     img = new Image();
     direction;
     percentageLP = 100;
+    character;
 
     imgBarOrange = [
         '../img/05_Statusicons/Bar/0.png',
@@ -36,6 +37,7 @@ class Statusbar {
     }
 
     draw(ctx){
+        this.update();
         this.setPercentage ();
         if (this.direction) {
             ctx.drawImage(this.img,this.x,this.y,this.width,this.height); 
@@ -57,7 +59,7 @@ class Statusbar {
         } else {
             ctx.textAlign = "right";
             ctx.fillStyle = "red";
-            ctx.fillText(this.percentageLP, this.x - 10,this.y + this.height - 13);
+            ctx.fillText(this.character.health, this.x - 10,this.y + this.height - 13);
         }
         	
     }
@@ -101,4 +103,7 @@ class Statusbar {
         ctx.restore()
     }
 
+    update(){
+        this.percentageLP = this.character.health/this.character.maxHealth * 100;
+    }
 }

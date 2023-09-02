@@ -25,12 +25,12 @@ const LEVEL_1 = new Level(
         
     ],
     [   // enemies
-        new Pufferfish(600,100,80,80,'green'),
-        new Pufferfish(900,200,80,80,'orange'),
-        new Pufferfish(1000,300,80,80,'red'),
+        //new Pufferfish(600,100,80,80,'green'),
+        //new Pufferfish(900,200,80,80,'orange'),
+        //new Pufferfish(1000,300,80,80,'red'),
 
-        new Jellyfish(1200,200,80,80,'normal'),
-        new Jellyfish(1800,150,80,80,'toxic'),
+        //new Jellyfish(1200,200,80,80,'normal'),
+        //new Jellyfish(1800,150,80,80,'toxic'),
     ],
     [
         new CollectableObject (350,200,40,40,'coin'),

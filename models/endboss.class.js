@@ -21,6 +21,7 @@ class Endboss extends FightableObject{
         this.speedY = 0;
 
         this.health = 200;
+        this.maxHealth = this.health;
         this.damage = 20;
 
         this.hitBox.w = 0.8*this.width;

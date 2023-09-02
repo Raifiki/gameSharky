@@ -15,7 +15,8 @@ class Jellyfish extends FightableObject {
         this.speedX = 0;
         this.speedY = 0;
 
-        this.health = 50;
+        this.health = 30;
+        this.maxHealth = this.health;
         this.damage = 15;
 
         this.tDead = 2;

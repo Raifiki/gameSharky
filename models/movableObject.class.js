@@ -115,7 +115,7 @@ class MoveableObject extends AnmiatedObject {
             case 'top': 
                 return this.hitBox.y < this.speedY/2 + 30;   
             case 'bottom': 
-                return this.hitBox.y + this.hitBox.h > world.level.height - this.speedY/2 - 90;
+                return this.hitBox.y + this.hitBox.h > world.level.height - this.speedY/2 - 50;
         }
     }
 }

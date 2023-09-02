@@ -1,5 +1,6 @@
 class FightableObject extends MoveableObject {
     //fields
+    maxHealth;
     health;
     damage;
     hitBox = {
@@ -36,7 +37,6 @@ class FightableObject extends MoveableObject {
     constructor(x,y,w,h){
         super(x,y,w,h);
         this.setBoxes(0,0);
-
         this.run10();
     }
 

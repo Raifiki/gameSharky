@@ -5,7 +5,7 @@ class Character extends FightableObject{
     coins = 0;
     poison = 2;
     bubbleShots = 2;
-    bubbleType = 'poison'
+    bubbleType = 'normal'
 
     xOfst = 100;
     //method
@@ -17,6 +17,7 @@ class Character extends FightableObject{
         this.speedY = 6;
 
         this.health = 100;
+        this.maxHealth = this.health;
         this.damage = 20;
 
         this.hitBox.w = 0.5*this.width;
@@ -43,7 +44,7 @@ class Character extends FightableObject{
             if (gameState == 'RUN') {
                 this.attack();
                 this.move();
-                this.chooseBubbleType();
+                
             }
         },1);
     }
@@ -51,6 +52,7 @@ class Character extends FightableObject{
     Crun100(){
         setInterval(() =>{
             this.animate();
+            this.chooseBubbleType();
         },100)
     } 
 
@@ -122,12 +124,12 @@ class Character extends FightableObject{
 
     attack(){
         if (this.state == 'IDLE' || this.state == 'MOVE' ) {
-            if (this.keyListener.SPACE) {
+            if (this.keyListener.S) {
                 this.setState('attack');
                 this.attackBubbleTrap();
                 this.attackType = 'bubbleTrap';
             }
-            if (this.keyListener.S) {
+            if (this.keyListener.SPACE) {
                 this.setState('attack');
                 this.attackType = 'slap';
             }
@@ -149,7 +151,11 @@ class Character extends FightableObject{
 
     chooseBubbleType(){
         if (this.poison > 0) {
-            
+            if (this.bubbleType == 'normal' && this.keyListener.D) {
+                this.bubbleType = 'poison';
+            } else if(this.bubbleType == 'poison' && this.keyListener.D){
+                this.bubbleType = 'normal';
+            }
         } else {
             this.bubbleType = 'normal';
         }

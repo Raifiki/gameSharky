@@ -21,33 +21,40 @@ class Level {
     }
 
     setBgImgs(){
-        let nrSector = Math.ceil(Math.ceil(this.length/canvas_w)/2);
+        let nrSector = Math.ceil(Math.ceil(this.length/canvas_w));
         for (let i = 0; i < nrSector; i++) {
-            this.backgroundImgs.Img1.forEach(e => {
-                let [x,y,w,h]=this.setBgCoordinates(i,1);
+            this.backgroundImgs.Img1.forEach((e,idx) => {
+                let [x,y,w,h]=this.setBgCoordinates(i,1,idx);
                 let newBg = new BackgroundObject(e,x,y,w,h);
                 this.background.push(newBg);
             });
-            this.backgroundImgs.Img2.forEach(e => {
-                let [x,y,w,h]=this.setBgCoordinates(i,2);
+            this.backgroundImgs.Img2.forEach((e,idx) => {
+                let [x,y,w,h]=this.setBgCoordinates(i,2,idx);
                 let newBg = new BackgroundObject(e,x,y,w,h);
                 this.background.push(newBg);
             });
         }
     }
 
-    setBgCoordinates(sector,img){
+    setBgCoordinates(sector,img,layer){
         let x;
         if (img == 1) {
             let t;
             (sector==0)?t=0:t=1;
-            x = sector * 2 * canvas_w-t;
+            x = sector * 2 * canvas_w/2-t;
         } else {
-            x = (sector * 2 + 1) * canvas_w-1;
+            x = (sector * 2 + 1) * canvas_w/2-1;
         }
         let y = 0;
-        let w = canvas_w;
+        let w = canvas_w/2;
         let h = canvas_h;
+        if (layer == 1 || layer == 2) {
+            y = 0.2*canvas_h;
+            h = 0.8*canvas_h;
+        } else if (layer == 3){
+            y = 0.5*canvas_h;
+            h = 0.5*canvas_h;
+        }        
         return [x,y,w,h];
     }
 }
