@@ -17,7 +17,6 @@ class Bubble extends FightableObject{
 
 
         this.health = 1;
-        this.damage = 10;
         this.state = 'MOVE';
         this.from = from;
 
@@ -35,7 +34,7 @@ class Bubble extends FightableObject{
         setInterval(() => {
             if (gameState == 'RUN') {
                 this.move();
-                this.checkBorder();
+                this.removeBubble();
             }
         },10)
     }
@@ -59,9 +58,11 @@ class Bubble extends FightableObject{
         this.type = type;
         if (type == 'poison') {
             this.loadImg(this.IMGs.poison);
+            this.damage = 20;
         } else {
             this.loadImg(this.IMGs.normal);
             this.speedY = 0;
+            this.damage = 10;
         }
     }
 
@@ -75,10 +76,23 @@ class Bubble extends FightableObject{
     checkBorder(){
         let barrier = this.checkBarrier('right') || this.checkBarrier('left') || this.checkBarrier('top') || this.checkBarrier('bottom');
         let lvlBorder = this.checklvlBorder('right') || this.checklvlBorder('left') || this.checklvlBorder('top') || this.checklvlBorder('bottom');
-        if (barrier || lvlBorder) {
-            this.setState('hurt');
-            this.setState('dead');
-            this.setState('remove');
+        return barrier || lvlBorder;
+    }
+
+    checkCanvasBorder(){
+        let ofst = world.cameraOfst;
+        return this.center.x < ofst || this.center.x > ofst + canvas_w;
+    }
+
+    removeBubble(){
+        if (this.checkBorder() || this.checkCanvasBorder()) {
+            this.setRemoveState();
         }
+    }
+
+    setRemoveState(){
+        this.setState('hurt');
+        this.setState('dead');
+        this.setState('remove');
     }
 }

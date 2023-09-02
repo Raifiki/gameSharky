@@ -16,7 +16,7 @@ class Character extends FightableObject{
         this.speedX = 6;
         this.speedY = 6;
 
-        this.health = 10000;
+        this.health = 100;
         this.damage = 20;
 
         this.hitBox.w = 0.5*this.width;
@@ -28,7 +28,7 @@ class Character extends FightableObject{
 
         this.tAttack =0.8;
         this.tDead = 10;
-        this.tHurt = 0.3;
+        this.tHurt = 1;
         this.tAction =5;
 
         this.addAnimationIMGs();
@@ -94,7 +94,8 @@ class Character extends FightableObject{
     }
 
     setCameraOfst(){
-        let newOfst = this.hitBox.x - this.xOfst;
+        if (typeof world.endboss === 'undefined') {
+            let newOfst = this.hitBox.x - this.xOfst;
             if (newOfst>= 0 && newOfst <= world.level.length - world.canvas.width){
                 world.cameraOfst = newOfst;
             } else if(newOfst<0){
@@ -102,6 +103,10 @@ class Character extends FightableObject{
             } else if (newOfst>world.level.length - world.canvas.width){
                 world.cameraOfst = world.level.length - world.canvas.width;
             }
+        } else {
+            world.cameraOfst = world.level.length - canvas_w;
+        }
+
     }
 
     setDirection(dir){

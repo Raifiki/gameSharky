@@ -79,10 +79,10 @@ class Jellyfish extends FightableObject {
 
 
     setMoveBehavior(){
-        if ((this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) && !this.state == 'ATTACK'){
+        if ((this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) && this.state != 'ATTACK'){
             this.directionX = !this.directionX;
         }
-        if ((this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom'))&& !this.state == 'ATTACK'){
+        if ((this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom'))&& this.state != 'ATTACK'){
             this.directionY = !this.directionY;
         }
     }

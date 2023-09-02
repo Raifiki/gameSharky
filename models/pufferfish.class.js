@@ -99,8 +99,12 @@ class Pufferfish extends FightableObject {
 
     dropItem(){
         if (this.state == 'DEAD' && this.cntItems > 0) {
-            world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));       
-            this.cntItems--;        
+            if (this.type == 'red') {
+                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'heart'));  
+            } else {
+                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));       
+            }
+            this.cntItems--; 
         }
     }
 

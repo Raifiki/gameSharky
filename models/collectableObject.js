@@ -43,12 +43,19 @@ class CollectableObject extends MoveableObject{
     }
     setType(type){
         this.type = type;
-        if (type == 'poison') {
-            this.loadImg('../img/04_Collectables/Posión/DarkLeft.png');
-            this.speedY = 2;
-            this.directionY = false;
-        } else {
-            this.loadImg('../img/04_Collectables/Coins/1.png',);
+        switch (type) {
+            case 'poison':
+                this.loadImg('../img/04_Collectables/Poison/DarkLeft.png');
+                this.speedY = 2;
+                this.directionY = false;
+                break;
+        
+            case 'cion':
+                this.loadImg('../img/04_Collectables/Coins/1.png');
+                break;
+            case 'heart':
+                this.loadImg('../img/04_Collectables/heart.png');
+                break;
         }
     }
 

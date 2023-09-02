@@ -4,7 +4,14 @@ class World {
     canvas;
     level = LEVEL_1;
     character = [new Character(100,100,200,200)];
+    statusBars = [new Statusbar(30,20,250,70,true)];
+    statusIcons = [
+                   new Statusicon(30,90,50,50,'coin'),
+                   new Statusicon(140,90,50,50,'poison'),
+                   new Statusicon(250,100,30,30,'bubble'),
+                ]
     bubbles = [];
+    endboss;
     keyListener;
 
     cameraOfst = 0;
@@ -41,8 +48,9 @@ class World {
         this.addToMap(this.bubbles);
         this.addToMap(this.level.enemies);
         this.addToMap(this.character);
-
-        
+        this.addToMap(this.statusBars);
+        this.addToMap(this.statusIcons);
+      
         
         //delete Code
         this.drawCameraView();
@@ -144,9 +152,14 @@ class World {
                     if (c.type == 'poison') {
                         this.character[0].poison++;
                         this.level.collectables.splice(idx,1); 
+                    }
+                    if (c.type == 'heart') {
+                        this.character[0].health = Math.min(this.character[0].health + 10,100);
+                        this.level.collectables.splice(idx,1); 
                     }             
                 }
             })
+            this.updateCharacterStatus();
         }
     }
 
@@ -156,7 +169,6 @@ class World {
             this.bubbles.forEach((b,idx) =>{
                 if (e.isColliding(e.hitBox,b.hitBox) && e.state != 'HURT' && b.from != 'enemy') {
                     if (!(e.type == 'toxic' && b.type == 'poison')) {
-                        console.log('enemy hurt')
                         e.hit(b.damage);
                         e.hitBy = 'bubble';
                         this.bubbles.splice(idx,1);
@@ -167,19 +179,25 @@ class World {
             if (e.isColliding(e.hitBox,this.character[0].attackBox) && this.character[0].state == 'ATTACK' && this.character[0].attackType == 'slap') {
                 e.hit(this.character[0].damage); // hurt by character attack
                 e.hitBy = 'slap';
-            }  
+            }
+            if (e instanceof Endboss) {
+                this.updateEndbosStatus();
+            }
         })
     }
 
     addEndbos(){
         let EB;
         this.level.enemies.forEach(e =>{
-           (e instanceof Endboss)?EB= EB || true:EB= EB ||false;
+           (e instanceof Endboss)? EB= EB || true:EB= EB ||false;
         })
         if (this.character[0].x >= 2400 && !EB) {
-            this.level.barrier.push(new Barrier(2200,0,200,600,2));
-            this.level.enemies.push(new Endboss (3000,0,300,300));
+            this.level.barrier.push(new Barrier(2150,0,200,600,2));
+            this.endboss = new Endboss (3000,0,300,300);
+            this.level.enemies.push(this.endboss);
             this.addJellyfish();
+            this.addPufferfish();
+            this.statusBars.push(new Statusbar(canvas_w - 280,20,250,70,false));
         }
     }
 
@@ -187,7 +205,26 @@ class World {
         setInterval(() => {
             let y = Math.random()*this.level.height;
             let x = this.level.length - 101;
-            this.level.enemies.push(new Jellyfish(x,y,100,100,'toxic'))
-        }, 20000);
+            this.level.enemies.push(new Jellyfish(x,y,80,80,'toxic'))
+        }, 40000);
+    }
+
+
+    addPufferfish(){
+        setInterval(() => {
+            let y = Math.random()*this.level.height;
+            let x = this.level.length - 101;
+            this.level.enemies.push(new Pufferfish(x,y,80,80,'red'))
+        }, 25000);
+    }
+
+    updateCharacterStatus(){
+        this.statusBars[0].percentageLP = this.character[0].health;
+        this.statusIcons[0].amount = this.character[0].coins;
+        this.statusIcons[1].amount = this.character[0].poison;
+        this.statusIcons[2].amount = this.character[0].bubbleShots;
+    }
+    updateEndbosStatus(){
+        this.statusBars[1].percentageLP = this.endboss.health/200 * 100;
     }
 }
