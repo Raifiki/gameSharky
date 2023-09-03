@@ -3,13 +3,13 @@ class Pufferfish extends FightableObject {
     cntItems = 1;
     type;
     //methodes
-    constructor(x,y,w,h,type){
-        super(x,y,w,h);
+    constructor(x,y,spdY,type){
+        super(x,y,80,80);
         
         this.directionIMG = false;
         this.directionX = false;
+        this.speedY = spdY;
         this.setType(type);
-        this.speedY = 0;
 
         this.health = 20;
         this.maxHealth = this.health;
@@ -101,9 +101,9 @@ class Pufferfish extends FightableObject {
     dropItem(){
         if (this.state == 'DEAD' && this.cntItems > 0) {
             if (this.type == 'red') {
-                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'heart'));  
+                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,'heart'));  
             } else {
-                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));       
+                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,'coin'));       
             }
             this.cntItems--; 
         }

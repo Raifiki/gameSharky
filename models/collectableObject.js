@@ -3,8 +3,8 @@ class CollectableObject extends MoveableObject{
     hitBox
     type
     // methodes
-    constructor(x,y,w,h,type){
-        super(x-w/2,y-h/2,w,h);
+    constructor(x,y,type){
+        super(x,y,60,60);
         this.setType(type);
         this.directionX = true;
         this.setHitBox();
@@ -48,13 +48,19 @@ class CollectableObject extends MoveableObject{
                 this.loadImg('../img/04_Collectables/Poison/DarkLeft.png');
                 this.speedY = 2;
                 this.directionY = false;
+                this.height = 60;
+                this.width = 60;
                 break;
         
-            case 'cion':
+            case 'coin':
                 this.loadImg('../img/04_Collectables/Coins/1.png');
+                this.height = 40;
+                this.width = 40;
                 break;
             case 'heart':
                 this.loadImg('../img/04_Collectables/heart.png');
+                this.height = 60;
+                this.width = 60;
                 break;
         }
     }

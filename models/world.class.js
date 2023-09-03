@@ -3,7 +3,7 @@ class World {
     ctx;
     canvas;
     level = LEVEL_1;
-    character = [new Character(100,100,200,200)];
+    character = [new Character(100,100)];
     statusBars = [new Statusbar(30,20,250,70,true)];
     statusIcons = [
                    new Statusicon(30,90,50,50,'coin'),
@@ -58,7 +58,8 @@ class World {
       
         
         //delete Code
-        this.drawCameraView();
+        //this.drawCameraView();
+        this.showCamOfsOnMap()
         //delete Code
 
         let self = this;
@@ -66,15 +67,15 @@ class World {
     }    
 
 
-    drawCameraView(){ // delete this function at the end
+    drawCameraView(){ // function for debuggung
         this.ctx.beginPath();
         this.ctx.lineWidth = '2';
         this.ctx.strokeStyle = 'green';
-        this.ctx.rect(0, 5, canvas_w,canvas_h - 10);
+        this.ctx.rect(this.character[0].x, 5, canvas_w,canvas_h - 10);
         this.ctx.stroke();
     }
 
-    showWorldState(){
+    showWorldState(){ // function for debuggung
         console.clear();
         console.log(
             '========Character========\n',
@@ -93,6 +94,14 @@ class World {
         })
     }
 
+    showCamOfsOnMap(){// function for debuggung
+        this.ctx.font = "60px Arial";
+        this.ctx.fillStyle = "white";
+        this.ctx.textAlign = "left";
+        this.ctx.fillText(this.character[0].x, 10,canvas_h - 10);	
+    }
+
+
     run10(){
         setInterval(() => {
             this.removeFromMap(this.bubbles);
@@ -109,7 +118,7 @@ class World {
             //delete at end
             //this.showWorldState();
             //delete at end
-        }, 1000);
+        }, 200);
     }
 
     removeFromMap(ary){
@@ -192,9 +201,9 @@ class World {
         this.level.enemies.forEach(e =>{
            (e instanceof Endboss)? EB= EB || true:EB= EB ||false;
         })
-        if (this.character[0].x >= 2400 && !EB) {
-            this.level.barrier.push(new Barrier(2150,0,200,600,2));
-            this.endboss = new Endboss (3000,0,300,300);
+        if ( this.character[0].x >= (this.level.length - canvas_w + 50) && !EB) {
+            this.level.barrier.push(new Barrier(6700,265,150,70,2));
+            this.endboss = new Endboss (this.level.length - 500,0);
             this.level.enemies.push(this.endboss);
             this.addJellyfish();
             this.addPufferfish();

@@ -27,11 +27,11 @@ class Statusicon {
         this.update();
         ctx.drawImage(this.img,this.x,this.y,this.width,this.height); 
         // delete at end
-        ctx.beginPath();
-        ctx.lineWidth = '2';
-        ctx.strokeStyle = 'green';
-        ctx.rect(this.x, this.y, this.width,this.height);
-        ctx.stroke();
+        //ctx.beginPath();
+        //ctx.lineWidth = '2';
+        //ctx.strokeStyle = 'green';
+        //ctx.rect(this.x, this.y, this.width,this.height);
+        //ctx.stroke();
         // delete at end
         this.drawTxt(ctx);
     }

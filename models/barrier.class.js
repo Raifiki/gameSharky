@@ -15,28 +15,39 @@ class Barrier extends DrawableObject{
     }
 
     setHitBox(type){
-        if (type == 0) {
-            this.hitBox = [
-                {
+        switch (type) {
+            case 0:
+                this.hitBox = [
+                    {
+                        x: this.x,
+                        y: this.y,
+                        w: this.width,
+                        h: this.height/4,
+                    },
+                    {
+                        x: this.x,
+                        y: this.y + this.height*4/5,
+                        w: this.width,
+                        h: this.height/5,
+                    }
+                ];
+                break;
+            case 1:
+                this.hitBox = [{
                     x: this.x,
+                    y: this.y + this.height*(1-0.7),
+                    w: this.width,
+                    h: this.height*0.7,
+                }]
+                break;
+            case 2:
+                this.hitBox = [{
+                    x: this.x + this.width*(1-0.6)/2,
                     y: this.y,
-                    w: this.width,
-                    h: this.height/4,
-                },
-                {
-                    x: this.x,
-                    y: this.y + this.height*4/5,
-                    w: this.width,
-                    h: this.height/5,
-                }
-            ];
-        } else {
-            this.hitBox = [{
-                    x: this.x,
-                    y: this.y,
-                    w: this.width,
+                    w: this.width*0.6,
                     h: this.height,
                 }]
+                break;
         }
     }
 }

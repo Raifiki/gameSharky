@@ -9,8 +9,8 @@ class Character extends FightableObject{
 
     xOfst = 100;
     //method
-    constructor(x,y,w,h){
-        super(x,y,w,h);
+    constructor(x,y){
+        super(x,y,200,200);
         this.loadImg('../img/01_Sharkie/1_IDLE/1.png');
 
         this.speedX = 6;
@@ -141,7 +141,7 @@ class Character extends FightableObject{
             setTimeout(() => {
                 let xOfs = this.directionX? 80:-55;
                 let [x,y] = [this.center.x+xOfs,this.center.y+20];
-                world.bubbles.push(new Bubble(x,y,5,0, this.directionX,true,this.bubbleType,'character'));
+                world.bubbles.push(new Bubble(x,y,4,0, this.directionX,true,this.bubbleType,'character'));
                 this.bubbleShots--;
                 (this.bubbleType == 'poison')? this.poison--:'';
             },800);

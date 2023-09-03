@@ -6,20 +6,21 @@ class Jellyfish extends FightableObject {
     frequency = 1/500;
     attackCnt = 0;
     //methodes
-    constructor(x,y,w,h,type){
-        super(x,y,w,h);
+    constructor(x,y,spdX,spdY,type){
+        super(x,y,80,80);
         this.setType(type)
         this.directionIMG = false;
         this.directionX = false;
 
-        this.speedX = 0;
-        this.speedY = 0;
+        this.speedX = spdX;
+        this.speedY = spdY;
 
         this.health = 30;
         this.maxHealth = this.health;
         this.damage = 15;
 
         this.tDead = 2;
+        this.tAttack = 1;
 
         this.hitBox.w = 0.8*this.width;
         this.hitBox.h = 0.65*this.width;
@@ -102,7 +103,7 @@ class Jellyfish extends FightableObject {
         if (this.state != 'ATTACK' && this.state != 'HURT') {
             let dx = this.detectedObject.center.x - this.center.x ;
             let dy = this.detectedObject.center.y - this.center.y ;
-            let angle = Math.atan2(dy,dx);
+            let angle = Math.atan2(-dy,-dx);
             this.radiusCnt = angle * 1/this.frequency/2/Math.PI;
         }
     }
@@ -139,16 +140,23 @@ class Jellyfish extends FightableObject {
 
     detect(){
             if(this.isDetecting(world.character[0]) && world.character[0].state != 'DEAD'){
-                this.setState('attack');
                 this.detectedObject = world.character[0];
                 this.initRadiusCnt();
-                this.setDetectBoxSize(5.5);
+                this.setState('attack');
+                this.setDetectBoxSize(6.5);
             } else {
                 this.detectedObject = [];
+                if (this.state == 'ATTACK') {
+                    this.speedX = 0.5;
+                    this.speedY = 0.5;
+                }
                 this.setState('attackFinished');
-                this.setDetectBoxSize(3.5);
-                this.speedX = 0.5;
-                this.speedY = 0.5;
+                if (this.state == 'HURT') {
+                    this.setDetectBoxSize(6.5);
+                } else {
+                    this.setDetectBoxSize(3.5);
+                }
+                
             }
     }
 
@@ -160,9 +168,9 @@ class Jellyfish extends FightableObject {
     dropItem(){
         if (this.state == 'REMOVE' && this.cntItems>0) {
             if (this.type == 'normal') {
-                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,30,30,'coin'));
+                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,'coin'));
             } else {
-                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,50,50,'poison'));
+                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,'poison'));
             }
             this.cntItems--;            
         }

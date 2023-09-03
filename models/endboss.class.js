@@ -11,8 +11,8 @@ class Endboss extends FightableObject{
     introduceStartTime = new Date().getTime();
     introduceActive = true;
     //methodes
-    constructor(x,y,w,h){
-        super(x,y,w,h);
+    constructor(x,y){
+        super(x,y,300,300);
         this.directionIMG = false;
         this.directionX = false;
         this.directionY = true;
@@ -25,11 +25,11 @@ class Endboss extends FightableObject{
         this.damage = 20;
 
         this.hitBox.w = 0.8*this.width;
-        this.hitBox.h = 0.3*this.width;
+        this.hitBox.h = 0.3*this.height;
         this.attackBox.w = 0.3*this.width;
-        this.attackBox.h = 0.2*this.width;
+        this.attackBox.h = 0.2*this.height;
         this.detectBox.w = 1.5*this.width;
-        this.detectBox.h = 0.8*this.width;
+        this.detectBox.h = 0.8*this.height;
 
         this.detectedObject = [];
         this.tAttack = 5;
