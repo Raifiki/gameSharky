@@ -2,7 +2,7 @@ class World {
     //Fields
     ctx;
     canvas;
-    level = LEVEL_1;
+    level = LEVEL_DEV;
     character = [new Character(200,175)];
     statusBars = [new Statusbar(30,20,250,70,true)];
     statusIcons = [
@@ -209,7 +209,7 @@ class World {
             this.addPufferfish();
             this.statusBars.push(new Statusbar(canvas_w - 280,20,250,70,false));
             this.statusBars[1].character =this.endboss;
-        } else {
+        } else if(!EB) {
             this.statusBars.splice(1,1);
         }
     }
