@@ -3,11 +3,13 @@ class Character extends FightableObject{
     keyListener;
 
     coins = 0;
-    poison = 2;
-    bubbleShots = 2;
-    bubbleType = 'normal'
+    poison = 1;
 
-    xOfst = 100;
+    bubbleShots = 0;
+    bubbleType = 'normal'
+    bubbleChangeCnt = 0;
+
+    xOfst = 200;
     //method
     constructor(x,y){
         super(x,y,200,200);
@@ -18,7 +20,7 @@ class Character extends FightableObject{
 
         this.health = 100;
         this.maxHealth = this.health;
-        this.damage = 20;
+        this.damage = 30;
 
         this.hitBox.w = 0.5*this.width;
         this.hitBox.h = 0.2*this.width;
@@ -34,25 +36,24 @@ class Character extends FightableObject{
 
         this.addAnimationIMGs();
 
-        this.Crun1();
+        this.Crun10();
         this.Crun100();
         this.loadBubbleShot();
     }
 
-    Crun1(){
+    Crun10(){
         setInterval(() => {
             if (gameState == 'RUN') {
                 this.attack();
                 this.move();
-                
+                this.chooseBubbleType();
             }
-        },1);
+        },10);
     }
 
     Crun100(){
         setInterval(() =>{
             this.animate();
-            this.chooseBubbleType();
         },100)
     } 
 
@@ -77,7 +78,7 @@ class Character extends FightableObject{
                 this.moveDown();
                 this.setState('move');
             }
-            this.setBoxes(30,-this.hitBox.w/2,0,0);
+            this.setBoxes(30,-this.hitBox.w/2,-5,0);
             this.setCameraOfst();
         } else if (this.state == 'DEAD') {
             this.setMoveBehaviorDead();
@@ -114,10 +115,10 @@ class Character extends FightableObject{
     setDirection(dir){
         if (dir == 'right') {
             this.directionX = true;
-            this.xOfst = Math.max(this.xOfst - 10,100);
+            this.xOfst = Math.max(this.xOfst - 25,200);
         } else {
             this.directionX = false;
-            this.xOfst = Math.min(this.xOfst + 10,canvas_w - this.width - 100);
+            this.xOfst = Math.min(this.xOfst + 25,canvas_w - this.hitBox.w - 200);
         }        
     }
 
@@ -141,9 +142,14 @@ class Character extends FightableObject{
             setTimeout(() => {
                 let xOfs = this.directionX? 80:-55;
                 let [x,y] = [this.center.x+xOfs,this.center.y+20];
-                world.bubbles.push(new Bubble(x,y,4,0, this.directionX,true,this.bubbleType,'character'));
+                let spdX = 4;
+                if(this.bubbleType == 'poison'){
+                    this.poison--;
+                    spdX = 6.5;
+                }
+                world.bubbles.push(new Bubble(x,y,spdX,0, this.directionX,true,this.bubbleType,'character'));
                 this.bubbleShots--;
-                (this.bubbleType == 'poison')? this.poison--:'';
+
             },800);
         }
     }
@@ -151,19 +157,22 @@ class Character extends FightableObject{
 
     chooseBubbleType(){
         if (this.poison > 0) {
-            if (this.bubbleType == 'normal' && this.keyListener.D) {
+            if (this.bubbleType == 'normal' && this.keyListener.D && this.bubbleChangeCnt > 20) {
                 this.bubbleType = 'poison';
-            } else if(this.bubbleType == 'poison' && this.keyListener.D){
+                this.bubbleChangeCnt = 0;
+            } else if(this.bubbleType == 'poison' && this.keyListener.D && this.bubbleChangeCnt > 20){
                 this.bubbleType = 'normal';
+                this.bubbleChangeCnt = 0;
             }
         } else {
             this.bubbleType = 'normal';
         }
+        this.bubbleChangeCnt++;
     }
 
     loadBubbleShot(){
         setInterval(() =>{
-            if (this.bubbleShots < 5) {
+            if (this.bubbleShots < 3) {
                 this.bubbleShots++;
             }
         },3000);

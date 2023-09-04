@@ -15,9 +15,7 @@ class Jellyfish extends FightableObject {
         this.speedX = spdX;
         this.speedY = spdY;
 
-        this.health = 30;
         this.maxHealth = this.health;
-        this.damage = 15;
 
         this.tDead = 2;
         this.tAttack = 1;
@@ -55,8 +53,13 @@ class Jellyfish extends FightableObject {
         this.type = type;
         if (type == 'normal') {
             this.loadImg('../img/02_Enemy/2_Jellyfish/1_Swim/normal/p1.png');
+            this.health = 30;
+            this.damage = 10;
+            this.cntItems = 3;
         } else {
             this.loadImg('../img/02_Enemy/2_Jellyfish/1_Swim/toxic/g1.png');
+            this.health = 20;
+            this.damage = 20;
         }
     }
 
@@ -153,6 +156,8 @@ class Jellyfish extends FightableObject {
                 this.setState('attackFinished');
                 if (this.state == 'HURT') {
                     this.setDetectBoxSize(6.5);
+                    this.speedX = 1;
+                    this.speedY = 1;
                 } else {
                     this.setDetectBoxSize(3.5);
                 }
@@ -167,10 +172,12 @@ class Jellyfish extends FightableObject {
 
     dropItem(){
         if (this.state == 'REMOVE' && this.cntItems>0) {
+            let x = this.center.x + (this.cntItems-1)*20;
+            let y = this.center.y - (this.cntItems-1)*20;
             if (this.type == 'normal') {
-                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,'coin'));
+                world.level.collectables.push(new CollectableObject(x,y,'coin'));
             } else {
-                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,'poison'));
+                world.level.collectables.push(new CollectableObject(x,y,'poison'));
             }
             this.cntItems--;            
         }

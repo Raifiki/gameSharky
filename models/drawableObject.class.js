@@ -20,7 +20,7 @@ class DrawableObject {
     }
 
     draw(ctx,ofst){
-        if (!this.isNotVisible(ofst) || true) {
+        if (!this.isNotVisible(ofst)) {
             let x = this.x - ofst;
             if (this.getIMGdirection()) {
                 ctx.drawImage(this.img,x,this.y,this.width,this.height); 

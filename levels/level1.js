@@ -20,9 +20,9 @@ const LEVEL_1 = new Level(
     },
     [
         new Barrier(2000,450,400,150,0),
-        new Barrier(1975,0,100,450,2),
+        new Barrier(1975,0,110,450,2),
         new Barrier(2150,0,400,150,0),
-        new Barrier(2500,150,100,450,2),
+        new Barrier(2500,150,110,450,2),
 
         new Barrier(3200,75,150,525,2),
         new Barrier(3700,200,200,200,1),

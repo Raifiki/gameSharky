@@ -3,7 +3,7 @@ class World {
     ctx;
     canvas;
     level = LEVEL_1;
-    character = [new Character(100,100)];
+    character = [new Character(200,175)];
     statusBars = [new Statusbar(30,20,250,70,true)];
     statusIcons = [
                    new Statusicon(30,90,50,50,'coin'),
@@ -201,7 +201,7 @@ class World {
         this.level.enemies.forEach(e =>{
            (e instanceof Endboss)? EB= EB || true:EB= EB ||false;
         })
-        if ( this.character[0].x >= (this.level.length - canvas_w + 50) && !EB) {
+        if ( this.character[0].x >= (this.level.length - canvas_w + 150) && !EB) {
             this.level.barrier.push(new Barrier(6700,265,150,70,2));
             this.endboss = new Endboss (this.level.length - 500,0);
             this.level.enemies.push(this.endboss);
@@ -209,23 +209,25 @@ class World {
             this.addPufferfish();
             this.statusBars.push(new Statusbar(canvas_w - 280,20,250,70,false));
             this.statusBars[1].character =this.endboss;
+        } else {
+            this.statusBars.splice(1,1);
         }
     }
 
     addJellyfish(){
         setInterval(() => {
-            let y = Math.random()*this.level.height;
+            let y = Math.random()*(this.level.height - 150);
             let x = this.level.length - 101;
-            this.level.enemies.push(new Jellyfish(x,y,80,80,'toxic'))
+            this.level.enemies.push(new Jellyfish(x,y,0.2,0.2,'toxic'))
         }, 40000);
     }
 
 
     addPufferfish(){
         setInterval(() => {
-            let y = Math.random()*this.level.height;
+            let y = Math.random()*(this.level.height - 150);
             let x = this.level.length - 101;
-            this.level.enemies.push(new Pufferfish(x,y,80,80,'red'))
+            this.level.enemies.push(new Pufferfish(x,y,0,'red'))
         }, 25000);
     }
 }

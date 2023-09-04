@@ -8,6 +8,7 @@ class Statusicon {
     type;
     character;
     amount = 0;
+    imgCache = [];
 
     imgCoin = '../img/05_Statusicons/Coin.png';
     imgPoison = '../img/05_Statusicons/Poison.png';
@@ -20,19 +21,18 @@ class Statusicon {
         this.y = y;
         this.width = w;
         this.height = h;
+
+        this.addIMG2Cache(this.imgCoin);
+        this.addIMG2Cache(this.imgPoison);
+        this.addIMG2Cache(this.imgBubble);
+        this.addIMG2Cache(this.imgBubblePoison);
+
         this.setIconType(type);
     }
 
     draw(ctx){
         this.update();
         ctx.drawImage(this.img,this.x,this.y,this.width,this.height); 
-        // delete at end
-        //ctx.beginPath();
-        //ctx.lineWidth = '2';
-        //ctx.strokeStyle = 'green';
-        //ctx.rect(this.x, this.y, this.width,this.height);
-        //ctx.stroke();
-        // delete at end
         this.drawTxt(ctx);
     }
 
@@ -52,13 +52,13 @@ class Statusicon {
         this.type = type;
         switch (type) {
             case 'coin':
-                this.loadImg(this.imgCoin);
+                this.img = this.imgCache[this.imgCoin];
                 break;
             case 'poison':
-                this.loadImg(this.imgPoison);
+                this.img = this.imgCache[this.imgPoison];
                 break;
             case 'bubble':
-                this.loadImg(this.imgBubble);
+                this.img = this.imgCache[this.imgBubble];
                 break;
         }
     }
@@ -75,11 +75,17 @@ class Statusicon {
             case 'bubble':
                 this.amount = this.character.bubbleShots;
                 if (this.character.bubbleType == 'poison') {
-                    this.loadImg(this.imgBubblePoison);
+                    this.img = this.imgCache[this.imgBubblePoison];
                 } else {
-                    this.loadImg(this.imgBubble);
+                    this.img = this.imgCache[this.imgBubble];
                 }
                 break;
         }
+    }
+
+    addIMG2Cache(path){
+            let img = new Image();
+            img.src = path;
+            this.imgCache[path] = img;
     }
 }

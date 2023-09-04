@@ -58,11 +58,11 @@ class Bubble extends FightableObject{
         this.type = type;
         if (type == 'poison') {
             this.loadImg(this.IMGs.poison);
-            this.damage = 20;
+            this.damage = 30;
         } else {
             this.loadImg(this.IMGs.normal);
             this.speedY = 0;
-            this.damage = 10;
+            this.damage = 15;
         }
     }
 

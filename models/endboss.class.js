@@ -66,7 +66,7 @@ class Endboss extends FightableObject{
         let dt = (new Date().getTime() - this.introduceStartTime)/1000;
         if (dt<5) {
             this.directionY =false;
-            this.speedY += 0.015;
+            this.speedY += 0.03;
             if (dt<1.5) {
                 this.moveDown();
                 this.setBoxes(40,-this.hitBox.w/2,60,-100);

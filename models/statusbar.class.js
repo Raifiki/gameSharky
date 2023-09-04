@@ -8,6 +8,7 @@ class Statusbar {
     direction;
     percentageLP = 100;
     character;
+    imgCache = [];
 
     imgBarOrange = [
         '../img/05_Statusicons/Bar/0.png',
@@ -34,6 +35,8 @@ class Statusbar {
         this.width = w;
         this.height = h;
         this.direction = dir;
+        this.addIMG2Cache(this.imgBarOrange);
+        this.addIMG2Cache(this.imgBarPurpel);
     }
 
     draw(ctx){
@@ -64,10 +67,6 @@ class Statusbar {
         	
     }
 
-    loadImg(path){ 
-        this.img.src = path;
-    }
-
 
     setPercentage (){
         let path;
@@ -76,7 +75,7 @@ class Statusbar {
         } else {
             path = this.imgBarPurpel[this.resolveImg ()];
         }
-        this.loadImg(path);
+        this.img = this.imgCache[path];
     }
 
     resolveImg (){
@@ -106,4 +105,13 @@ class Statusbar {
     update(){
         this.percentageLP = this.character.health/this.character.maxHealth * 100;
     }
+
+    addIMG2Cache(imgPaths){
+        imgPaths.forEach(path => {
+            let img = new Image();
+            img.src = path;
+            this.imgCache[path] = img;
+        });
+    }
+
 }

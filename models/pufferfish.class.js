@@ -13,7 +13,7 @@ class Pufferfish extends FightableObject {
 
         this.health = 20;
         this.maxHealth = this.health;
-        this.damage = 10;
+        this.damage = 15;
         this.state = 'MOVE';
 
 
