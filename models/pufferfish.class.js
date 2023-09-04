@@ -36,15 +36,15 @@ class Pufferfish extends FightableObject {
     setType(type){
         this.type = type;
         if (type == 'green') {
-            this.loadImg('../img/02_Enemy/1_Pufferfish/1_Swim/g1.png');
+            this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/g1.png');
             this.speedX = 1;
         }
         if (type == 'orange') {
-            this.loadImg('../img/02_Enemy/1_Pufferfish/1_Swim/o1.png');
+            this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/o1.png');
             this.speedX = 1.5;
         }
         if (type == 'red') {
-            this.loadImg('../img/02_Enemy/1_Pufferfish/1_Swim/r1.png');
+            this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/r1.png');
             this.speedX = 2;
         }
     }

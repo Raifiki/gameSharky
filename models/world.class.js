@@ -2,7 +2,7 @@ class World {
     //Fields
     ctx;
     canvas;
-    level = LEVEL_DEV;
+    level;
     character = [new Character(200,175)];
     statusBars = [new Statusbar(30,20,250,70,true)];
     statusIcons = [
@@ -17,9 +17,10 @@ class World {
     cameraOfst = 0;
 
     //methodes
-    constructor(canvas,keyListener){
+    constructor(canvas,keyListener,level){
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
+        this.level = level;
 
         this.keyListener = keyListener;
         this.character[0].keyListener = keyListener;
@@ -87,10 +88,12 @@ class World {
             )
 
         this.level.enemies.forEach((e,idx) =>{
-            console.log('========Enemy'+idx+'========\n',
-            'HP: ',e.health,'\n',
-            'State: ',e.state,'\n',
-            )
+            if (e instanceof Jellyfish && e.type == 'toxic') {
+                console.log('========Enemy'+idx+'========\n',
+                'HP: ',e.health,'\n',
+                'State: ',e.state,'\n',
+                )
+            }
         })
     }
 
@@ -205,7 +208,7 @@ class World {
             this.level.barrier.push(new Barrier(6700,265,150,70,2));
             this.endboss = new Endboss (this.level.length - 500,0);
             this.level.enemies.push(this.endboss);
-            this.addJellyfish();
+            //this.addJellyfish();
             this.addPufferfish();
             this.statusBars.push(new Statusbar(canvas_w - 280,20,250,70,false));
             this.statusBars[1].character =this.endboss;

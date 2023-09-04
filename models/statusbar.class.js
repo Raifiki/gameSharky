@@ -11,21 +11,21 @@ class Statusbar {
     imgCache = [];
 
     imgBarOrange = [
-        '../img/05_Statusicons/Bar/0.png',
-        '../img/05_Statusicons/Bar/o20.png',
-        '../img/05_Statusicons/Bar/o40.png',
-        '../img/05_Statusicons/Bar/o60.png',
-        '../img/05_Statusicons/Bar/o80.png',
-        '../img/05_Statusicons/Bar/o100.png',
+        './img/05_Statusicons/Bar/0.png',
+        './img/05_Statusicons/Bar/o20.png',
+        './img/05_Statusicons/Bar/o40.png',
+        './img/05_Statusicons/Bar/o60.png',
+        './img/05_Statusicons/Bar/o80.png',
+        './img/05_Statusicons/Bar/o100.png',
     ];
 
     imgBarPurpel = [
-        '../img/05_Statusicons/Bar/0.png',
-        '../img/05_Statusicons/Bar/p20.png',
-        '../img/05_Statusicons/Bar/p40.png',
-        '../img/05_Statusicons/Bar/p60.png',
-        '../img/05_Statusicons/Bar/p80.png',
-        '../img/05_Statusicons/Bar/p100.png',
+        './img/05_Statusicons/Bar/0.png',
+        './img/05_Statusicons/Bar/p20.png',
+        './img/05_Statusicons/Bar/p40.png',
+        './img/05_Statusicons/Bar/p60.png',
+        './img/05_Statusicons/Bar/p80.png',
+        './img/05_Statusicons/Bar/p100.png',
     ];
 
     // methodes

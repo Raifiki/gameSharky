@@ -46,19 +46,19 @@ const LEVEL_1 = new Level(
         new Pufferfish(2375,265,0,'green'),
         new Pufferfish(2375,160,0,'red'),
 
-        new Jellyfish(3000,150,0,0,'normal'),
+        //new Jellyfish(3000,150,0,0,'normal'),
         new Pufferfish(3000,450,0,'red'),
 
-        new Jellyfish(3475,400,0,0,'normal'),
-        new Jellyfish(4025,100,0,0,'normal'),
+        //new Jellyfish(3475,400,0,0,'normal'),
+        //new Jellyfish(4025,100,0,0,'normal'),
         new Pufferfish(3475,290,0,'green'),
         new Pufferfish(4025,290,0,'orange'),
 
-        new Jellyfish(4900,200,0,0,'toxic'),
+       // new Jellyfish(4900,200,0,0,'toxic'),
         new Pufferfish(5000,480,0,'red'),
 
-        new Jellyfish(5950,100,0,0.5,'normal'),
-        new Jellyfish(6500,260,0,0.5,'toxic'),
+        //new Jellyfish(5950,100,0,0.5,'normal'),
+        //new Jellyfish(6500,260,0,0.5,'toxic'),
         new Pufferfish(5650,480,0,'red'),
         new Pufferfish(6550,480,0,'red'),
     ],

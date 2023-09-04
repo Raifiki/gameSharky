@@ -10,10 +10,10 @@ class Statusicon {
     amount = 0;
     imgCache = [];
 
-    imgCoin = '../img/05_Statusicons/Coin.png';
-    imgPoison = '../img/05_Statusicons/Poison.png';
-    imgBubble = '../img/05_Statusicons/Bubble.png';
-    imgBubblePoison = '../img/05_Statusicons/PoisonedBubble.png';
+    imgCoin = './img/05_Statusicons/Coin.png';
+    imgPoison = './img/05_Statusicons/Poison.png';
+    imgBubble = './img/05_Statusicons/Bubble.png';
+    imgBubblePoison = './img/05_Statusicons/PoisonedBubble.png';
 
     // methodes
     constructor(x,y,w,h,type){

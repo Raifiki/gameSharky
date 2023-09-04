@@ -1,8 +1,8 @@
 class Bubble extends FightableObject{
     //fields
     IMGs = {
-        normal: '../img/01_Sharkie/4_Attack/BubbleTrap/Bubble.png',
-        poison: '../img/01_Sharkie/4_Attack/BubbleTrap/PoisonedBubble.png',
+        normal: './img/01_Sharkie/4_Attack/BubbleTrap/Bubble.png',
+        poison: './img/01_Sharkie/4_Attack/BubbleTrap/PoisonedBubble.png',
     }
     from;
     type;

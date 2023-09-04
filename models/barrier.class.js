@@ -1,9 +1,9 @@
 class Barrier extends DrawableObject{
     // fields
     IMGs = [
-        '../img/03_Background/Barrier/TopBottom.png',
-        '../img/03_Background/Barrier/horizontal.png',
-        '../img/03_Background/Barrier/vertical.png',
+        './img/03_Background/Barrier/TopBottom.png',
+        './img/03_Background/Barrier/horizontal.png',
+        './img/03_Background/Barrier/vertical.png',
     ]
     hitBox
     // methodes

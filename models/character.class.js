@@ -13,7 +13,7 @@ class Character extends FightableObject{
     //method
     constructor(x,y){
         super(x,y,200,200);
-        this.loadImg('../img/01_Sharkie/1_IDLE/1.png');
+        this.loadImg('./img/01_Sharkie/1_Idle/1.png');
 
         this.speedX = 6;
         this.speedY = 6;

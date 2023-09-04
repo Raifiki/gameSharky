@@ -52,12 +52,12 @@ class Jellyfish extends FightableObject {
     setType(type){
         this.type = type;
         if (type == 'normal') {
-            this.loadImg('../img/02_Enemy/2_Jellyfish/1_Swim/normal/p1.png');
+            this.loadImg('./img/02_Enemy/2_Jellyfish/1_Swim/normal/p1.png');
             this.health = 30;
             this.damage = 10;
             this.cntItems = 3;
         } else {
-            this.loadImg('../img/02_Enemy/2_Jellyfish/1_Swim/toxic/g1.png');
+            this.loadImg('./img/02_Enemy/2_Jellyfish/1_Swim/toxic/g1.png');
             this.health = 20;
             this.damage = 20;
         }

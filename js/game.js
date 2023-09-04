@@ -11,7 +11,8 @@ let keyListener = new KeyListener();
 
 function init(){
     canvas = document.getElementById('canvas');
-    world = new World(canvas,keyListener);
+    let level = LEVEL_1;
+    world = new World(canvas,keyListener,level);
 }
 
 

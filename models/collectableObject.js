@@ -45,7 +45,7 @@ class CollectableObject extends MoveableObject{
         this.type = type;
         switch (type) {
             case 'poison':
-                this.loadImg('../img/04_Collectables/Poison/DarkLeft.png');
+                this.loadImg('./img/04_Collectables/Poison/DarkLeft.png');
                 this.speedY = 2;
                 this.directionY = false;
                 this.height = 60;
@@ -53,12 +53,12 @@ class CollectableObject extends MoveableObject{
                 break;
         
             case 'coin':
-                this.loadImg('../img/04_Collectables/Coins/1.png');
+                this.loadImg('./img/04_Collectables/Coins/1.png');
                 this.height = 40;
                 this.width = 40;
                 break;
             case 'heart':
-                this.loadImg('../img/04_Collectables/heart.png');
+                this.loadImg('./img/04_Collectables/heart.png');
                 this.height = 60;
                 this.width = 60;
                 break;
