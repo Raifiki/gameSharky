@@ -69,7 +69,7 @@ class Endboss extends FightableObject{
             this.speedY += 0.03;
             if (dt<1.5) {
                 this.moveDown();
-                this.setBoxes(40,-this.hitBox.w/2,60,-100);
+                this.updateBoxes(40,-this.hitBox.w/2,60,-100);
             } else {
                 this.setState('move');
             }           
@@ -93,7 +93,7 @@ class Endboss extends FightableObject{
             } else {
                 this.moveLeft();
             }
-            this.setBoxes(40,-this.hitBox.w/2,60,-100);
+            this.updateBoxes(40,-this.hitBox.w/2,60,-100);
             this.resizeDetectBoxe(true);
             this.setState('move');    
         }

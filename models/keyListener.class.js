@@ -3,6 +3,7 @@ class KeyListener {
     RIGHT = false;
     UP = false;
     DOWN = false;
-    SPACE = false;
-    S = false;
+    SLAP = false;
+    BUBBLESHOT = false;
+    CHANGEBUBBLE = false;
 }

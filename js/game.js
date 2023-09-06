@@ -11,7 +11,7 @@ let keyListener = new KeyListener();
 
 function init(){
     canvas = document.getElementById('canvas');
-    let level = LEVEL_1;
+    let level = generateLvlDev();
     world = new World(canvas,keyListener,level);
 }
 
@@ -30,13 +30,13 @@ document.addEventListener('keydown',(event) => {
         keyListener.DOWN = true;
     }          
     if (event.key == ' '){ // Space
-        keyListener.SPACE = true;
+        keyListener.SLAP = true;
     }
     if (event.key == 's'){
-        keyListener.S = true;
+        keyListener.BUBBLESHOT = true;
     }
     if (event.key == 'd'){
-        keyListener.D = true;
+        keyListener.CHANGEBUBBLE = true;
     }             
 });
 
@@ -54,12 +54,12 @@ document.addEventListener('keyup',(event) => {
         keyListener.DOWN = false;
     }          
     if (event.key == ' '){ // Space
-        keyListener.SPACE = false;
+        keyListener.SLAP = false;
     }          
     if (event.key == 's'){
-        keyListener.S = false;
+        keyListener.BUBBLESHOT = false;
     }  
     if (event.key == 'd'){
-        keyListener.D = false;
+        keyListener.CHANGEBUBBLE = false;
     }      
 }); 

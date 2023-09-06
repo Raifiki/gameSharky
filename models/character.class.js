@@ -1,3 +1,7 @@
+/**
+ * Class representing the Character
+ * @extends FightableObject
+ */
 class Character extends FightableObject{
     //field
     keyListener;
@@ -10,6 +14,13 @@ class Character extends FightableObject{
     bubbleChangeCnt = 0;
 
     xOfst = 200;
+
+    /**
+     * This function initialize an barrier object
+     * 
+     * @param {number} x - this is the initial x coordinate from the character
+     * @param {number} y - this is the initial y coordinate from the character
+     */
     //method
     constructor(x,y){
         super(x,y,200,200);
@@ -38,9 +49,13 @@ class Character extends FightableObject{
 
         this.Crun10();
         this.Crun100();
-        this.loadBubbleShot();
+        this.loadBubbleShot(3,3);
     }
 
+
+    /**
+     *  This function generates the 10ms game loop for the character. If the global gamestate is run the loop functions will be executed
+     */
     Crun10(){
         setInterval(() => {
             if (gameState == 'RUN') {
@@ -51,133 +66,283 @@ class Character extends FightableObject{
         },10);
     }
 
+
+    /**
+     * This function generates the 100ms game loop for the character. If the global gamestate is run the loop functions will be executed
+     */
     Crun100(){
         setInterval(() =>{
             this.animate();
         },100)
     } 
 
+    /**
+     * This function moves the character according the direction and speed of this object
+     * 
+     */
     move(){
         this.setState('idle');
-        if (this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK') {
-            if (this.keyListener.RIGHT) {
-                this.moveRight();
-                this.setDirection('right');
-                this.setState('move');
-            }
-            if (this.keyListener.LEFT) {
-                this.moveLeft();
-                this.setDirection('left');
-                this.setState('move');
-            }
-            if (this.keyListener.UP) {
-                this.moveUp();
-                this.setState('move');
-            }
-            if (this.keyListener.DOWN) {
-                this.moveDown();
-                this.setState('move');
-            }
-            this.setBoxes(30,-this.hitBox.w/2,-5,0);
-            this.setCameraOfst();
+        if (this.canMove()) {
+            if (this.keyListener.RIGHT) this.moveRight();
+            if (this.keyListener.LEFT) this.moveLeft();
+            if (this.keyListener.UP) this.moveUp();
+            if (this.keyListener.DOWN) this.moveDown();
+            this.updateBoxes(30,-this.hitBox.w/2,-5,0);
+            this.updateCameraOfst();
         } else if (this.state == 'DEAD') {
             this.setMoveBehaviorDead();
         }
     }
 
+
+    /**
+     * This function moves the character right and set the Xdirection of the character
+     */
+    moveRight(){
+        super.moveRight();
+        this.setDirectionX('right');
+        this.setState('move');
+    }
+
+
+    /**
+     * This function moves the character left and set the Xdirection of the character
+     */
+    moveLeft(){
+        super.moveLeft();
+        this.setDirectionX('left');
+        this.setState('move');
+    }
+
+
+    /**
+     * This function moves the character up
+     */
+    moveUp(){
+        super.moveUp();
+        this.setState('move');
+    }
+
+
+    /**
+     * This function moves the character down
+     */
+    moveDown(){
+        super.moveDown();
+        this.setState('move');
+    }
+
+
+    /**
+     * This function set the move behavior of the character if it is dead
+     */
     setMoveBehaviorDead(){
         this.speedY = 1;
         if (this.hitBy == 'poison') {
             this.moveUp();
-            this.setBoxes(-50,-this.hitBox.w/2,0,0);
+            this.updateBoxes(-50,-this.hitBox.w/2,0,0);
         } else {
             this.moveDown();
-            this.setBoxes(15,-this.hitBox.w/2,0,0);
+            this.updateBoxes(15,-this.hitBox.w/2,0,0);
         }
     }
 
-    setCameraOfst(){
-        if (typeof world.endboss === 'undefined') {
-            let newOfst = this.hitBox.x - this.xOfst;
-            if (newOfst>= 0 && newOfst <= world.level.length - world.canvas.width){
-                world.cameraOfst = newOfst;
-            } else if(newOfst<0){
-                world.cameraOfst = 0;
-            } else if (newOfst>world.level.length - world.canvas.width){
-                world.cameraOfst = world.level.length - world.canvas.width;
-            }
-        } else {
+
+    /**
+     * This function updates the camera offset of the world
+     */
+    updateCameraOfst(){
+        if (this.endbossScreen()) {
             world.cameraOfst = world.level.length - canvas_w;
+        } else {
+            world.cameraOfst = this.calcNewCameraOfst();
         }
-
     }
 
-    setDirection(dir){
+
+    /**
+     * This function checks if the endbossscreen is active
+     * 
+     * @returns {bollean} - true if endboss screen is reached, else false
+     */
+    endbossScreen(){
+        return typeof world.endboss !== 'undefined';
+    }
+
+
+    /**
+     * This function calculates the new camera ofset
+     * 
+     * @returns {number} - camera offset as number
+     */
+    calcNewCameraOfst(){
+        let newOfst = this.hitBox.x - this.xOfst;
+        if (this.isOfstInLvlBorders(newOfst)){
+            return  newOfst;
+        } else if(this.ofstExceedsLeftBorder(newOfst)){
+           return 0;
+        } else if (this.ofstExceedsRightBorder(newOfst)){
+            return world.level.length - world.canvas.width;
+        } else {
+            return world.cameraOfst;
+        }
+    }
+
+    
+    /**
+     * This funtions checks of the offsett is wthin the level border
+     * 
+     * @param {number} newOfst - new camera offset
+     * @returns {bollean} - true if the offset is inside the level border
+     */
+    isOfstInLvlBorders(newOfst){
+        return newOfst>= 0 && newOfst <= world.level.length - world.canvas.width;
+    }
+
+
+    /**
+     * This funtions checks of the offsett exceeds the left border
+     * 
+     * @param {number} newOfst - new camera offset
+     * @returns {bollean} - true if the offset is outside the left border
+     */
+    ofstExceedsLeftBorder(newOfst){
+        return newOfst<0;
+    }
+
+
+    /**
+     * This funtions checks of the offsett exceeds the right border
+     * 
+     * @param {number} newOfst - new camera offset
+     * @returns {bollean} - true if the offset is outside the right border (lvl length - canvas width)
+     */
+    ofstExceedsRightBorder(newOfst){
+        return newOfst>world.level.length - world.canvas.width;
+    }
+
+
+    /**
+     * This function set the x direction of the offset accoring the input parameter
+     * 
+     * @param {string} dir - direction of the character 'right', 'left'
+     */
+    setDirectionX(dir){
         if (dir == 'right') {
             this.directionX = true;
-            this.xOfst = Math.max(this.xOfst - 25,200);
         } else {
             this.directionX = false;
-            this.xOfst = Math.min(this.xOfst + 25,canvas_w - this.hitBox.w - 200);
-        }        
+        }
+        this.setXOfstToCanvasBorder(dir,25,200);        
+    }
+
+    /**
+     * This function set the x ofset of the character to the canvas border 
+     * 
+     * @param {string} dir - direction of the character 'right', 'left'
+     * @param {number} dx - offset change for each iteration to ramp the offset
+     * @param {number} ofsMax - maximal offset 
+     */
+    setXOfstToCanvasBorder(dir,dx,ofsMax){
+        if (dir == 'right') {
+            this.xOfst = Math.max(this.xOfst - dx,ofsMax);
+        } else {
+            this.xOfst = Math.min(this.xOfst + dx,canvas_w - this.hitBox.w - ofsMax);
+        }  
     }
 
 
+    /**
+     * This function executs the attack of the character
+     */
     attack(){
-        if (this.state == 'IDLE' || this.state == 'MOVE' ) {
-            if (this.keyListener.S) {
+        if (this.canAttack()) {
+            if (this.keyListener.BUBBLESHOT) {
                 this.setState('attack');
                 this.attackBubbleTrap();
                 this.attackType = 'bubbleTrap';
             }
-            if (this.keyListener.SPACE) {
+            if (this.keyListener.SLAP) {
                 this.setState('attack');
                 this.attackType = 'slap';
             }
         }
     }
 
-    attackBubbleTrap(){
-        if (this.bubbleShots > 0) {
-            setTimeout(() => {
-                let xOfs = this.directionX? 80:-55;
-                let [x,y] = [this.center.x+xOfs,this.center.y+20];
-                let spdX = 4;
-                if(this.bubbleType == 'poison'){
-                    this.poison--;
-                    spdX = 6.5;
-                }
-                world.bubbles.push(new Bubble(x,y,spdX,0, this.directionX,true,this.bubbleType,'character'));
-                this.bubbleShots--;
 
-            },800);
-        }
+    /**
+     * This function executs the bubbletrap attack
+     * 
+     */
+    attackBubbleTrap(){
+        if (this.bubbleShots > 0) setTimeout(() => { this.generateBubble()},800);
+    }
+
+    /**
+     * This function generates a Bubble on the map depended the settings defined in this object
+     */
+    generateBubble(){
+        let [x,y,spdX] = this.calcBubbleKinematics();
+        if(this.bubbleType == 'poison') this.poison--;
+        world.bubbles.push(new Bubble(x,y,spdX,0, this.directionX,true,this.bubbleType,'character'));
+        this.bubbleShots--;
+    }
+
+    /**
+     * This function calculates the kinematics (x coordinate, y coordinate,speed in x)
+     * 
+     * @returns {array} - array with x,y,spdX properties
+     */
+    calcBubbleKinematics(){
+        let xOfs = this.directionX? 80:-55;
+        let [x,y] = [this.center.x+xOfs,this.center.y+20];
+        let spdX = (this.bubbleType == 'poison')? 6.5:4;
+        return [x,y,spdX]
     }
 
 
+    /**
+     * This function choose the bubble type for the bubbletrap attack
+     */
     chooseBubbleType(){
-        if (this.poison > 0) {
-            if (this.bubbleType == 'normal' && this.keyListener.D && this.bubbleChangeCnt > 20) {
-                this.bubbleType = 'poison';
-                this.bubbleChangeCnt = 0;
-            } else if(this.bubbleType == 'poison' && this.keyListener.D && this.bubbleChangeCnt > 20){
-                this.bubbleType = 'normal';
-                this.bubbleChangeCnt = 0;
-            }
-        } else {
+        if (this.canBubbleTypeChangeTo('poison') && this.poison > 0) {
+            this.bubbleType = 'poison';
+            this.bubbleChangeCnt = 0;
+        } else if(this.canBubbleTypeChangeTo('normal')) {
             this.bubbleType = 'normal';
+            this.bubbleChangeCnt = 0;
         }
         this.bubbleChangeCnt++;
     }
 
-    loadBubbleShot(){
-        setInterval(() =>{
-            if (this.bubbleShots < 3) {
-                this.bubbleShots++;
-            }
-        },3000);
+
+    /**
+     * This function checks if the bubble type can be changed
+     * 
+     * @param {string} bubbleType - bubble type which should be set 'poison', normal
+     * @returns {bollean} - true, can be changed, - can not be chaned
+     */
+    canBubbleTypeChangeTo(bubbleType){
+        return this.bubbleType != bubbleType && this.keyListener.CHANGEBUBBLE && this.bubbleChangeCnt > 20;
     }
 
+
+    /**
+     * This function reload a bubble ever 'time' seconds
+     * 
+     * @param {number} time - time in s to reload a bubble
+     * @param {number} maxBubbles - maximal bubbles for this character
+     */
+    loadBubbleShot(time,maxBubbles){
+        setInterval(() =>{
+            if (this.bubbleShots < maxBubbles) this.bubbleShots++;
+        },time*1000);
+    }
+
+
+    /**
+     * This function add all animation images of this character to the image cache
+     */
     addAnimationIMGs(){
         this.animationIMGs = ANIMATION_IMGS_CHARACTER;
         this.addIMG2Cache(this.animationIMGs.IDLE);
@@ -193,6 +358,10 @@ class Character extends FightableObject{
         this.addIMG2Cache(this.animationIMGs.DEAD_ELECTROSHOCK);
     }
 
+
+    /**
+     * This function sets the animation which has to be executed for the current character properties
+     */
     animate(){
         if (this.state == 'IDLE') {
             this.animateIDLE();
@@ -214,6 +383,10 @@ class Character extends FightableObject{
         }
     }
 
+
+    /**
+     * This function replay the animation for IDLE state
+     */
     animateIDLE(){
         if (this.isLazy(this.tAction)) {
             this.playAnimation(this.animationIMGs.LONG_IDLE,'repeat');
@@ -221,10 +394,19 @@ class Character extends FightableObject{
             this.playAnimation(this.animationIMGs.IDLE,'repeat');
         }
     }
+
+
+    /**
+     * This function replay the animation for MOVE state
+     */
     animateMOVE(){
         this.playAnimation(this.animationIMGs.SWIM,'repeat');
     }
 
+
+    /**
+     * This function replay the animation for Attack state
+     */
     animateATTACK(){
         if (this.attackType == 'bubbleTrap') {
             this.animateBubbleTrap();
@@ -233,6 +415,10 @@ class Character extends FightableObject{
         }
     }
 
+
+    /**
+     * This function replay the animation for bubble trap attack
+     */
     animateBubbleTrap(){
         if (this.bubbleShots > 0) {
             if (this.bubbleType == 'poison') {
@@ -245,10 +431,18 @@ class Character extends FightableObject{
         }
     }
 
+
+    /**
+     * This function play the animation for slap attack
+     */
     animateSlap(){
         this.playAnimation(this.animationIMGs.ATTACK_SLAP);
     }
 
+
+    /**
+     * This function play the animation for HURT state
+     */
     animateHURT(){
         if (this.hitBy == 'poison') {
             this.playAnimation(this.animationIMGs.HURT_POISON,'repeat');
@@ -257,6 +451,10 @@ class Character extends FightableObject{
         }
     }
 
+
+    /**
+     * This function play the animation for DEAD state
+     */
     animateDEAD(){
         if (this.hitBy == 'poison') {
             this.playAnimation(this.animationIMGs.DEAD_POISON);

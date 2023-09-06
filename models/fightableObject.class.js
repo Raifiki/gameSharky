@@ -36,7 +36,7 @@ class FightableObject extends MoveableObject {
     //methodes
     constructor(x,y,w,h){
         super(x,y,w,h);
-        this.setBoxes(0,0);
+        this.updateBoxes(0,0);
         this.run10();
     }
 
@@ -100,7 +100,7 @@ class FightableObject extends MoveableObject {
         }
     }
 
-    setBoxes(yOfs,xOfsHit,xOfsAtk,xOfsDet){
+    updateBoxes(yOfs,xOfsHit,xOfsAtk,xOfsDet){
         this.hitBox.x = this.center.x + xOfsHit;
         this.hitBox.y = this.center.y - this.hitBox.h/2 + yOfs;
         this.attackBox.y = this.center.y - this.attackBox.h/2 + yOfs;;
@@ -158,6 +158,15 @@ class FightableObject extends MoveableObject {
 
     isDetecting(obj){
         return this.isColliding(this.detectBox,obj.hitBox);
+    }
+
+
+    canMove(){
+        return this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK';
+    }
+
+    canAttack(){
+        return this.state == 'IDLE' || this.state == 'MOVE' ;
     }
 
     handleTimers(){

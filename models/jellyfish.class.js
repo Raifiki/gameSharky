@@ -77,7 +77,7 @@ class Jellyfish extends FightableObject {
             } else {
                 this.moveLeft();
             }
-            this.setBoxes(-2,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
+            this.updateBoxes(-2,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
             this.setState('move');
         }
     }

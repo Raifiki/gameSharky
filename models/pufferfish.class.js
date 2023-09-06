@@ -74,7 +74,7 @@ class Pufferfish extends FightableObject {
             } else {
                 this.moveLeft();
             }
-            this.setBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
+            this.updateBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
             this.setState('move');
         } else if (this.state == 'DEAD'){
             this.speedX = 1;
@@ -85,7 +85,7 @@ class Pufferfish extends FightableObject {
                 this.moveLeft();
             }
             this.moveUp();
-            this.setBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
+            this.updateBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
         }
     }
 
