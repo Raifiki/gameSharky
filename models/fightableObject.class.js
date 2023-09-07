@@ -162,13 +162,17 @@ class FightableObject extends MoveableObject {
 
 
     canMove(){
-        return this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK';
+        return this.isState('IDLE') || this.isState('HURT') || this.isState('ATTACK');
     }
 
     canAttack(){
-        return this.state == 'IDLE' || this.state == 'MOVE' ;
+        return this.isState('IDLE') || this.isState('MOVE') ;
     }
 
+    isState(state){
+        return this.state == state;
+    }
+    
     handleTimers(){
         if(!this.isAttacking(this.tAttack)){
             this.setState('attackFinished');

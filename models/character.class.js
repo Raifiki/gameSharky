@@ -89,7 +89,7 @@ class Character extends FightableObject{
             if (this.keyListener.DOWN) this.moveDown();
             this.updateBoxes(30,-this.hitBox.w/2,-5,0);
             this.updateCameraOfst();
-        } else if (this.state == 'DEAD') {
+        } else if (this.isState('DEAD')) {
             this.setMoveBehaviorDead();
         }
     }
@@ -308,7 +308,7 @@ class Character extends FightableObject{
         if (this.canBubbleTypeChangeTo('poison') && this.poison > 0) {
             this.bubbleType = 'poison';
             this.bubbleChangeCnt = 0;
-        } else if(this.canBubbleTypeChangeTo('normal')) {
+        } else if(this.canBubbleTypeChangeTo('normal') || this.poison <= 0) {
             this.bubbleType = 'normal';
             this.bubbleChangeCnt = 0;
         }
@@ -363,24 +363,11 @@ class Character extends FightableObject{
      * This function sets the animation which has to be executed for the current character properties
      */
     animate(){
-        if (this.state == 'IDLE') {
-            this.animateIDLE();
-        }
-        if (this.state == 'MOVE') {
-            this.animateMOVE();
-        }
-
-        if (this.state == 'ATTACK') {
-            this.animateATTACK();
-        }
-
-        if (this.state == 'HURT') {
-            this.animateHURT();
-        }
-
-        if (this.state == 'DEAD') {
-            this.animateDEAD();
-        }
+        if (this.isState('IDLE')) this.animateIDLE();
+        if (this.isState('MOVE')) this.animateMOVE();
+        if (this.isState('ATTACK')) this.animateATTACK();
+        if (this.isState('HURT')) this.animateHURT();
+        if (this.isState('DEAD')) this.animateDEAD();
     }
 
 
