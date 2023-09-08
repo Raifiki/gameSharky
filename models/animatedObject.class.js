@@ -1,5 +1,5 @@
 /**
-* Class representing a Animatedoject. 
+* Class representing a Animatedoject. An animated object has animations if it do things like move, attack, etc 
  * @extends DrawableObject
  */
 class AnmiatedObject extends DrawableObject {

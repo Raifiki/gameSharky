@@ -1,5 +1,5 @@
 /**
- * class representing a collectable object
+ * class representing a collectable object. A collectable object can get collected by the character
  * @extends MoveableObject
  */
 class CollectableObject extends MoveableObject{

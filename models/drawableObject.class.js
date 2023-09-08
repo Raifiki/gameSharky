@@ -1,6 +1,6 @@
 
 /**
- * Class representing a drawable object 
+ * Class representing a drawable object. A drawable object can be drawn on the canvas.
  */
 class DrawableObject {
     // Fields

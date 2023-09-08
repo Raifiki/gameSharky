@@ -16,7 +16,7 @@ class Character extends FightableObject{
     xOfst = 200;
 
     /**
-     * This function initialize an barrier object
+     * This function initialize an character object
      * 
      * @param {number} x - this is the initial x coordinate from the character
      * @param {number} y - this is the initial y coordinate from the character

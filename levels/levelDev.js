@@ -25,9 +25,9 @@ function generateLvlDev() {
             new Barrier(700,0,400,150,1),     
         ],
         [   // enemies
-            new Pufferfish(500,500,0,'green'),
-            new Pufferfish(600,400,0,'orange'),
-            new Pufferfish(700,160,0,'red'),
+            //new Pufferfish(500,500,0,'green'),
+            //new Pufferfish(600,400,0,'orange'),
+            //new Pufferfish(700,160,0,'red'),
     
             new Jellyfish(1000,100,0,0.5,'normal'),
             new Jellyfish(1100,260,0,0.5,'toxic'),

@@ -452,7 +452,7 @@ class Endboss extends FightableObject{
     animateATTACK(){
         let dt = (new Date().getTime() - this.timeStamps.startAttack)/1000
         if (dt <= 0.5) { // angry
-            // angry animation fehlt bei den Bildern
+            // no animation images for angry phase available
         } else if(dt <= 1) { // smash
             this.playAnimation(this.animationIMGs.ATTACK,'repeat');
         } else  if(dt <= 4.9){

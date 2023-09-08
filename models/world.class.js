@@ -119,7 +119,7 @@ class World {
         setInterval(() => {
             this.addEndbos();
             //delete at end
-            //this.showWorldState();
+            this.showWorldState();
             //delete at end
         }, 200);
     }
