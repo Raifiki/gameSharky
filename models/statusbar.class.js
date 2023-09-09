@@ -1,3 +1,6 @@
+/**
+ * Class representing a Statusbar
+ */
 class Statusbar {
     //fields
     x;
@@ -29,6 +32,15 @@ class Statusbar {
     ];
 
     // methodes
+    /**
+     * This function initialize an status bar object
+     * 
+     * @param {number} x - this is the initial x coordinate 
+     * @param {number} y - this is the initial y coordinate 
+     * @param {number} w - this is the initial width
+     * @param {number} h - this is the initial height
+     * @param {boolean} dir - this is the direction
+     */
     constructor(x,y,w,h,dir){
         this.x = x;
         this.y = y;
@@ -39,20 +51,45 @@ class Statusbar {
         this.addIMG2Cache(this.imgBarPurpel);
     }
 
-    draw(ctx){
-        this.update();
-        this.setPercentage ();
-        if (this.direction) {
-            ctx.drawImage(this.img,this.x,this.y,this.width,this.height); 
-            this.drawTxt(ctx);
-        } else {
-            this.flipImg(ctx)
-            this.drawTxt(ctx);
-        }
 
+    /**
+     * This function draw the image on the canvas element in the correct direction
+     * 
+     * @param {CanvasRenderingContext2D} ctx - context of the canvas where the imgeg will be draw 
+     */
+    draw(ctx){
+        this.updateBar();
+        (this.direction)? this.drawBarPosX(ctx) : this.drawBarNegX(ctx);
     }
 
 
+    /**
+     * This function draw the iamge in the positive x direction (right)
+     * 
+     * @param {CanvasRenderingContext2D} ctx - context of the canvas where the imgeg will be draw 
+     */
+    drawBarPosX(ctx){
+        ctx.drawImage(this.img,this.x,this.y,this.width,this.height); 
+        this.drawTxt(ctx);
+    }
+
+
+    /**
+     * This function draw the iamge in the negative x direction (left)
+     * 
+     * @param {CanvasRenderingContext2D} ctx - context of the canvas where the imgeg will be draw 
+     */
+    drawBarNegX(ctx){
+        this.flipImg(ctx)
+        this.drawTxt(ctx);
+    }
+
+
+    /**
+     * This function add a Text next to the bar image to the canvas
+     * 
+     * @param {CanvasRenderingContext2D} ctx - context of the canvas where the imgeg will be draw 
+     */
     drawTxt(ctx){
         ctx.font = "30px Arial";
         if (this.direction) {
@@ -68,16 +105,21 @@ class Statusbar {
     }
 
 
-    setPercentage (){
-        let path;
-        if (this.direction) {
-            path = this.imgBarOrange[this.resolveImg ()];
-        } else {
-            path = this.imgBarPurpel[this.resolveImg ()];
-        }
+    /**
+     * This function set the correct image dependent on the percentage health points of the character
+     */
+    loadIMG (){
+        let idxPaths = this.resolveImg ();
+        let path = (this.direction)?this.imgBarOrange[idxPaths]:this.imgBarPurpel[idxPaths];
         this.img = this.imgCache[path];
     }
 
+
+    /**
+     * This function checks which image has to be used depended on the health points of the character
+     * 
+     * @returns {number} - index of the array with the paths for the images, this.imgBarOrange, this.imgBarPurpel
+     */
     resolveImg (){
         if (this.percentageLP == 100) {
             return 5;
@@ -94,6 +136,12 @@ class Statusbar {
         }
     }
 
+
+    /**
+     * This function flips the image in the other direction
+     * 
+     * @param {CanvasRenderingContext2D} ctx - context of the canvas where the imgeg will be draw 
+     */
     flipImg(ctx){
         ctx.save();
         ctx.scale(-1, 1);
@@ -102,10 +150,21 @@ class Statusbar {
         ctx.restore()
     }
 
-    update(){
+
+    /**
+     * This function updates the percentage health points of this character
+     */
+    updateBar(){
         this.percentageLP = this.character.health/this.character.maxHealth * 100;
+        this.loadIMG ();
     }
 
+
+    /**
+     * This function add images to the image cache of this bar object
+     * 
+     * @param {array} imgPaths - an array with one string for each image wich has to be added
+     */
     addIMG2Cache(imgPaths){
         imgPaths.forEach(path => {
             let img = new Image();
@@ -113,5 +172,4 @@ class Statusbar {
             this.imgCache[path] = img;
         });
     }
-
 }

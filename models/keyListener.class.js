@@ -1,3 +1,6 @@
+/**
+ * Class representing the key listener
+ */
 class KeyListener {
     LEFT = false;
     RIGHT = false;

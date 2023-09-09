@@ -15,9 +15,9 @@ function generateLvlDev() {
                 './img/03_Background/Layers/2_Floor/D2.png',
                 './img/03_Background/Layers/1_Light/2.png',
             ],
-            animated:[
+            //animated:[
     
-            ]
+            //]
         },
         [
             new Barrier(500,450,400,150,0),
@@ -25,11 +25,11 @@ function generateLvlDev() {
             new Barrier(700,0,400,150,1),     
         ],
         [   // enemies
-            //new Pufferfish(500,500,0,'green'),
-            //new Pufferfish(600,400,0,'orange'),
-            //new Pufferfish(700,160,0,'red'),
+            new Pufferfish(500,500,0,'green'),
+            new Pufferfish(600,400,0,'orange'),
+            new Pufferfish(700,160,0,'red'),
     
-            new Jellyfish(1000,100,0,0.5,'normal'),
+            //new Jellyfish(1000,100,0,0.5,'normal'),
             new Jellyfish(1100,260,0,0.5,'toxic'),
         ],
         [   

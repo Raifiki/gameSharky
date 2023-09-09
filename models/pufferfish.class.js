@@ -1,8 +1,20 @@
+/**
+ * Class representing a pufferfish
+ * @extends FightableObject
+ */
 class Pufferfish extends FightableObject {
     //fields
     cntItems = 1;
     type;
     //methodes
+    /**
+     * This function initialize an pufferfish object
+     * 
+     * @param {number} x - this is the initial x coordinate of a pufferfish
+     * @param {number} y - this is the initial y coordinate of a pufferfish
+     * @param {number} spdY - Speed in y direction
+     * @param {string} type - type of the pufferfish, 'green', 'orange', 'red'
+     */
     constructor(x,y,spdY,type){
         super(x,y,80,80);
         
@@ -33,23 +45,10 @@ class Pufferfish extends FightableObject {
         this.PFrun100();
     }
 
-    setType(type){
-        this.type = type;
-        if (type == 'green') {
-            this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/g1.png');
-            this.speedX = 1;
-        }
-        if (type == 'orange') {
-            this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/o1.png');
-            this.speedX = 1.5;
-        }
-        if (type == 'red') {
-            this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/r1.png');
-            this.speedX = 2;
-        }
-    }
 
-
+    /**
+     * This function generates the 10ms game loop for the pufferfish. If the global gamestate is run the loop functions will be executed
+     */
     PFrun10(){
         setInterval(() => {
             if (gameState == 'RUN') {
@@ -59,57 +58,153 @@ class Pufferfish extends FightableObject {
         },10)
     }
 
+
+    /**
+     * This function generates the 100ms game loop for the pufferfish. If the global gamestate is run the loop functions will be executed
+     */
     PFrun100(){
         setInterval(() =>{
             this.animate();
         },100)
     }
 
+    
+    /**
+     * This function set the type of the pufferfish
+     * 
+     * @param {*} type 
+     */
+    setType(type){
+        this.type = type;
+        if (type == 'green') this.setTypeGreen();
+        if (type == 'orange') this.setTypeOrange();
+        if (type == 'red') this.setTypeRed();
+    }
+
+
+    /**
+     * This function set the properties of a green pufferfish
+     */
+    setTypeGreen(){
+        this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/g1.png');
+        this.speedX = 1;
+    }
+
+    /**
+     * This function set the properties of a orange pufferfish
+     */
+    setTypeOrange(){
+        this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/o1.png');
+        this.speedX = 1.5;
+    }
+
+
+    /**
+     * This function set the properties of a red pufferfish
+     */
+    setTypeRed(){
+        this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/r1.png');
+        this.speedX = 2;
+    }
+
+
+    /**
+     * This function moves the pufferfish according the direction and speed of this object
+     */
     move(){
         this.setState('idle');
-        if (this.state == 'IDLE' || this.state == 'HURT' || this.state == 'ATTACK') {
+        if (this.canMove()) {
             this.setMoveBehavior();
-            if (this.directionX) {
-                this.moveRight();
-            } else {
-                this.moveLeft();
-            }
-            this.updateBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
+            (this.directionX)? this.moveRight(): this.moveLeft();
             this.setState('move');
-        } else if (this.state == 'DEAD'){
-            this.speedX = 1;
-            this.speedY = 5;
-            if (this.directionX) {
-                this.moveRight();
-            } else {
-                this.moveLeft();
-            }
-            this.moveUp();
-            this.updateBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
+        } else if (this.isState('DEAD')){
+            this.setMoveBehaviorDead();
         }
+        this.updateBoxes(-10,-this.hitBox.w/2,-this.attackBox.w/2,-this.detectBox.w/2);
     }
 
+
+    /**
+     * This function set the moving behavior
+     */
     setMoveBehavior(){
-        if (this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right')) {
-            this.directionX = !this.directionX;
-        }
-        if (this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom')) {
-            this.directionY = !this.directionY;
-        }
+        this.setMBMovingAtBorders();
     }
 
+    /**
+     * This function set the moveing properties if the pufferfish is colliding to the level border or a barrier
+     */
+    setMBMovingAtBorders(){
+        if (this.isCollisionWithBorderX()) this.directionX = !this.directionX;
+        if (this.isCollisionWithBorderY()) this.directionY = !this.directionY;
+    }
+    
+
+    /**
+     * This function checks if the pufferfish is colliding with the level border or an barrier in x direction
+     * 
+     * @returns {boolean} - true: is colliding, false: is not colliding
+     */
+    isCollisionWithBorderX(){
+        return this.checklvlBorder('left') || this.checkBarrier('left') || this.checklvlBorder('right') || this.checkBarrier('right');
+    }
+
+
+    /**
+     * This function checks if the pufferfish is colliding with the level border or an barrier in y direction
+     * 
+     * @returns {boolean} - true: is colliding, false: is not colliding
+     */
+    isCollisionWithBorderY(){
+        return this.checklvlBorder('top') || this.checkBarrier('top') || this.checklvlBorder('bottom') || this.checkBarrier('bottom');
+    }
+
+
+    /**
+     * This function set the move behavior of the pufferfish if it is dead
+     */
+    setMoveBehaviorDead(){
+        this.speedX = 1;
+        this.speedY = 5;
+        (this.directionX)? this.moveRight() : this.moveLeft();
+        this.moveUp();
+    }
+
+
+    /**
+     * This function drop the item if the object is removed from the map
+     */
     dropItem(){
-        if (this.state == 'DEAD' && this.cntItems > 0) {
-            if (this.type == 'red') {
-                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,'heart'));  
-            } else {
-                world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,'coin'));       
-            }
+        if (this.canDropItem()) {
+            (this.type == 'red')? this.generateItem('heart'): this.generateItem('coin');      
             this.cntItems--; 
         }
     }
 
 
+    /**
+     * This function checks if the object can drop a Item
+     * 
+     * @returns {boolean} true: drop item, false: don't drop item
+     */
+    canDropItem(){
+        return this.isState('DEAD') && this.cntItems > 0;
+    }
+
+
+    /**
+     * This function generates the item on the map
+     * 
+     * @param {string} type - defines the type of the item, 'coin', 'poison', 'heart'
+     */
+    generateItem(type){
+        world.level.collectables.push(new CollectableObject(this.center.x,this.center.y,type));  
+    }
+
+
+    /**
+     * This function add all animation images of the pufferfish to the image cache
+     */
     addAnimationIMGs(){
         this.animationIMGs = ANIMATION_IMGS_PUFFERFISH;
         this.addIMG2Cache(this.animationIMGs.green.SWIM);
@@ -121,18 +216,19 @@ class Pufferfish extends FightableObject {
     }
 
 
+    /**
+     * This function sets the animation which has to be executed for the current pufferfish properties
+     */
     animate(){
-        if (this.state == 'MOVE') {
-            this.animateMOVE();
-        }
-        if (this.state == 'HURT') {
-            this.playAnimation(this.animationIMGs.HURT,'repeat');
-        }   
-        if (this.state == 'DEAD') {
-            this.animateDEAD();
-        } 
+        if (this.isState('MOVE')) this.animateMOVE();
+        if (this.isState('HURT')) this.playAnimation(this.animationIMGs.HURT,'repeat');
+        if (this.isState('DEAD')) this.animateDEAD();
     }
 
+
+    /**
+     * This function replay the animation for MOVE state
+     */
     animateMOVE(){
         if (this.type == 'green') {
             this.playAnimation(this.animationIMGs.green.SWIM,'repeat');
@@ -145,6 +241,10 @@ class Pufferfish extends FightableObject {
         }
     }
 
+
+    /**
+     * This function replay the animation for Dead state
+     */
     animateDEAD(){
         if (this.type == 'green') {
             this.playAnimation(this.animationIMGs.green.DEAD,'repeat');

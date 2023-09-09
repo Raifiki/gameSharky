@@ -33,7 +33,7 @@ class DrawableObject {
 
 
     /**
-     * THis function draw the image on the canvas element in the correct direction
+     * This function draw the image on the canvas element in the correct direction
      * 
      * @param {CanvasRenderingContext2D} ctx - context of the canvas where the imgeg will be draw 
      * @param {number} ofst - x-offset of the canvas relative to the origon of the map 

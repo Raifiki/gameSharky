@@ -1,3 +1,8 @@
+/**
+ * This function generates the 1st level of the game
+ * 
+ * @returns {Level} - level object with all enemies, barriers, collectable objects, length and height
+ */
 function generateLvl1(){
     return new Level( 
         { // Background: Images + small fishes

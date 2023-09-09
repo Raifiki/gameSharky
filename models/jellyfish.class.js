@@ -108,7 +108,7 @@ class Jellyfish extends FightableObject {
 
 
     /**
-     * This function moves the character according the direction and speed of this object
+     * This function moves the jellyfish according the direction and speed of this object
      */
     move(){
         this.setState('idle');
@@ -347,7 +347,7 @@ class Jellyfish extends FightableObject {
      * @returns {boolean} true: drop item, false: don't drop item
      */
     canDropItem(){
-        return this.state == 'REMOVE' && this.cntItems>0;
+        return this.isState('REMOVE') && this.cntItems>0;
     }
 
 
@@ -387,10 +387,10 @@ class Jellyfish extends FightableObject {
      * This function sets the animation which has to be executed for the current jellyfish properties
      */
     animate(){
-        if (this.state == 'MOVE') this.animateMOVE();
-        if (this.state == 'ATTACK') this.animateATTACK();
-        if (this.state == 'HURT') this.animateHURT();
-        if (this.state == 'DEAD') this.animateDEAD();
+        if (this.isState('MOVE')) this.animateMOVE();
+        if (this.isState('ATTACK')) this.animateATTACK();
+        if (this.isState('HURT')) this.animateHURT();
+        if (this.isState('DEAD')) this.animateDEAD();
     }
 
 
