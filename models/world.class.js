@@ -14,7 +14,7 @@ class World {
                    new Statusicon(250,100,30,30,'bubble'),
                 ]
     bubbles = [];
-    endboss;
+    endboss = false;
     keyListener;
 
     cameraOfst = 0;
@@ -39,8 +39,6 @@ class World {
         this.statusIcons[0].character = this.character[0];
         this.statusIcons[1].character = this.character[0];
         this.statusIcons[2].character = this.character[0];
-
-        gameState = 'RUN';
 
         this.drawMap();
         this.run10();
@@ -76,7 +74,7 @@ class World {
         
         //delete Code
         //this.drawCameraView();
-        this.showCamOfsOnMap()
+        //this.showCamOfsOnMap()
         //delete Code
 
         let self = this;
@@ -320,7 +318,7 @@ class World {
         this.level.barrier.push(new Barrier(6700,265,150,70,2));
         this.endboss = new Endboss (this.level.length - 500,0);
         this.level.enemies.push(this.endboss);
-        //this.addJellyfish();
+        this.addJellyfish();
         this.addPufferfish();
         this.statusBars.push(new Statusbar(canvas_w - 280,20,250,70,false));
         this.statusBars[1].character =this.endboss;
@@ -332,9 +330,11 @@ class World {
      */
     addJellyfish(){
         setInterval(() => {
-            let y = Math.random()*(this.level.height - 150);
-            let x = this.level.length - 101;
-            this.level.enemies.push(new Jellyfish(x,y,0.2,0.2,'toxic'))
+            if (this.isCharacterInEBSector()) {
+                let y = Math.random()*(this.level.height - 150);
+                let x = this.level.length - 101;
+                this.level.enemies.push(new Jellyfish(x,y,0.2,0.2,'toxic'))
+            }
         }, 40000);
     }
 
@@ -344,9 +344,23 @@ class World {
      */
     addPufferfish(){
         setInterval(() => {
-            let y = Math.random()*(this.level.height - 150);
-            let x = this.level.length - 101;
-            this.level.enemies.push(new Pufferfish(x,y,0,'red'))
+            if (this.isCharacterInEBSector()) {
+                let y = Math.random()*(this.level.height - 150);
+                let x = this.level.length - 101;
+                this.level.enemies.push(new Pufferfish(x,y,0,'red'))
+            }
         }, 25000);
+    }
+
+
+    /**
+     * This function resets the world
+     * 
+     */
+    resetWorld(level){
+        this.level.clearLevel();
+        this.level = level;
+        this.character[0].resetCharacter();
+        this.endboss = false;
     }
 }

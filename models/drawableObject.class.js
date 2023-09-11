@@ -46,7 +46,7 @@ class DrawableObject {
             } else {
                 this.flipImg(ctx,xCanvas);
             }
-            this.drawFrames(ctx,ofst);
+            //this.drawFrames(ctx,ofst);
         }
     }
 

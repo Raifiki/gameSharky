@@ -44,16 +44,47 @@
     <script src="./models/world.class.js"></script>
 
     <!-- include script -->
-    <script src="./js/game.js"></script>
     <script src="./js/animations.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./levels/levelDev.js"></script>
+    <script src="./templates/templatesHTML"></script>
+    <script src="./js/page.js"></script>
+    <script src="./js/game.js"></script>
+
+
     
 </head>
 
 <body onload="init()">
 <h1>Sharky</h1>
-<canvas id="canvas" width="1200" height="600"></canvas>
+<div id="gameWindow">
+    <div id="startScreen" class="contentGameWindow">
+        <button class="menuBtn" onclick="startGame()">start game</button>
+        <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate())">settings and control</button>
+        <button class="menuBtn" onclick="showOverlay(getIntroductionHTMLTemplate())">introduction</button>
+    </div>
+    <div id="gameScreen" class="contentGameWindow">
+        <canvas id="gameCanvas" width="1200" height="600"></canvas>
+        <div id="gameBtnGroup">
+            <button class="gameBtn">mute</button>
+            <button class="gameBtn" onclick="pauseGame()">settings</button>
+            <button class="gameBtn">fullscreen</button>
+        </div>
+        <div id="joystick">Joystick</div>
+    </div>
+    
+    <div id="pauseScreen" class="contentGameWindow">
+        <button class="menuBtn" onclick="resumeGame()">resume</button>
+        <button class="menuBtn" onclick="resetGame() ">restart game</button>
+        <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate())">settings and control</button>
+        <button class="menuBtn" onclick="showOverlay(getIntroductionHTMLTemplate())">introduction</button>
+        <button class="menuBtn" onclick="exitGame()">exit game</button>
+    </div>
+    <div id="overlay" class="d-none">
+        <div id="ovlyCard">Ich bin die Karte</div>
+        <button class="menuBtn" onclick="hideOverlay()">close</button>
+    </div>
+</div>
 </body>
 
 </html>

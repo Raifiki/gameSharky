@@ -1,0 +1,35 @@
+function getIntroductionHTMLTemplate(){
+    return /*html*/`
+        Ich bin die Introduction
+    `
+}
+
+function getSettingsHTMLTemplate(){
+    return /*html*/`
+        Ich bin die Einstellung
+    `
+}
+
+function getLooseScreenHTMLTemplate(){
+    return /*html*/`
+        Ich bin der LooseScreen
+    `
+}
+
+function getWinScreenHTMLTemplate(){
+    return /*html*/`
+        Ich bin der WinScreen
+    `
+}
+
+function getWinScreenHTMLTemplate(){
+    return /*html*/`
+        Ich bin der WinScreen
+    `
+}
+
+function getLoadingScreenHTMLTemplate(){
+    return /*html*/`
+        Ich bin der LoadingScreen
+    `
+}

@@ -10,7 +10,7 @@ class Character extends FightableObject{
     poison = 1;
 
     bubbleShots = 0;
-    bubbleType = 'normal'
+    bubbleType = 'normal';
     bubbleChangeCnt = 0;
 
     xOfst = 200;
@@ -166,7 +166,7 @@ class Character extends FightableObject{
      * @returns {bollean} - true if endboss screen is reached, else false
      */
     endbossScreen(){
-        return typeof world.endboss !== 'undefined';
+        return world.endboss instanceof Endboss;
     }
 
 
@@ -177,6 +177,7 @@ class Character extends FightableObject{
      */
     calcNewCameraOfst(){
         let newOfst = this.hitBox.x - this.xOfst;
+        //if (gameState == 'PAUSED')debugger;
         if (this.isOfstInLvlBorders(newOfst)){
             return  newOfst;
         } else if(this.ofstExceedsLeftBorder(newOfst)){
@@ -233,7 +234,7 @@ class Character extends FightableObject{
         } else {
             this.directionX = false;
         }
-        this.setXOfstToCanvasBorder(dir,25,200);        
+        this.setXOfstToCanvasBorder(dir,10,200);        
     }
 
     /**
@@ -450,5 +451,22 @@ class Character extends FightableObject{
         }
     }
 
+
+    /**
+     * This function resets the character
+     */
+    resetCharacter(){
+        this.x = 200;
+        this.y = 175;
+        this.speedX = 6;
+        this.speedY = 6;
+        this.calcCenter();
+        this.coins = 0;
+        this.poison = 1;
+        this.bubbleShots = 0;
+        this.bubbleType = 'normal';
+        this.health = this.maxHealth;
+        this.state = 'IDLE';
+    }
 }
 

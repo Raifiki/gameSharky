@@ -115,4 +115,14 @@ class Level {
     xCoordinateIMG2(sector){
         return (sector * 2 + 1) * canvas_w/2-1;
     }
+
+    /**
+     * This function clear this level
+     */
+    clearLevel(){
+        this.enemies.forEach(e => e.state = 'REMOVE');
+        setTimeout(()=> this.collectables = [],1000);
+        this.barrier = [];
+        this.background = [];
+    }
 }

@@ -29,7 +29,7 @@ function generateLvlDev() {
             new Pufferfish(600,400,0,'orange'),
             new Pufferfish(700,160,0,'red'),
     
-            //new Jellyfish(1000,100,0,0.5,'normal'),
+            new Jellyfish(1000,100,0,0.5,'normal'),
             new Jellyfish(1100,260,0,0.5,'toxic'),
         ],
         [   

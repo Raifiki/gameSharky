@@ -347,7 +347,7 @@ class Jellyfish extends FightableObject {
      * @returns {boolean} true: drop item, false: don't drop item
      */
     canDropItem(){
-        return this.isState('REMOVE') && this.cntItems>0;
+        return this.isState('DEAD') && this.cntItems>0;
     }
 
 

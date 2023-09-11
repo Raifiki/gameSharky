@@ -8,14 +8,6 @@ let gameState = 'IDLE';
 let keyListener = new KeyListener();
 
 // functions
-
-function init(){
-    canvas = document.getElementById('canvas');
-    let level = generateLvlDev();
-    world = new World(canvas,keyListener,level);
-}
-
-
 document.addEventListener('keydown',(event) => {
     if (event.key == 'ArrowRight'){
         keyListener.RIGHT = true;
@@ -37,7 +29,10 @@ document.addEventListener('keydown',(event) => {
     }
     if (event.key == 'd'){
         keyListener.CHANGEBUBBLE = true;
-    }             
+    }
+    if (event.key == 'Escape'){
+        (gameState == 'PAUSED')? resumeGame():pauseGame();
+    }               
 });
 
 document.addEventListener('keyup',(event) => {

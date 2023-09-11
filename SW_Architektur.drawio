@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-09-06T19:51:57.714Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="4135K-kQ51HCqN99cw1J" version="21.2.1" type="device">
-  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1648" dy="1961" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+<mxfile host="Electron" modified="2023-09-10T19:24:56.136Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="laHa8s-b1sQvkCS46zwK" version="21.2.1" type="device" pages="2">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="ClassTree">
+    <mxGraphModel dx="1863" dy="1783" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -1032,11 +1032,124 @@
         <mxCell id="7m6XIUOffLkH2ZnsS2VB-1" value="Balancing Table&#xa;&#xa;&#xa;Property Sharky Pufferfish Jellyfish(normal) Jellyfish(super) Whale EB Whale EB Jellyfish Bubble(normal) Bubble(Poison) &#xa;Health 100 20 30 30 40 200 250 - - &#xa;Damage 30 15 10 10 20 30 30 20 30 &#xa;      Bit: 1.2 Smash: 1.3&#xa;      Smash: 1.3&#xa;AttackRate[s] 0.25 - - 2 3 Smash 3 Smash 3 - - &#xa;      Bit 1 Shot 2 detect&#xa;       Shot 4 no det.&#xa;HurtRate[s] 0.5 0.5 0.5 0.5 0.5 0.5 0.5 - - &#xa;Speed 1 0.7 0.7 0.7 0.6 0.8 0.8 1.2 1.5 &#xa;   Detected &lt;0.9 Detected &lt;1.1 Detect &lt;1.2 Smash &lt;1.5 smash &lt;1.5&#xa;       Shot &lt;1&#xa;DeadTransission[s] 1 0.5 0.5 0.5 0.5 1 1 - -" style="text;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="2000" y="-780" width="560" height="270" as="geometry" />
         </mxCell>
-        <mxCell id="CFduWZYhlFXPeTnducJ4-0" value="ToDo&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Code aufräumen&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- Object baum aktuallieren&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- sounds&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Feedback einholen&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Spielmenu erstellen&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Responsive + Handy (Touch)&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="CFduWZYhlFXPeTnducJ4-0" value="ToDo&lt;br&gt;&lt;div style=&quot;&quot;&gt;- Object baum aktuallieren&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;- sounds&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Spielmenu erstellen&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- Responsive + Handy (Touch)&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="810" y="-850" width="340" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="mEgBedNR0qoh6N-R5ODP-0" value="&lt;div&gt;Definition für Spiel:&lt;/div&gt;&lt;div&gt;- Alle x und y Werte sind an den absoluten Punkte 0,0 ausgerichtet&lt;/div&gt;&lt;div&gt;- directionX = true ist nach rechts, false nach links&lt;/div&gt;&lt;div&gt;- directionY = true ist nach oben, false nach unten&lt;/div&gt;&lt;div&gt;- alle Geschwindigkeiten sind absolute Werte (positive Werte)&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="mEgBedNR0qoh6N-R5ODP-0" value="&lt;div&gt;Definition für Spiel:&lt;/div&gt;&lt;div&gt;- Alle x und y Werte sind an den absoluten Punkte 0,0 ausgerichtet&lt;/div&gt;&lt;div&gt;- directionX = true ist nach rechts, false nach links&lt;/div&gt;&lt;div&gt;- directionY = true ist nach oben, false nach unten&lt;/div&gt;&lt;div&gt;- alle Geschwindigkeiten sind absolute Werte (positive Werte)&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="-480" y="-180" width="450" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="7bAFeWH69bxl-fKfRQjC" name="HTMLPages">
+    <mxGraphModel dx="1863" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-1" target="AToX8-r_ScKB5UE81Gdd-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-1" target="AToX8-r_ScKB5UE81Gdd-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-1" target="AToX8-r_ScKB5UE81Gdd-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="145" />
+              <mxPoint x="480" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-1" value="StartPage&lt;br&gt;Control, Info, StartGame" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="1">
+          <mxGeometry x="160" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-2" target="AToX8-r_ScKB5UE81Gdd-26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-2" target="AToX8-r_ScKB5UE81Gdd-28">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-2" value="WinPage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry x="310" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-3" target="AToX8-r_ScKB5UE81Gdd-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-10" y="570" />
+              <mxPoint x="-10" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-3" target="AToX8-r_ScKB5UE81Gdd-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-10" y="570" />
+              <mxPoint x="-10" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-3" value="LostPage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry x="50" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-4" target="AToX8-r_ScKB5UE81Gdd-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="414" y="220" />
+              <mxPoint x="250" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-4" target="AToX8-r_ScKB5UE81Gdd-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-4" target="AToX8-r_ScKB5UE81Gdd-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-4" target="AToX8-r_ScKB5UE81Gdd-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-4" value="PausePage&lt;br&gt;Resume, Controll, Info, Startpage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="1">
+          <mxGeometry x="354" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-5" target="AToX8-r_ScKB5UE81Gdd-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-5" value="Controll and Settings&lt;br&gt;Keys, Difficulty,Sound??" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry x="560" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-6" target="AToX8-r_ScKB5UE81Gdd-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-6" value="LoadingScreen&lt;br&gt;Show Control" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry x="160" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-7" target="AToX8-r_ScKB5UE81Gdd-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-7" value="Information&lt;br&gt;Explain Enemy and Character" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry x="560" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-8" target="AToX8-r_ScKB5UE81Gdd-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-8" target="AToX8-r_ScKB5UE81Gdd-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="AToX8-r_ScKB5UE81Gdd-8" target="AToX8-r_ScKB5UE81Gdd-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-8" value="GamePage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="1">
+          <mxGeometry x="160" y="410" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-26" value="LoadingPage(NextLevel)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="555" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AToX8-r_ScKB5UE81Gdd-28" value="StartPage (GameFinsished)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="625" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

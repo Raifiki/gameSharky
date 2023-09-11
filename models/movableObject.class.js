@@ -6,6 +6,8 @@ class MoveableObject extends AnmiatedObject {
     speedX = 0;
     speedY = 0;
 
+    
+
     //method
     /**
      * This function initialize an moveable object
