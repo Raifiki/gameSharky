@@ -61,7 +61,7 @@ class Statusicon {
      * @param {CanvasRenderingContext2D} ctx - context of the canvas where the imgeg will be draw 
      */
     drawTxt(ctx){
-        ctx.font = "30px Arial";
+        ctx.font = "30px LuckiestGuys";
         ctx.fillStyle = "orange";
         ctx.textAlign = "left";
         ctx.fillText(this.amount, this.x + this.width/2 + 25,this.y + this.height/2 + 11);	

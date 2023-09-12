@@ -57,4 +57,42 @@ document.addEventListener('keyup',(event) => {
     if (event.key == 'd'){
         keyListener.CHANGEBUBBLE = false;
     }      
-}); 
+});
+
+
+function registerEventListeners(){
+    registerSlapAttackBtn();
+    registerBubbleShotAttackBtn();
+    registerBubbleChangeBtn();
+}
+
+
+function registerSlapAttackBtn(){
+    document.getElementById('slapAttackBtn').addEventListener('mousedown',event =>{
+        keyListener.SLAP = true;
+    });
+    
+    document.getElementById('slapAttackBtn').addEventListener('mouseup',event =>{
+        keyListener.SLAP = false;
+    });
+}
+
+function registerBubbleShotAttackBtn(){
+    document.getElementById('bubbleShotAttackBtn').addEventListener('mousedown',event =>{
+        keyListener.BUBBLESHOT = true;
+    });
+    
+    document.getElementById('bubbleShotAttackBtn').addEventListener('mouseup',event =>{
+        keyListener.BUBBLESHOT = false;
+    });
+}
+
+function registerBubbleChangeBtn(){
+    document.getElementById('bubbleChangeBtn').addEventListener('mousedown',event =>{
+        keyListener.CHANGEBUBBLE = true;
+    });
+    
+    document.getElementById('bubbleChangeBtn').addEventListener('mouseup',event =>{
+        keyListener.CHANGEBUBBLE = false;
+    });
+}

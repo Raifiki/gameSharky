@@ -120,9 +120,26 @@ class Level {
      * This function clear this level
      */
     clearLevel(){
-        this.enemies.forEach(e => e.state = 'REMOVE');
-        this.collectables = [],
+        this.clearEnemies();
+        this.clearCollectables();
         this.barrier = [];
         this.background = [];
+    }
+
+
+    /**
+     * This function clears all enemies in the level
+     */
+    clearEnemies(){
+        this.enemies.forEach(e => {
+            e.clearRunIntervalls();
+            e.state = 'REMOVE';
+        });
+    }
+
+
+    clearCollectables(){
+        this.collectables.forEach(c => c.clearRunIntervalls());
+        this.collectables = [];
     }
 }

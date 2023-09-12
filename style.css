@@ -73,7 +73,7 @@ body{
     max-width: 100%;
 }
 
-#gameBtnGroup{
+#gameBtnGroupMenu{
     position: absolute;
     right: 20px;
     top: 20px;
@@ -89,6 +89,15 @@ body{
     border-radius: 40%;
     left: 20px;
     bottom: 20px;
+    background-color: var(--accClr);
+}
+
+#gameBtnGroupCtrl{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 100px;
+    height: 100px;
     background-color: var(--accClr);
 }
 

@@ -91,7 +91,7 @@ class Statusbar {
      * @param {CanvasRenderingContext2D} ctx - context of the canvas where the imgeg will be draw 
      */
     drawTxt(ctx){
-        ctx.font = "30px Arial";
+        ctx.font = "30px LuckiestGuys";
         if (this.direction) {
             ctx.textAlign = "left";
             ctx.fillStyle = "orange";

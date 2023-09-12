@@ -177,7 +177,6 @@ class Character extends FightableObject{
      */
     calcNewCameraOfst(){
         let newOfst = this.hitBox.x - this.xOfst;
-        //if (gameState == 'PAUSED')debugger;
         if (this.isOfstInLvlBorders(newOfst)){
             return  newOfst;
         } else if(this.ofstExceedsLeftBorder(newOfst)){
@@ -453,20 +452,10 @@ class Character extends FightableObject{
 
 
     /**
-     * This function resets the character
+     * This function clears the character
      */
-    resetCharacter(){
-        this.x = 200;
-        this.y = 175;
-        this.speedX = 6;
-        this.speedY = 6;
-        this.calcCenter();
-        this.coins = 0;
-        this.poison = 1;
-        this.bubbleShots = 0;
-        this.bubbleType = 'normal';
-        this.health = this.maxHealth;
-        this.state = 'IDLE';
+    clearCharacter(){
+        this.clearRunIntervalls();
     }
 }
 

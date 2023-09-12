@@ -30,19 +30,27 @@ class World {
     constructor(canvas,keyListener,level){
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.level = level;
-
         this.keyListener = keyListener;
-        this.character[0].keyListener = keyListener;
+        this.initWorld(level);
 
-        this.statusBars[0].character = this.character[0];
-        this.statusIcons[0].character = this.character[0];
-        this.statusIcons[1].character = this.character[0];
-        this.statusIcons[2].character = this.character[0];
 
         this.drawMap();
         this.run10();
         this.run200();
+    }
+
+
+    /**
+     * This function initialize a new character, level and statusbars and status icons
+     */
+    initWorld(level){
+        this.level = level;
+        this.character[0].keyListener = this.keyListener;
+        this.statusBars[0].character = this.character[0];
+        this.statusIcons[0].character = this.character[0];
+        this.statusIcons[1].character = this.character[0];
+        this.statusIcons[2].character = this.character[0];
+        this.endboss = false;
     }
 
 
@@ -360,8 +368,8 @@ class World {
      */
     resetWorld(level){
         this.level.clearLevel();
-        this.level = level;
-        this.character[0].resetCharacter();
-        this.endboss = false;
+        this.character[0].clearCharacter();
+        this.character[0] = new Character(200,175);
+        this.initWorld(level);
     }
 }

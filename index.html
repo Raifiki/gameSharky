@@ -65,12 +65,17 @@
     </div>
     <div id="gameScreen" class="contentGameWindow">
         <canvas id="gameCanvas" width="1200" height="600"></canvas>
-        <div id="gameBtnGroup">
-            <button class="gameBtn">mute</button>
-            <button class="gameBtn" onclick="pauseGame()">settings</button>
-            <button class="gameBtn">fullscreen</button>
+        <div id="gameBtnGroupMenu">
+            <button class="gameBtnMenu">mute</button>
+            <button class="gameBtnMenu" onclick="pauseGame()">settings</button>
+            <button class="gameBtnMenu">fullscreen</button>
         </div>
         <div id="joystick">Joystick</div>
+        <div id="gameBtnGroupCtrl">
+            <button id="slapAttackBtn">Slap</button>
+            <button id="bubbleShotAttackBtn">Bubbletrap</button>
+            <button id="bubbleChangeBtn">BubbleChange</button>
+        </div>
     </div>
     
     <div id="pauseScreen" class="contentGameWindow">

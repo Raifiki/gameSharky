@@ -6,6 +6,7 @@ function init(){
     canvas = document.getElementById('gameCanvas');
     let level = generateLvlDev();
     world = new World(canvas,keyListener,level);
+    registerEventListeners();
 }
 
 
@@ -73,8 +74,8 @@ function startGame(){
 
 
 function resetGame(){
-    let level = generateLvl1();
-    //world.resetWorld(level);
+    let level = generateLvlDev();
+    world.resetWorld(level);
     showGameWindow('gameScreen');
     gameState = 'RUN';
 }
