@@ -31,7 +31,7 @@ class CollectableObject extends MoveableObject{
      * This function generates the 10ms game loop for a collectable object. If the global gamestate is run the loop functions will be executed
      */
     Crun10(){
-        setInterval(() => {
+        this.setStoppableInterval(() => {
             if (gameState == 'RUN') this.move();
         },10)
     }
@@ -41,7 +41,7 @@ class CollectableObject extends MoveableObject{
      * This function generates the 200ms game loop for a collectable object. If the global gamestate is run the loop functions will be executed
      */
     Crun200(){
-        setInterval(this.animate(),200);
+        this.setStoppableInterval(()=>this.animate(),200);
     }
 
 
@@ -135,6 +135,7 @@ class CollectableObject extends MoveableObject{
      * This function sets the animation which has to be executed for the current object properties
      */
     animate(){
+        //debugger
         if (this.type == 'poison') this.playAnimation(this.animationIMGs.POISON,'repeat');
         if (this.type == 'coin') this.playAnimation(this.animationIMGs.COIN,'repeat');
     }

@@ -52,7 +52,7 @@ class Jellyfish extends FightableObject {
      * This function generates the 10ms game loop for the jellyfish. If the global gamestate is run the loop functions will be executed
      */
     JFrun10(){
-        setInterval(() => {
+        this.setStoppableInterval(() => {
             if (gameState == 'RUN') {
                 this.detect();
                 this.attack();
@@ -67,7 +67,7 @@ class Jellyfish extends FightableObject {
      * This function generates the 150ms game loop for the character. If the global gamestate is run the loop functions will be executed
      */
     JFrun150(){
-        setInterval(() => this.animate(),150);
+        this.setStoppableInterval(() => this.animate(),150);
     }
 
 

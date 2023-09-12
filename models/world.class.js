@@ -189,7 +189,7 @@ class World {
      * This function checks if the characters is colliding with an enemy hitbox and hit it
      */
     CharCollisionToEnemey(e){
-        if (this.character[0].isColliding(this.character[0].hitBox,e.hitBox) && e.state != 'DEAD') {
+        if (this.character[0].isColliding(this.character[0].hitBox,e.hitBox) && !e.isState('DEAD') && !e.isState('REMOVE')) {
             this.character[0].hit(e.damage); // hurt by colliding
             if (e instanceof Jellyfish) {
                 this.character[0].hitBy = 'poison';
@@ -233,6 +233,7 @@ class World {
                 if (c.type == 'coin') this.character[0].coins++;
                 if (c.type == 'poison') this.character[0].poison++;
                 if (c.type == 'heart') this.character[0].health = Math.min(this.character[0].health + 10,100);
+                c.clearRunIntervalls();
                 this.level.collectables.splice(idx,1);              
             }
         })

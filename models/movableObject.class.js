@@ -6,7 +6,7 @@ class MoveableObject extends AnmiatedObject {
     speedX = 0;
     speedY = 0;
 
-    
+    timerIDs = [];
 
     //method
     /**
@@ -230,4 +230,23 @@ class MoveableObject extends AnmiatedObject {
         return !this.checkBarrier('bottom') && !this.checklvlBorder('bottom');
     }
 
+
+    /**
+     * This function starts an stopaable interval for this object
+     * 
+     * @param {function} fn - function which will be excuted frequently
+     * @param {*} tInterval - interval time
+     */
+    setStoppableInterval(fn, tInterval){
+        let ID = setInterval(fn,tInterval);
+        this.timerIDs.push(ID);
+    }
+
+
+    /**
+     * This function clear all intervalls which are registered in timerIDs
+     */
+    clearRunIntervalls(){
+        this.timerIDs.forEach(ID => clearInterval(ID));
+    }
 }

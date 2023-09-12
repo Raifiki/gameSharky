@@ -54,7 +54,7 @@ class Bubble extends FightableObject{
      * 
      */
     Brun10(){
-        setInterval(() => {
+        this.setStoppableInterval(() => {
             if (gameState == 'RUN') {
                 this.move();
                 this.removeBubble();

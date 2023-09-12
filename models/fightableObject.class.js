@@ -29,7 +29,7 @@ class FightableObject extends MoveableObject {
     tDead = 1;
     tAction = 1;
 
-        //methodes
+    //methodes
     /**
      * This function initialize an fightable object
      * 
@@ -49,7 +49,7 @@ class FightableObject extends MoveableObject {
      * This function generates the 10ms game loop for the fightable object. If the global gamestate is run the loop functions will be executed
      */
     run10(){
-        setInterval(() => this.handleTimers(),10);
+        this.setStoppableInterval(() => this.handleTimers(),10);
     }
 
 
@@ -159,6 +159,7 @@ class FightableObject extends MoveableObject {
     stateDEAD(event){
         if (event == 'remove') {
             this.state = 'REMOVE';
+            this.clearRunIntervalls();
         }
     }
 
@@ -335,4 +336,4 @@ class FightableObject extends MoveableObject {
         if (!this.isHurt(this.tHurt)) this.setState('hurtFinished');
         if (!this.isDead(this.tDead)) this.setState('remove');
     }
-}
+}   

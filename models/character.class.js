@@ -57,7 +57,7 @@ class Character extends FightableObject{
      *  This function generates the 10ms game loop for the character. If the global gamestate is run the loop functions will be executed
      */
     Crun10(){
-        setInterval(() => {
+        this.setStoppableInterval(() => {
             if (gameState == 'RUN') {
                 this.attack();
                 this.move();
@@ -71,7 +71,7 @@ class Character extends FightableObject{
      * This function generates the 100ms game loop for the character. If the global gamestate is run the loop functions will be executed
      */
     Crun100(){
-        setInterval(() =>{
+        this.setStoppableInterval(() =>{
             this.animate();
         },100)
     } 
@@ -335,7 +335,7 @@ class Character extends FightableObject{
      * @param {number} maxBubbles - maximal bubbles for this character
      */
     loadBubbleShot(time,maxBubbles){
-        setInterval(() =>{
+        this.setStoppableInterval(() =>{
             if (this.bubbleShots < maxBubbles) this.bubbleShots++;
         },time*1000);
     }

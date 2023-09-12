@@ -121,7 +121,7 @@ class Level {
      */
     clearLevel(){
         this.enemies.forEach(e => e.state = 'REMOVE');
-        setTimeout(()=> this.collectables = [],1000);
+        this.collectables = [],
         this.barrier = [];
         this.background = [];
     }

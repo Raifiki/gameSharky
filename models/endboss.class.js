@@ -55,7 +55,7 @@ class Endboss extends FightableObject{
      * This function generates the 10ms game loop for the endbos. If the global gamestate is run the loop functions will be executed
      */
     Whrun10(){
-        setInterval(() => {
+        this.setStoppableInterval(() => {
             if (gameState == 'RUN') {
                 if (this.isIntruduceing()) {
                     this.introduce();
@@ -73,7 +73,7 @@ class Endboss extends FightableObject{
      * This function generates the 10ms game loop for the endbos. If the global gamestate is run the loop functions will be executed
      */
     Whrun150(){
-        setInterval(() =>{
+        this.setStoppableInterval(() =>{
             this.animate();
         },150)
     }

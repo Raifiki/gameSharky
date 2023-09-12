@@ -50,7 +50,7 @@ class Pufferfish extends FightableObject {
      * This function generates the 10ms game loop for the pufferfish. If the global gamestate is run the loop functions will be executed
      */
     PFrun10(){
-        setInterval(() => {
+        this.setStoppableInterval(() => {
             if (gameState == 'RUN') {
                 this.move();
                 this.dropItem();
@@ -63,7 +63,7 @@ class Pufferfish extends FightableObject {
      * This function generates the 100ms game loop for the pufferfish. If the global gamestate is run the loop functions will be executed
      */
     PFrun100(){
-        setInterval(() =>{
+        this.setStoppableInterval(() =>{
             this.animate();
         },100)
     }

@@ -74,7 +74,7 @@ function startGame(){
 
 function resetGame(){
     let level = generateLvl1();
-    world.resetWorld(level);
+    //world.resetWorld(level);
     showGameWindow('gameScreen');
     gameState = 'RUN';
 }
