@@ -24,6 +24,7 @@
     <!-- include models -->
     <script src="./models/level.class.js"></script>
 
+    <script src="./models/joystick.class.js"></script>
     <script src="./models/keyListener.class.js"></script>
     <script src="./models/statusbar.class.js"></script>
     <script src="./models/statusicon.class.js"></script>
@@ -56,7 +57,7 @@
 </head>
 
 <body onload="init()">
-<h1>Sharky</h1>
+<!-- <h1>Sharky</h1> -->
 <div id="gameWindow">
     <div id="startScreen" class="contentGameWindow">
         <button class="menuBtn" onclick="startGame()">start game</button>
@@ -72,9 +73,9 @@
         </div>
         <div id="joystick">Joystick</div>
         <div id="gameBtnGroupCtrl">
-            <button id="slapAttackBtn">Slap</button>
-            <button id="bubbleShotAttackBtn">Bubbletrap</button>
-            <button id="bubbleChangeBtn">BubbleChange</button>
+            <button id="slapAttackBtn"></button>
+            <button id="bubbleShotAttackBtn"></button>
+            <button id="bubbleChangeBtn"></button>
         </div>
     </div>
     

@@ -2,7 +2,7 @@
 :root{
     --primClr: #3F9CE6;
     --secClr: #005CEF;
-    --accClr: #FEF17E;
+    --accClr: #F3774B;
 
     --primfntClr: #1B1464;
     --secfntClr: #00D1F0;
@@ -43,6 +43,7 @@ body{
     justify-content: center;
     align-items: center;
     font-family: 'LuckiestGuys';
+    margin: 0;
 }
 
 
@@ -54,7 +55,7 @@ body{
     background-size: cover;
     background-position: 100% 100%;
     width: min(1200px,100vw);
-    aspect-ratio: 2;
+    height: min(600px,100vh);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,11 +67,17 @@ body{
     width: 100%;
     height: 100%;
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
 }
 
 #gameCanvas{
     border-radius: 20px;
     max-width: 100%;
+    max-height: 100%;
+    
 }
 
 #gameBtnGroupMenu{
@@ -81,9 +88,6 @@ body{
 
 #joystick{
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100px;
     height: 100px;
     border-radius: 40%;
@@ -94,11 +98,50 @@ body{
 
 #gameBtnGroupCtrl{
     position: absolute;
-    right: 20px;
-    bottom: 20px;
-    width: 100px;
-    height: 100px;
-    background-color: var(--accClr);
+    right: 0;
+    bottom: 0;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-top-left-radius: 80%;
+}
+
+#gameBtnGroupCtrl button{
+    position: absolute;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--accClr);
+}
+
+#slapAttackBtn{
+    left: 10px;
+    bottom: 10px;
+    background-image: url('./img/01_Sharkie/4_Attack/FinSlap/5.png');
+    background-size: cover;
+    background-position: 0% 100%;
+    background-color: var(--secfntClr);
+}
+
+#bubbleShotAttackBtn{
+    left: 50px;
+    bottom: 90px;
+    background-image: url('./img/01_Sharkie/4_Attack/BubbleTrap/op1_normalBubble/7.png');
+    background-size: cover;
+    background-position: 0% 100%;
+    background-color: var(--secClr);
+}
+
+#bubbleChangeBtn{
+    right: 10px;
+    top: 10px;
+    background-image: url('./img/01_Sharkie/4_Attack/BubbleTrap/PoisonedBubble.png');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-color: var(--primfntClr);
+    background-size: 50%;
+    background-repeat: no-repeat;
 }
 
 #startScreen,

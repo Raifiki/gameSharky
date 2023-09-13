@@ -1,5 +1,6 @@
 class Joystick {
     //fields
+    keyListener;
     elementIDHTML;
     stick;
     areaJS;
@@ -7,7 +8,8 @@ class Joystick {
     leftclick;
     direction;
     //mthodes
-    constructor(elementIDHTML, areaJSStyle, stickStyle) {
+    constructor(elementIDHTML, areaJSStyle, stickStyle,keyListener) {
+        this.keyListener = keyListener;
         this.elementIDHTML = elementIDHTML;
         this.generateJoystickHTML(areaJSStyle, stickStyle);
         this.addEvents();
@@ -25,7 +27,7 @@ class Joystick {
     setJSareaStyle(JSareaStyle) {
         let areaJS = document.getElementById(this.elementIDHTML);
         areaJS.style.cssText = `
-            position: relative;
+            position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -65,20 +67,60 @@ class Joystick {
     };
 
     addEvents() {
-        addEventListener("mousedown", (event) => { this.mouseDown(event) });
-        addEventListener("mouseup", (event) => { this.mouseUp(event) });
-        addEventListener("mousemove", (event) => { this.mouseMove(event) });
+        //addEventListener("mousedown", (event) => { this.mouseDown(event) });
+        //addEventListener("mouseup", (event) => { this.mouseUp(event) });
+        //addEventListener("mousemove", (event) => { this.mouseMove(event) });
+
+        addEventListener("touchstart", (event) => { this.touchStart(event) });
+        addEventListener("touchend", (event) => { this.touchEnd(event) });
+        addEventListener("touchmove", (event) => { this.touchMove(event) });
     }
 
     mouseDown(e) {
         let xMouse = e.clientX;
         let yMouse = e.clientY;
+        console.log(e)
+        console.log(xMouse,yMouse)
+        
         if (this.isMousClickInJSArea(xMouse, yMouse)) {
             let [x, y] = this.calcRelativClickPosition(xMouse, yMouse);
             this.updateStickPosition(x, y);
             this.leftclick = true;
         }
     }
+
+    touchStart(e){
+        console.log(e)
+        let xMouse = e.touches[0].clientX;
+        let yMouse = e.touches[0].clientY;
+        if (this.isMousClickInJSArea(xMouse, yMouse)) {
+            let [x, y] = this.calcRelativClickPosition(xMouse, yMouse);
+            this.updateStickPosition(x, y);
+            this.leftclick = true;
+        } 
+    }
+
+    touchMove(e){
+        console.log(e.touches.length)
+        console.log(e)
+        if (this.leftclick) {
+            let xMouse = e.touches[0].clientX;
+            let yMouse = e.touches[0].clientY;
+            let [x, y] = this.calcRelativClickPosition(xMouse, yMouse);
+            this.updateStickPosition(x, y);
+        }
+    }
+
+    touchEnd(e){
+        console.log(e.touches.length)
+        if (this.leftclick && e.touches.length == 0) {
+            let [cx, cy] = [this.areaJS.x + this.areaJS.w / 2, this.areaJS.y + this.areaJS.h / 2]
+            let [x, y] = this.calcRelativClickPosition(cx, cy);
+            this.updateStickPosition(x, y);
+            this.leftclick = false;
+        }
+    }
+
     mouseUp(e) {
         let [cx, cy] = [this.areaJS.x + this.areaJS.w / 2, this.areaJS.y + this.areaJS.h / 2]
         let [x, y] = this.calcRelativClickPosition(cx, cy);
@@ -121,45 +163,40 @@ class Joystick {
     }
 
     getDirection(x, y) {
+        this.keyListener.clearDirection();
         let [cx, cy] = [x - this.areaJS.w / 2 + this.stick.w / 2, y - this.areaJS.h / 2 + this.stick.h / 2];
         if (Math.abs(cx) <= 5 && Math.abs(cy) <= 5) {
             return 'C';
         } else if (cx > 5 && Math.abs(cy) <= cx / 2) {
+            this.keyListener.RIGHT = true;
             return 'E';
         } else if (cy > 5 && Math.abs(cx) <= cy / 2) {
+            this.keyListener.DOWN = true;
             return 'S';
         } else if (cx < -5 && Math.abs(cy) <= -cx / 2) {
+            this.keyListener.LEFT = true;
             return 'W';
         } else if (cy < -5 && Math.abs(cx) <= -cy / 2) {
+            this.keyListener.UP = true;
             return 'N';
         } else if (cx > 5 && cy > cx / 2 && cy < cx * 2) {
+            this.keyListener.RIGHT = true;
+            this.keyListener.DOWN = true;
             return 'SE';
         } else if (cy < -5 && cx > -cy / 2 && cx < -cy * 2) {
+            this.keyListener.RIGHT = true;
+            this.keyListener.UP = true;
             return 'NE';
         } else if (cx < -5 && cy > -cx / 2 && cy < -cx * 2) {
+            this.keyListener.LEFT = true;
+            this.keyListener.DOWN = true;
             return 'SW';
         } else if (cy < -5 && cx < cy / 2 && cx > cy * 2) {
+            this.keyListener.LEFT = true;
+            this.keyListener.UP = true;
             return 'NW';
         }
     }
 
 }
 
-// am Ende löschen
-let JSstyle = `
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            border-radius: 20%;
-           `;
-
-let stickSty = `        
-          width: 40px;
-          height:40px;
-          border-radius:100%;
-          background-color: green;`;
-
-let JS = new Joystick('joystick', JSstyle, stickSty);
-let JS1 = new Joystick('joystick1', JSstyle, stickSty);
-
-    // am Ende löschen

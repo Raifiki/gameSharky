@@ -2,11 +2,12 @@
  * This function will be executed if the browser loaded the page
  */
 function init(){
-    showGameWindow("startScreen");
+    showGameWindow("gameScreen");
     canvas = document.getElementById('gameCanvas');
     let level = generateLvlDev();
+    keyListener = new KeyListener();
     world = new World(canvas,keyListener,level);
-    registerEventListeners();
+    showGameWindow("startScreen");
 }
 
 
@@ -70,6 +71,7 @@ function hideOverlay(){
  */
 function startGame(){
     resetGame();
+    //fullscreen()
 }
 
 
@@ -107,3 +109,35 @@ function resumeGame(){
     hideOverlay();
     gameState = 'RUN';
 }
+
+
+function fullscreen(){
+    let element = document.getElementById('gameScreen');
+    enterFullscreen(element);
+}
+
+
+/**
+ * Enter fullscreen
+ */
+function enterFullscreen(element) {
+    if(element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if(element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+      element.msRequestFullscreen();
+    } else if(element.webkitRequestFullscreen) {  // iOS Safari
+      element.webkitRequestFullscreen();
+    }
+  }
+
+
+  /**
+   * End fullscreen
+   */
+  function exitFullscreen() {
+    if(document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if(document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
