@@ -6,7 +6,38 @@ function getIntroductionHTMLTemplate(){
 
 function getSettingsHTMLTemplate(){
     return /*html*/`
-        Ich bin die Einstellung
+        <div class="settingsElement">
+            <div id="setWrapperMoveImages">
+                <img class="setElementImg" src="./img/07_icons/KeyArrow-up.svg" alt="Up">
+                <div>
+                    <img class="setElementImg" src="./img/07_icons/KeyArrow-left.svg" alt="Left">
+                    <img class="setElementImg" src="./img/07_icons/KeyArrow-down.svg" alt="Down">
+                    <img class="setElementImg" src="./img/07_icons/KeyArrow-right.svg" alt="Right">
+                </div>
+            </div>
+            <span class="setElementRightColumn">move shark</span>
+        </div>
+        <div class="settingsElement">
+            <img class="setElementImg" src="./img/07_icons/KeyArrow-space.svg" alt="space">
+            <span class="setElementRightColumn">slap attack</span>
+        </div>
+        <div class="settingsElement">
+            <img class="setElementImg" src="./img/07_icons/KeyArrow-S.svg" alt="S">
+            <span class="setElementRightColumn">bubble trap</span>
+        </div>
+        <div class="settingsElement">
+            <img class="setElementImg" src="./img/07_icons/KeyArrow-D.svg" alt="D">
+            <span class="setElementRightColumn">change bubble type</span>
+        </div>
+        <div class="settingsElement">
+            <span>difficulty</span>
+            <div id="setWrapperDifficultyChoices" class="setElementRightColumn">
+                <img class="setElementImg" src="./img/07_icons/difficulty-easy.svg" alt="easy">
+                <img class="setElementImg diff-active" src="./img/07_icons/difficulty-normal.svg" alt="normal">
+                <img class="setElementImg" src="./img/07_icons/difficulty-hard.svg" alt="hard">
+                <img class="setElementImg" src="./img/07_icons/difficulty-extreme.svg" alt="extreme">
+            </div>
+        </div>
     `
 }
 

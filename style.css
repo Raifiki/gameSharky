@@ -16,6 +16,10 @@
     src: url(./font/LuckiestGuy-Regular.ttf);
 }
 
+.d-none{
+    display: none !important;
+}
+
 .menuBtn{
     cursor: pointer;
     background-color: var(--primClr);
@@ -34,7 +38,17 @@
     border: 1px solid var(--accClr);
 }
 
+.gameBtn{
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: white;
+}
 
+.gameBtn:hover{
+    background-color: var(--accClr);
+}
 
 /* page */
 body{
@@ -47,7 +61,6 @@ body{
     height: 100vh;
     width: 100vw;
 }
-
 
 
 #gameWindow {
@@ -87,17 +100,7 @@ body{
     gap: 60px;
 }
 
-#gameBtnGroupMenu button{
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border: none;
-    background-color: white;
-}
 
-#gameBtnGroupMenu button:hover{
-    background-color: var(--accClr);
-}
 
 
 #muteBtn{
@@ -207,27 +210,87 @@ body{
 
 
 #overlay{
-    top: 0;
-    left: 0;
-    position: absolute;
+    top: center;
+    left: center;
+    position: absolute; 
     background-color: rgba(120, 120, 120, 0.8);
     width: min(1200px,100vw);
-    aspect-ratio: 2;
+    height: min(600px,100%);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#ovlyCloseBtn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    mask-image: url('./img/07_icons/close.svg'); 
+    mask-size: contain; 
+    -webkit-mask-image:url('./img/07_icons/close.svg');  
+    -webkit-mask-size: contain; 
 }
 
 #ovlyCard{
-    width: 50%;
+    position: relative;
+    width: 70%;
     height: 90%;
-    background-color: brown;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--primClr);
     border-radius: 20px;
+    font-size: 30px;
 }
 
-.d-none{
-    display: none !important;
+#ovlyCardContent{
+    padding: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.settingsElement{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setElementRightColumn{
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#setWrapperMoveImages{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.setElementImg{
+    background-color: var(--accClr);
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    margin: 2px 1px;
+}
+
+#setWrapperDifficultyChoices{
+    display: flex;
+    gap: 20px;
+}
+
+#setWrapperDifficultyChoices img{
+    border-radius: 20px;
+    background-color: transparent;
+}
+
+.diff-active{
+    background-color: var(--accClr) !important;
 }

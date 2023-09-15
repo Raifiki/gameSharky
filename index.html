@@ -63,9 +63,9 @@
     <div id="gameScreen" class="contentGameWindow">
         <canvas id="gameCanvas" width="1200" height="600"></canvas>
         <div id="gameBtnGroupMenu">
-            <button id="muteBtn" class="gameBtnMenu" onclick="changeSoundSetting()"></button>
-            <button id="menuBtn" class="gameBtnMenu" onclick="pauseGame()"></button>
-            <button id="fullscreenBtn" class="gameBtnMenu" onclick="toggleFullscreen()"></button>
+            <button id="muteBtn" class="gameBtn" onclick="changeSoundSetting()"></button>
+            <button id="menuBtn" class="gameBtn" onclick="pauseGame()"></button>
+            <button id="fullscreenBtn" class="gameBtn" onclick="toggleFullscreen()"></button>
         </div>
         <div id="joystick">Joystick</div>
         <div id="gameBtnGroupCtrl">
@@ -83,8 +83,10 @@
         <button class="menuBtn" onclick="exitGame()">exit game</button>
     </div>
     <div id="overlay" class="d-none">
-        <div id="ovlyCard">Ich bin die Karte</div>
-        <button class="menuBtn" onclick="hideOverlay()">close</button>
+        <div id="ovlyCard">
+            <div id="ovlyCardContent">CardContent</div>
+            <button id="ovlyCloseBtn" class="gameBtn" onclick="hideOverlay()"></button>
+        </div>
     </div>
 </div>
 </body>

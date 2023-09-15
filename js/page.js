@@ -20,6 +20,7 @@ function init(){
     world = new World(canvas,keyListener,level);
     showGameWindow("startScreen");
     addEventListeners();
+    showOverlay(getSettingsHTMLTemplate()); // delete at the end
 }
 
 /**
@@ -74,7 +75,7 @@ function showGameWindow(ID){
  */
 function showOverlay(HTMLTemplate){
     showElement('overlay');
-    let card = document.getElementById('ovlyCard');
+    let card = document.getElementById('ovlyCardContent');
     card.innerHTML = HTMLTemplate;
 }
 
