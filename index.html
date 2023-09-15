@@ -49,11 +49,7 @@
     <script src="./levels/level1.js"></script>
     <script src="./levels/levelDev.js"></script>
     <script src="./templates/templatesHTML"></script>
-    <script src="./js/page.js"></script>
-    <script src="./js/game.js"></script>
-
-
-    
+    <script src="./js/page.js"></script>    
 </head>
 
 <body onload="init()">
@@ -67,15 +63,15 @@
     <div id="gameScreen" class="contentGameWindow">
         <canvas id="gameCanvas" width="1200" height="600"></canvas>
         <div id="gameBtnGroupMenu">
-            <button class="gameBtnMenu">mute</button>
-            <button class="gameBtnMenu" onclick="pauseGame()">settings</button>
-            <button class="gameBtnMenu">fullscreen</button>
+            <button id="muteBtn" class="gameBtnMenu" onclick="changeSoundSetting()"></button>
+            <button id="menuBtn" class="gameBtnMenu" onclick="pauseGame()"></button>
+            <button id="fullscreenBtn" class="gameBtnMenu" onclick="toggleFullscreen()"></button>
         </div>
         <div id="joystick">Joystick</div>
         <div id="gameBtnGroupCtrl">
-            <button id="slapAttackBtn"></button>
-            <button id="bubbleShotAttackBtn"></button>
-            <button id="bubbleChangeBtn"></button>
+            <button id="slapAttackBtn" onclick="playAnimationPlayBtn('slapAttackBtn')"></button>
+            <button id="bubbleShotAttackBtn" onclick="playAnimationPlayBtn('bubbleShotAttackBtn')"></button>
+            <button id="bubbleChangeBtn" onclick="playAnimationPlayBtn('bubbleChangeBtn')"></button>
         </div>
     </div>
     

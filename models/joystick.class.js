@@ -17,11 +17,11 @@ class Joystick {
 
     generateJoystickHTML(areaJSStyle, stickStyle) {
         this.setJSareaStyle(areaJSStyle);
-        this.saveJSareaProperties();
+        this.updateJSarea();
 
         this.addStickToJSarea();
         this.setStickStyle(stickStyle);
-        this.saveStickProperties();
+        this.updateStick();
     }
 
     setJSareaStyle(JSareaStyle) {
@@ -45,7 +45,7 @@ class Joystick {
           ${stickStyle}
       `;
     }
-    saveStickProperties() {
+    updateStick() {
         let element = document.getElementById(`${this.elementIDHTML}-stick`);
         this.stick = {
             HTMLelement: element,
@@ -55,7 +55,7 @@ class Joystick {
             h: element.getBoundingClientRect().height,
         }
     };
-    saveJSareaProperties() {
+    updateJSarea() {
         let element = document.getElementById(this.elementIDHTML);
         this.areaJS = {
             HTMLelement: element,
@@ -67,42 +67,36 @@ class Joystick {
     };
 
     addEvents() {
-        //addEventListener("mousedown", (event) => { this.mouseDown(event) });
-        //addEventListener("mouseup", (event) => { this.mouseUp(event) });
-        //addEventListener("mousemove", (event) => { this.mouseMove(event) });
+        this.areaJS.HTMLelement.addEventListener("mousedown", (event) => { this.mouseDown(event) });
+        addEventListener("mouseup", (event) => { this.mouseUp(event) });
+        addEventListener("mousemove", (event) => { this.mouseMove(event) });
 
-        addEventListener("touchstart", (event) => { this.touchStart(event) });
-        addEventListener("touchend", (event) => { this.touchEnd(event) });
-        addEventListener("touchmove", (event) => { this.touchMove(event) });
+        this.areaJS.HTMLelement.addEventListener("touchstart", (event) => { this.touchStart(event) });
+        this.areaJS.HTMLelement.addEventListener("touchend", (event) => { this.touchEnd(event) });
+        this.areaJS.HTMLelement.addEventListener("touchmove", (event) => { this.touchMove(event) });
     }
 
     mouseDown(e) {
+        this.updateJSarea();
         let xMouse = e.clientX;
         let yMouse = e.clientY;
-        console.log(e)
-        console.log(xMouse,yMouse)
-        
-        if (this.isMousClickInJSArea(xMouse, yMouse)) {
-            let [x, y] = this.calcRelativClickPosition(xMouse, yMouse);
-            this.updateStickPosition(x, y);
-            this.leftclick = true;
-        }
+        let [x, y] = this.calcRelativClickPosition(xMouse, yMouse);
+        this.updateStickPosition(x, y);
+        this.leftclick = true;
+        document.getElementById(`${this.elementIDHTML}-stick`).style.backgroundColor = `var(--accClr)`;
     }
 
     touchStart(e){
-        console.log(e)
+        this.updateJSarea();
         let xMouse = e.touches[0].clientX;
         let yMouse = e.touches[0].clientY;
-        if (this.isMousClickInJSArea(xMouse, yMouse)) {
-            let [x, y] = this.calcRelativClickPosition(xMouse, yMouse);
-            this.updateStickPosition(x, y);
-            this.leftclick = true;
-        } 
+        let [x, y] = this.calcRelativClickPosition(xMouse, yMouse);
+        this.updateStickPosition(x, y);
+        this.leftclick = true;
+        document.getElementById(`${this.elementIDHTML}-stick`).style.backgroundColor = `var(--accClr)`;
     }
 
     touchMove(e){
-        console.log(e.touches.length)
-        console.log(e)
         if (this.leftclick) {
             let xMouse = e.touches[0].clientX;
             let yMouse = e.touches[0].clientY;
@@ -112,12 +106,12 @@ class Joystick {
     }
 
     touchEnd(e){
-        console.log(e.touches.length)
-        if (this.leftclick && e.touches.length == 0) {
+        if (this.leftclick) {
             let [cx, cy] = [this.areaJS.x + this.areaJS.w / 2, this.areaJS.y + this.areaJS.h / 2]
             let [x, y] = this.calcRelativClickPosition(cx, cy);
             this.updateStickPosition(x, y);
             this.leftclick = false;
+            document.getElementById(`${this.elementIDHTML}-stick`).style.backgroundColor = `var(--primClr)`;
         }
     }
 
@@ -126,6 +120,7 @@ class Joystick {
         let [x, y] = this.calcRelativClickPosition(cx, cy);
         this.updateStickPosition(x, y);
         this.leftclick = false;
+        document.getElementById(`${this.elementIDHTML}-stick`).style.backgroundColor = `var(--primClr)`;
     }
 
     mouseMove(e) {
@@ -158,7 +153,6 @@ class Joystick {
     updateStickPosition(x, y) {
         this.stick.HTMLelement.style.left = x + 'px';
         this.stick.HTMLelement.style.top = y + 'px';
-        this.stick.HTMLelement.style.backgroundColor = 'blue';
         this.direction = this.getDirection(x, y);
     }
 

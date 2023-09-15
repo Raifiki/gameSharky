@@ -1,15 +1,36 @@
+// Varibles
+let world;
+let canvas;
+let canvas_w = 1200;
+let canvas_h = 600;
+
+let gameState = 'IDLE';
+let sound = 'ON';
+
+let keyListener;
+
+
 /**
  * This function will be executed if the browser loaded the page
  */
 function init(){
-    showGameWindow("gameScreen");
     canvas = document.getElementById('gameCanvas');
     let level = generateLvlDev();
     keyListener = new KeyListener();
     world = new World(canvas,keyListener,level);
     showGameWindow("startScreen");
+    addEventListeners();
 }
 
+/**
+ * This function add event listener which are neccassery for page control
+ */
+function addEventListeners(){
+    addEventListener("fullscreenchange", e => {
+        changeFullscreenSetting();
+        console.log('test')
+    });
+}
 
 /**
  * This function add to an HTML element the class "d-none" to hide this element
@@ -111,10 +132,6 @@ function resumeGame(){
 }
 
 
-function fullscreen(){
-    let element = document.getElementById('gameScreen');
-    enterFullscreen(element);
-}
 
 
 /**
@@ -128,16 +145,63 @@ function enterFullscreen(element) {
     } else if(element.webkitRequestFullscreen) {  // iOS Safari
       element.webkitRequestFullscreen();
     }
-  }
+}
 
 
-  /**
-   * End fullscreen
-   */
-  function exitFullscreen() {
+/**
+ * End fullscreen
+ */
+function exitFullscreen() {
     if(document.exitFullscreen) {
-      document.exitFullscreen();
+        document.exitFullscreen();
     } else if(document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
+        document.webkitExitFullscreen();
     }
-  }
+}
+
+/**
+ * Add animation to play button
+ */
+
+function playAnimationPlayBtn(elementID){
+    document.getElementById(elementID).classList.add('playAnimation');
+    setTimeout(()=>document.getElementById(elementID).classList.remove('playAnimation'),700);
+}
+
+/**
+ * This function changes toggles the sound between on and off
+ */
+
+function changeSoundSetting(){
+    if (sound == 'ON'){
+        sound = 'OFF';
+        document.getElementById('muteBtn').style.maskImage = 'url("./img/07_icons/sound-off.svg")';
+    }
+    else {
+        sound = 'ON';
+        document.getElementById('muteBtn').style.maskImage = 'url("./img/07_icons/sound-on.svg")';
+    }
+}
+
+/**
+ * This function sets settings for fullscreen and normal screen
+ */
+function changeFullscreenSetting(){
+    if (document.fullscreenElement){
+        document.getElementById('fullscreenBtn').style.maskImage = 'url("./img/07_icons/fullscreen-exit.svg")';
+    } else {
+        document.getElementById('fullscreenBtn').style.maskImage = 'url("./img/07_icons/fullscreen-on.svg")';
+    }
+}
+
+/**
+ * This function toggles between fullscreen and normal screen
+ */
+function toggleFullscreen(){
+    if (document.fullscreenElement){
+        exitFullscreen();
+    } else {
+        let element = document.getElementById('gameWindow');
+        enterFullscreen(element);
+    }
+}

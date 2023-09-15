@@ -41,10 +41,7 @@ class KeyListener {
             }
             if (event.key == 'd'){
                 this.CHANGEBUBBLE = true;
-            }
-            if (event.key == 'Escape'){
-                (gameState == 'PAUSED')? resumeGame():pauseGame();
-            }               
+            }              
         });
     }
 
@@ -150,7 +147,9 @@ class KeyListener {
               width: 50px;
               height:50px;
               border-radius:100%;
-              background-color: var(--accClr);`;
+              background-color: var(--primClr);
+              border: 1px solid var(--accClr);
+              `;
     
         new Joystick('joystick', JSstyle, stickSty,this);
     }
