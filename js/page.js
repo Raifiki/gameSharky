@@ -6,8 +6,12 @@ let canvas_h = 600;
 
 let gameState = 'IDLE';
 let sound = 'ON';
+let difficulty = 'NORMAL';
 
 let keyListener;
+
+let laodingCounter = 0;
+let loadingInterval;
 
 
 /**
@@ -15,12 +19,9 @@ let keyListener;
  */
 function init(){
     canvas = document.getElementById('gameCanvas');
-    let level = generateLvlDev();
     keyListener = new KeyListener();
-    world = new World(canvas,keyListener,level);
     showGameWindow("startScreen");
     addEventListeners();
-    showOverlay(getSettingsHTMLTemplate()); // delete at the end
 }
 
 /**
@@ -29,7 +30,6 @@ function init(){
 function addEventListeners(){
     addEventListener("fullscreenchange", e => {
         changeFullscreenSetting();
-        console.log('test')
     });
 }
 
@@ -59,6 +59,7 @@ function showElement(ID){
  * @param {string} ID - HTML ID of the element which has to be visible, "gameScreen", "startScreen", "pauseScreen"
  */
 function showGameWindow(ID){
+    hideOverlay();
     let contentElements = document.getElementsByClassName('contentGameWindow');
     for (let i = 0; i < contentElements.length; i++) {
         let HTMLelement = contentElements [i];
@@ -75,7 +76,7 @@ function showGameWindow(ID){
  */
 function showOverlay(HTMLTemplate){
     showElement('overlay');
-    let card = document.getElementById('ovlyCardContent');
+    let card = document.getElementById('ovlyCard');
     card.innerHTML = HTMLTemplate;
 }
 
@@ -89,19 +90,78 @@ function hideOverlay(){
 
 
 /**
- * This function start the game
+ * This function sets the loading bar style according the procentage
+ * 
+ * @param {number} percentage - loading progress in precent
  */
-function startGame(){
-    resetGame();
-    //fullscreen()
+function updateLoadingBarStyle(percentage){
+    document.getElementById('loadingBar').style.width = `${percentage}%`;
+    let text = document.getElementById('loadingBarText');
+    (percentage>=50)?text.style.color = 'var(--accClr)':'black';
+    text.innerHTML=`${Math.round(percentage)}%`;
 }
 
 
+/**
+ * This function load the game data and shows the loadingscreen for 3 seconds
+ */
+function loadGame(){
+    showOverlay(getLoadingScreenHTMLTemplate());
+    (typeof world === 'undefined')? initWorld():resetGame();
+    loadingInterval = setInterval(checkLoadingTime, 10);
+}
+
+
+/**
+ * This function checks if the loading time is over and starts the game afterwards
+ */
+function checkLoadingTime(){
+    let loadingTime = laodingCounter * 10;
+    if (loadingTime <= 1000) {
+        let percentage = loadingTime/1000*100;
+        updateLoadingBarStyle(percentage);
+        laodingCounter++;
+    } else {
+        startGame();
+        resetLoadingProcedure();
+    }
+}
+
+
+/**
+ * This function resets the loading procedure
+ */
+function resetLoadingProcedure(){
+    clearInterval(loadingInterval);
+    laodingCounter = 0;
+}
+
+
+
+/**
+ * This function start the game
+ */
+function startGame(){
+    showGameWindow('gameScreen');
+    gameState = 'RUN';
+}
+
+
+/**
+ * This function initialize the world
+ */
+function initWorld(){
+    let level = generateLvlDev();
+    world = new World(canvas,keyListener,level);
+}
+
+
+/**
+ * This function reset the world with the actual level
+ */
 function resetGame(){
     let level = generateLvlDev();
     world.resetWorld(level);
-    showGameWindow('gameScreen');
-    gameState = 'RUN';
 }
 
 
@@ -206,3 +266,28 @@ function toggleFullscreen(){
         enterFullscreen(element);
     }
 }
+
+
+/**
+ * This function sets the difficulty of the game and the style in the settins overlay
+ * 
+ * @param {string} difclty - difficulty to set, 'EASY', 'NORMAL', 'HARD', 'EXTREME'
+ */
+function setDifficulty(difclty){
+    clearActiveStyleDifficulty();
+    document.getElementById('difficulty'+difclty).classList.add('diff-active');
+    difficulty = difclty;
+}
+
+
+/**
+ * This function clears the active style of all difficulty icons
+ */
+function clearActiveStyleDifficulty(){
+    let diffChoices = document.getElementsByClassName('difficultyChoice');
+    for (let i = 0; i < diffChoices.length; i++) {
+        diffChoices[i].classList.remove('diff-active');
+    }
+}
+
+

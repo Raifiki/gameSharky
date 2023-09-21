@@ -210,8 +210,6 @@ body{
 
 
 #overlay{
-    top: center;
-    left: center;
     position: absolute; 
     background-color: rgba(120, 120, 120, 0.8);
     width: min(1200px,100vw);
@@ -225,6 +223,8 @@ body{
     position: absolute;
     top: 20px;
     right: 20px;
+    width: 25px;
+    height: 25px;
     mask-image: url('./img/07_icons/close.svg'); 
     mask-size: contain; 
     -webkit-mask-image:url('./img/07_icons/close.svg');  
@@ -233,9 +233,12 @@ body{
 
 #ovlyCard{
     position: relative;
+    box-sizing: border-box;
     width: 70%;
     height: 90%;
+    padding: 50px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: var(--primClr);
@@ -243,35 +246,22 @@ body{
     font-size: 30px;
 }
 
-#ovlyCardContent{
-    padding: 50px;
+
+#settingsTable{
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
+    border-spacing: 1px 30px;
 }
 
-.settingsElement{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+#settingsTable td{
+    text-align: center;
+    vertical-align: middle;
 }
 
-.setElementRightColumn{
-    width: 60%;
-    display: flex;
-    justify-content: flex-start;
+#settingsTable td:nth-child(odd){
+    width: 25%;
 }
 
-#setWrapperMoveImages{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
 .setElementImg{
     background-color: var(--accClr);
@@ -281,8 +271,28 @@ body{
     margin: 2px 1px;
 }
 
+
+#setElementMobileCtrlImg{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+
+.setElementMobileImg{
+    background-color: var(--secClr);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    object-position: 0% 100%;
+}
+
+
 #setWrapperDifficultyChoices{
+    width: 100%;
     display: flex;
+    justify-content: center;
     gap: 20px;
 }
 
@@ -290,8 +300,41 @@ body{
     cursor: pointer;
     border-radius: 20px;
     background-color: transparent;
+    transition: all 100ms ease-in-out;
+}
+
+#setWrapperDifficultyChoices img:hover{
+    background-color: var(--secClr) !important;
+    transition: all 100ms ease-in-out;
 }
 
 .diff-active{
     background-color: var(--accClr) !important;
+}
+
+#loadingBarFrame{
+    position: relative;
+    width: 100%;
+    border: 2px solid var(--accClr);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+}
+
+#loadingBar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--primfntClr);
+    width: 0%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+#loadingBarText{
+    position: relative;
+    color: black;
+    font-size: 20px;
 }
