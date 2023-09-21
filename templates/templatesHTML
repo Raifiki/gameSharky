@@ -87,7 +87,21 @@ function getLooseScreenHTMLTemplate(){
 
 function getWinScreenHTMLTemplate(){
     return /*html*/`
-        Ich bin der WinScreen
+        <h2>win</h2>
+        <div>
+            <div>
+                <span>level progress:</span>
+                <span>0%</span>
+            </div>
+            <div>
+                <img src="" alt="Coins">
+                <span>0</span>
+            </div>
+        </div>
+        <div>
+            <button class="menuBtn" onclick="loadGame()">play again</button>
+            <button class="menuBtn" onclick="exitGame()">menu</button>
+        </div>
     `
 }
 

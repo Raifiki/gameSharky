@@ -29,7 +29,7 @@ class Endboss extends FightableObject{
         this.speedX = 0;
         this.speedY = 0;
 
-        this.health = 200;
+        this.health = 20;
         this.maxHealth = this.health;
         this.damage = 20;
 
@@ -42,7 +42,7 @@ class Endboss extends FightableObject{
 
         this.detectedObject = [];
         this.tAttack = 5;
-        this.tDead = 10;
+        this.tDead = 5;
         
         this.addAnimationIMGs();
 

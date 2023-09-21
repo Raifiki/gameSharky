@@ -148,25 +148,39 @@ class World {
      */
     run200(){
         setInterval(() => {
-            this.addEndbos();
-            //delete at end
-            //this.showWorldState();
-            //delete at end
+            if (gameState == 'RUN') {
+                this.addEndbos();
+                this.checkEndCondition();
+                //delete at end
+                //this.showWorldState();
+                //delete at end
+            }
         }, 200);
     }
 
 
     /**
-     * This function checks if the object can be removed from the map
+     * This function checks if the object can be removed from map
      * 
      * @param {Array} ary - array with objects that should be checked
      */
     removeFromMap(ary){
         ary.forEach((e,idx,ary) => {
-            if (e.isState('REMOVE')){
+            if (this.removeEnemy(e)){
                 ary.splice(idx,1);
             }
         })
+    }
+
+
+    /**
+     * This function checks if the fightable object can be removed from map
+     * 
+     * @param {FightableObject} e - fightable object to check if it can be removed from map
+     * @returns {boolean} - true: remive fighable object, false: dont remove fightable object
+     */
+    removeEnemy(e){
+        return e.isState('REMOVE') && !(e instanceof Endboss);
     }
 
 
@@ -371,5 +385,31 @@ class World {
         this.character[0].clearCharacter();
         this.character[0] = new Character(200,175);
         this.initWorld(level);
+    }
+
+
+    /**
+     * This function checks if the level is finsished, finished: character or Endbos dead
+     */
+    checkEndCondition(){
+        if (this.character[0].isState('REMOVE')) {
+            this.endWorld();
+            showOverlay(getLooseScreenHTMLTemplate());           
+        }
+
+        if (this.endboss && this.endboss.isState('REMOVE')) {
+            this.endWorld();
+            showOverlay(getWinScreenHTMLTemplate()); 
+        }
+    }
+
+
+    /**
+     * This function stops all game loops except world game loops at the end of the level
+     */
+    endWorld(){
+        this.level.clearLevel();
+        this.character[0].clearCharacter();
+        gameState = 'END';
     }
 }

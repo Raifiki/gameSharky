@@ -171,6 +171,7 @@ function resetGame(){
  */
 function exitGame(){
     showGameWindow('startScreen');
+    gameState = 'IDLE';
 }
 
 

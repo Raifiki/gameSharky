@@ -155,8 +155,10 @@ class Statusbar {
      * This function updates the percentage health points of this character
      */
     updateBar(){
-        this.percentageLP = this.character.health/this.character.maxHealth * 100;
-        this.loadIMG ();
+        if (!this.character.isState('REMOVE')) {
+            this.percentageLP = Math.round(this.character.health/this.character.maxHealth * 100);
+            this.loadIMG ();
+        }
     }
 
 
