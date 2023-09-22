@@ -233,7 +233,7 @@ class Character extends FightableObject{
         } else {
             this.directionX = false;
         }
-        this.setXOfstToCanvasBorder(dir,10,200);        
+        this.setXOfstToCanvasBorder(dir,10,350);        
     }
 
     /**

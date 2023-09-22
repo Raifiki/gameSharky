@@ -163,7 +163,7 @@ function startGame(){
  * This function initialize the world
  */
 function initWorld(){
-    let level = generateLvlDev();
+    let level = generateLvl1();
     world = new World(canvas,keyListener,level);
 }
 
@@ -172,7 +172,7 @@ function initWorld(){
  * This function reset the world with the actual level
  */
 function resetGame(){
-    let level = generateLvlDev();
+    let level = generateLvl1();
     world.resetWorld(level);
 }
 
