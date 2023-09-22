@@ -48,7 +48,7 @@
     <script src="./js/animations.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./levels/levelDev.js"></script>
-    <script src="./templates/templatesHTML"></script>
+    <script src="./templates/templatesHTML.js"></script>
     <script src="./js/page.js"></script>    
 </head>
 
@@ -57,18 +57,20 @@
 <div id="gameWindow">
     <div id="startScreen" class="contentGameWindow">
         <button class="menuBtn" onclick="loadGame()">start game</button>
-        <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate())">settings and control</button>
+        <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate()), setOverlaySettings()">settings</button>
+        <button class="menuBtn" onclick="showOverlay(getControlHTMLTemplate())">control</button>
         <button class="menuBtn" onclick="showOverlay(getIntroductionHTMLTemplate())">introduction</button>
     </div>
     <div id="gameScreen" class="contentGameWindow">
         <canvas id="gameCanvas" width="1200" height="600"></canvas>
         <div id="gameBtnGroupMenu">
+            <button id="mobileCtrlBtn" class="gameBtn" onclick="changeMobileControlSetting()"></button>
             <button id="muteBtn" class="gameBtn" onclick="changeSoundSetting()"></button>
-            <button id="menuBtn" class="gameBtn" onclick="pauseGame()"></button>
             <button id="fullscreenBtn" class="gameBtn" onclick="toggleFullscreen()"></button>
+            <button id="menuBtn" class="gameBtn" onclick="pauseGame()"></button>
         </div>
         <div id="joystick">Joystick</div>
-        <div id="gameBtnGroupCtrl">
+        <div id="gameBtnGroupCtrl" class="d-none">
             <button id="slapAttackBtn" onclick="playAnimationPlayBtn('slapAttackBtn')"></button>
             <button id="bubbleShotAttackBtn" onclick="playAnimationPlayBtn('bubbleShotAttackBtn')"></button>
             <button id="bubbleChangeBtn" onclick="playAnimationPlayBtn('bubbleChangeBtn')"></button>
@@ -78,8 +80,7 @@
     <div id="pauseScreen" class="contentGameWindow">
         <button class="menuBtn" onclick="resumeGame()">resume</button>
         <button class="menuBtn" onclick="loadGame()">restart game</button>
-        <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate())">settings and control</button>
-        <button class="menuBtn" onclick="showOverlay(getIntroductionHTMLTemplate())">introduction</button>
+        <button class="menuBtn" onclick="showOverlay(getControlHTMLTemplate())">control</button>
         <button class="menuBtn" onclick="exitGame()">menu</button>
     </div>
     <div id="overlay" class="d-none">

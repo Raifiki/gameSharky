@@ -7,6 +7,7 @@ let canvas_h = 600;
 let gameState = 'IDLE';
 let sound = 'ON';
 let difficulty = 'NORMAL';
+let mobileControl = 'OFF';
 
 let keyListener;
 
@@ -22,6 +23,7 @@ function init(){
     keyListener = new KeyListener();
     showGameWindow("startScreen");
     addEventListeners();
+    hideMobileCtrl();
 }
 
 /**
@@ -78,6 +80,16 @@ function showOverlay(HTMLTemplate){
     showElement('overlay');
     let card = document.getElementById('ovlyCard');
     card.innerHTML = HTMLTemplate;
+}
+
+
+/**
+ * This function sets the style according the game settings for the settings overlay
+ */
+function setOverlaySettings(){
+    setMobileCtrlSettingStyle();
+    setSoundSettingStyle();
+    setDifficultySettingStyle();
 }
 
 
@@ -231,19 +243,80 @@ function playAnimationPlayBtn(elementID){
 }
 
 /**
- * This function changes toggles the sound between on and off
+ * This function toggles the sound between on and off
  */
-
 function changeSoundSetting(){
-    if (sound == 'ON'){
-        sound = 'OFF';
-        document.getElementById('muteBtn').style.maskImage = 'url("./img/07_icons/sound-off.svg")';
-    }
-    else {
-        sound = 'ON';
-        document.getElementById('muteBtn').style.maskImage = 'url("./img/07_icons/sound-on.svg")';
-    }
+    (sound=='MUTE')?soundOn():soundMuted();
 }
+
+
+/**
+ * This function sets the sound setting
+ * 
+ * @param {string} state - state for the sound setting, 'ON', 'MUTE'
+ */
+function setSound(state){
+    (state=='MUTE')?soundMuted():soundOn();
+}
+
+
+/**
+ * This function sets the sound setting to ON
+ */
+function soundOn(){
+    sound = 'ON';
+    document.getElementById('muteBtn').style.maskImage = 'url("./img/07_icons/sound-on.svg")';
+}
+
+
+/**
+ * This function sets the sound setting to MUTE
+ */
+function soundMuted(){
+    sound = 'MUTE';
+    document.getElementById('muteBtn').style.maskImage = 'url("./img/07_icons/sound-off.svg")';
+}
+
+
+/**
+ * This function toggles the mobile control between hide and show control elements
+ */
+function changeMobileControlSetting(){
+    (mobileControl == 'ON')?hideMobileCtrl():showMobileCtrl();
+}
+
+
+/**
+ * This function sets the mobile control setting
+ * 
+ * @param {string} state - state for the mobile control setting, 'ON', 'OFF'
+ */
+function setMobileCtrl(state){
+    (state == 'OFF')?hideMobileCtrl():showMobileCtrl();
+}
+
+
+/**
+ * This function hides the mobile control elements
+ */
+function hideMobileCtrl(){
+    mobileControl = 'OFF';
+    document.getElementById('mobileCtrlBtn').style.maskImage = `url("./img/07_icons/mobileCtrl-off.svg")`;
+    hideElement('joystick');
+    hideElement('gameBtnGroupCtrl');
+}
+
+
+/**
+ * This function shows the mobile control element
+ */
+function showMobileCtrl() {
+    mobileControl = 'ON';
+    document.getElementById('mobileCtrlBtn').style.maskImage = `url("./img/07_icons/mobileCtrl-on.svg")`;
+    showElement('joystick');
+    showElement('gameBtnGroupCtrl');
+}
+
 
 /**
  * This function sets settings for fullscreen and normal screen
@@ -270,25 +343,90 @@ function toggleFullscreen(){
 
 
 /**
- * This function sets the difficulty of the game and the style in the settins overlay
+ * This function sets the style in the settings overlay
  * 
- * @param {string} difclty - difficulty to set, 'EASY', 'NORMAL', 'HARD', 'EXTREME'
  */
-function setDifficulty(difclty){
-    clearActiveStyleDifficulty();
-    document.getElementById('difficulty'+difclty).classList.add('diff-active');
-    difficulty = difclty;
+function setDifficultySettingStyle(){
+    clearActiveSettingStyle('difficultyChoice');
+    document.getElementById('difficulty'+difficulty).classList.add('set-active');
 }
 
 
 /**
- * This function clears the active style of all difficulty icons
+ * This function sets the difficulty of the game
+ * 
+ * @param {string} difclty - difficulty to set, 'EASY', 'NORMAL', 'HARD', 'EXTREME'
  */
-function clearActiveStyleDifficulty(){
-    let diffChoices = document.getElementsByClassName('difficultyChoice');
+function setDifficulty(difclty){
+    difficulty = difclty;
+}
+
+/**
+ * This function sets the sound of the game and the style in the settings overlay
+ * 
+ * @param {string} snd - sound setting to set, 'ON', 'MUTE'
+ */
+function setSoundSettingStyle(){
+    clearActiveSettingStyle('soundChoice');
+    document.getElementById('sound'+sound).classList.add('set-active');
+}
+
+
+/**
+ * This function sets the visability of the mobile control buttons and joystick of the game and the style in the settings overlay
+ * 
+ * @param {string} state - set visability, 'ON', 'OFF'
+ */
+function setMobileCtrlSettingStyle(){
+    clearActiveSettingStyle('mobileCtrlChoice');
+    document.getElementById('mobileCtrl'+mobileControl).classList.add('set-active');
+}
+
+
+/**
+ * This function clears the active style of a setting group
+ * 
+ * @param {string} settingGroup - classname of the setting group
+ */
+function clearActiveSettingStyle(settingGroup){
+    let diffChoices = document.getElementsByClassName(settingGroup);
     for (let i = 0; i < diffChoices.length; i++) {
-        diffChoices[i].classList.remove('diff-active');
+        diffChoices[i].classList.remove('set-active');
     }
+}
+
+
+
+/**
+ * This function set the active style of a tab in the introduction overlay
+ * 
+ * @param {string} id - id of the HTML element which refers to the tab
+ */
+function setActiveTabIntroduction(id){
+    clearActiveStyleIntroduction();
+    document.getElementById(id).classList.add('active');
+    showTabContent(id);
+}
+
+
+/**
+ * This function set all tab to not active style in the introduction overlay
+ */
+function clearActiveStyleIntroduction(){
+    let tabs = document.getElementsByClassName('tabIntroduction');
+    for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+    }
+}
+
+
+function showTabContent(id){
+    let tabCotnents = document.getElementsByClassName('tabContentIntroduciton');
+    for (let i = 0; i < tabCotnents.length; i++) {
+        hideElement(tabCotnents[i].id);
+    }
+    let idContent = "contentIntroduction" + id.slice(3);
+    showElement(idContent);
 }
 
 

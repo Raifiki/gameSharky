@@ -31,7 +31,7 @@ class Character extends FightableObject{
 
         this.health = 100;
         this.maxHealth = this.health;
-        this.damage = 30;
+        this.damage = 40;
 
         this.hitBox.w = 0.5*this.width;
         this.hitBox.h = 0.2*this.width;

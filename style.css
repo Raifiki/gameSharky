@@ -10,7 +10,7 @@
 
 
 
-/* commone style  */
+/*============================ common style============================*/
 @font-face {
     font-family: 'LuckiestGuys';
     src: url(./font/LuckiestGuy-Regular.ttf);
@@ -50,7 +50,7 @@
     background-color: var(--accClr);
 }
 
-/* page */
+/*============================ page ============================*/
 body{
     display: flex;
     flex-direction: column;
@@ -74,6 +74,23 @@ body{
 }
 
 
+#startScreen,
+#pauseScreen{
+    width: min(1200px,100%);
+    height: min(600px,100%);
+    background-image: url('./img/06_Menu/Menubackground.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 20% 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    border-radius: 20px;
+}
+
+
 #gameScreen{
     position: relative;
     width: min(1200px,100%);
@@ -85,6 +102,9 @@ body{
     touch-action: none;
     background-color: black;
 }
+
+
+/*============================ game screen  ============================*/
 
 #gameCanvas{
     border-radius: 20px;
@@ -99,9 +119,6 @@ body{
     display: flex;
     gap: 60px;
 }
-
-
-
 
 #muteBtn{
     mask-image: url('./img/07_icons/sound-on.svg'); 
@@ -123,6 +140,15 @@ body{
     -webkit-mask-image:url('./img/07_icons/menu.svg');  
     -webkit-mask-size: contain; 
 }
+
+
+#mobileCtrlBtn{
+    mask-image: url('./img/07_icons/mobileCtrl-off.svg'); 
+    mask-size: contain; 
+    -webkit-mask-image:url('./img/07_icons/mobileCtrl-off.svg');  
+    -webkit-mask-size: contain; 
+}
+
 
 #joystick{
     position: absolute;
@@ -192,22 +218,8 @@ body{
     background-repeat: no-repeat;
 }
 
-#startScreen,
-#pauseScreen{
-    width: min(1200px,100%);
-    height: min(600px,100%);
-    background-image: url('./img/06_Menu/Menubackground.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 20% 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    border-radius: 20px;
-}
 
+/*============================ style for overlay ============================*/
 
 #overlay{
     position: absolute; 
@@ -218,6 +230,24 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+
+#ovlyCard{
+    position: relative;
+    box-sizing: border-box;
+    width: 70%;
+    height: 90%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background-color: var(--primClr);
+    border-radius: 20px;
+    font-size: 30px;
+}
+
 
 #ovlyCloseBtn{
     position: absolute;
@@ -231,39 +261,25 @@ body{
     -webkit-mask-size: contain; 
 }
 
-#ovlyCard{
-    position: relative;
-    box-sizing: border-box;
-    width: 70%;
-    height: 90%;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primClr);
-    border-radius: 20px;
-    font-size: 30px;
-}
+/*============================ overlay Control ============================*/
 
-
-#settingsTable{
+#controlTable{
     width: 100%;
     border-spacing: 1px 30px;
 }
 
 
-#settingsTable td{
+#controlTable td{
     text-align: center;
     vertical-align: middle;
 }
 
-#settingsTable td:nth-child(odd){
+#controlTable td:nth-child(odd){
     width: 25%;
 }
 
 
-.setElementImg{
+.ctrlKeyImg{
     background-color: var(--accClr);
     border-radius: 10px;
     width: 40px;
@@ -272,14 +288,14 @@ body{
 }
 
 
-#setElementMobileCtrlImg{
+#ctrlMobileCtrlImg{
     width: 100px;
     height: 100px;
     object-fit: contain;
 }
 
 
-.setElementMobileImg{
+.ctrlMobileBtnImg{
     background-color: var(--secClr);
     border-radius: 50%;
     width: 60px;
@@ -289,28 +305,53 @@ body{
 }
 
 
-#setWrapperDifficultyChoices{
+/*============================ overlay Settings ============================*/
+
+.wrapperSettings{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
+}
+
+.setttingsImg{
+    background-color: transparent;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    margin: 2px 1px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 100ms ease-in-out;
+}
+
+.setttingsImg:hover{
+    background-color: var(--secClr);
+    transition: all 100ms ease-in-out;
+}
+
+.set-active{
+    background-color: var(--accClr) !important;
+}
+
+#wrapperChoices{
     display: flex;
     justify-content: center;
     gap: 20px;
 }
 
-#setWrapperDifficultyChoices img{
-    cursor: pointer;
-    border-radius: 20px;
-    background-color: transparent;
-    transition: all 100ms ease-in-out;
+#soundON,
+#soundMUTE,
+#mobileCtrlON,
+#mobileCtrlOFF{
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 10px;
 }
 
-#setWrapperDifficultyChoices img:hover{
-    background-color: var(--secClr) !important;
-    transition: all 100ms ease-in-out;
-}
 
-.diff-active{
-    background-color: var(--accClr) !important;
-}
+
+/*============================ overlay LoadingScreen: LoadingBar ============================*/
 
 #loadingBarFrame{
     position: relative;
@@ -337,4 +378,122 @@ body{
     position: relative;
     color: black;
     font-size: 20px;
+}
+
+
+/*============================ overlay Introduction ============================*/
+#wrapperIntroduction{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    height: 100%;
+}
+
+.highlight-text{
+    color: var(--accClr);
+}
+
+
+#navIntroduction{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 20%;
+}
+
+
+#navIntroduction button{
+    border: none;
+    height: calc(100%/7);
+    background-color: transparent;
+    color: var(--primfntClr);
+    font-family: 'LuckiestGuys';
+    cursor: pointer;
+    transition: all 100ms ease-in-out;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#navIntroduction button:hover{
+    background-color: var(--primfntClr);
+    color: var(--secfntClr);
+    transition: all 100ms ease-in-out;
+}
+
+
+#navIntroduction button.active{
+    color: var(--accClr);
+    background-color: var(--secClr);
+}
+
+#tabPufferfish img,
+#tabJellyfish img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+#tabSharky img{
+    height: 80%;
+    width: 80%;
+    object-fit: cover;
+    object-position: 50% 70%;
+}
+
+
+#tabWhale img{
+    height: 100%;
+    width: 60%;
+    object-fit: cover;
+    object-position: 50% 75%;
+}
+
+#tabCoin img{
+    height: 60%;
+    width: 60%;
+    object-fit: contain;
+}
+
+#tabPoison img,
+#tabHeart img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+
+.tabContentIntroduciton{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    width: 80%;
+    font-size: 20px;
+}
+
+#attackTableSharky{
+    width: 100%;
+}
+
+#attackTableSharky tr:not(:first-child){
+    font-size: 16px;
+}
+
+#attackTableSharky td{
+    /* background-color: #00D1F0; */
+    width: 33%;
+}
+
+.starImg{
+    width: 20px;
+    height: 20px;
+    background-color: var(--accClr);
+    mask-image: url("./img/07_icons/star.svg");
+    mask-size: contain;
+}
+
+.gameImg{
+    width: 40px;
+    height: 40px;
 }

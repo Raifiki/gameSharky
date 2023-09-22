@@ -11,6 +11,8 @@ class KeyListener {
     BUBBLESHOT = false;
     CHANGEBUBBLE = false;
 
+    joystick;
+
     //methodes
     constructor(){
         this.registerKeyDownEvent();
@@ -151,7 +153,7 @@ class KeyListener {
               border: 1px solid var(--accClr);
               `;
     
-        new Joystick('joystick', JSstyle, stickSty,this);
+        this.joystick = new Joystick('joystick', JSstyle, stickSty,this);
     }
 
     clearDirection(){
