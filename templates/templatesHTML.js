@@ -75,14 +75,14 @@ function getIntroductionHTMLTemplate(){
                         <td><img class="starImg" src="" alt=""></td>
                         <td><img class="starImg" src="" alt=""></td>
                         <td><img class="starImg" src="" alt=""></td>
-                        <td><img class="gameImg" src="./img/04_Collectables/Coins/1.png" alt="coin"></td>
+                        <td><img class="gameImgCoin" src="./img/04_Collectables/Coins/1.png" alt="coin"></td>
                     </tr>
                     <tr>
                         <td><img class="gameImg" src="./img/02_Enemy/1_Pufferfish/1_Swim/o1.png" alt="orange"></td>
                         <td><img class="starImg" src="" alt=""><img class="starImg" src="" alt=""></td>
                         <td><img class="starImg" src="" alt=""></td>
                         <td><img class="starImg" src="" alt=""></td>
-                        <td><img class="gameImg" src="./img/04_Collectables/Coins/1.png" alt="coin"></td>
+                        <td><img class="gameImgCoin" src="./img/04_Collectables/Coins/1.png" alt="coin"></td>
                     </tr>
                     <tr>
                         <td><img class="gameImg" src="./img/02_Enemy/1_Pufferfish/1_Swim/r1.png" alt="red"></td>
@@ -109,7 +109,7 @@ function getIntroductionHTMLTemplate(){
                         <td><img class="starImg" src="" alt=""><img class="starImg" src="" alt=""></td>
                         <td><img class="starImg" src="" alt=""><img class="starImg" src="" alt=""></td>
                         <td><img class="starImg" src="" alt=""></td>
-                        <td><img class="gameImg" src="./img/04_Collectables/Coins/1.png" alt="coin"><img class="gameImg" src="./img/04_Collectables/Coins/1.png" alt="coin"><img class="gameImg" src="./img/04_Collectables/Coins/1.png" alt="coin"></td>
+                        <td><img class="gameImgCoin" src="./img/04_Collectables/Coins/1.png" alt="coin"><img class="gameImgCoin" src="./img/04_Collectables/Coins/1.png" alt="coin"><img class="gameImgCoin" src="./img/04_Collectables/Coins/1.png" alt="coin"></td>
                     </tr>
                     <tr>
                         <td><img class="gameImg" src="./img/02_Enemy/2_Jellyfish/1_Swim/toxic/g1.png" alt="toxic"></td>

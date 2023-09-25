@@ -32,7 +32,7 @@ function init(){
  */
 function addEventListeners(){
     addEventListener("fullscreenchange", e => {changeFullscreenSetting();});
-    addEventListener("resize",e => checkDeviceOrientation());
+    //addEventListener("resize",e => checkDeviceOrientation());
 }
 
 /**
@@ -431,12 +431,12 @@ function showTabContent(id){
 
 
 /**
- * This function checks if the device is a mobile device
+ * This function checks if the device is a mobile device through the feature ontouchstart
  * 
  * @returns {boolean} - true: mobile device, false: no mobile device
  */
 function isMobileDevice(){
-    return true;
+    return 'ontouchstart' in window;
 }
 
 

@@ -67,6 +67,7 @@ h1{
     font-size: 50px;
     margin: 0;
     margin-bottom: 100px;
+    text-align: center;
 }
 
 #gameWindow {
@@ -492,17 +493,23 @@ h1{
     height: 40px;
 }
 
+.gameImgCoin{
+    width: 30px;
+    height: 30px;
+}
 
 /*============================ overlay LoadingScreen: LoadingBar ============================*/
 #loadingBarFrame{
     position: relative;
-    width: calc(100% - 10px);
+    width: calc(100% - 50px);
     border: 2px solid var(--accClr);
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 3px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 #loadingBar{
@@ -517,7 +524,7 @@ h1{
 
 #loadingBarText{
     position: relative;
-    color: black;
+    color: var(--primfntClr);
     font-size: 20px;
 }
 
@@ -585,4 +592,117 @@ h1{
     0% {transform: rotate(0deg);}
     15%{transform: rotate(-90deg);}
     85%{transform: rotate(-90deg);}
+}
+
+
+
+/*============================ Responsive Design ============================*/
+/*===========================================================================*/
+
+@media (max-width: 700px){
+
+}
+
+@media (max-height: 600px){
+    /*============================ page ============================*/
+    h1{
+        margin-bottom: 25px;
+        font-size: 30px;
+    }
+
+    /*============================ game screen  ============================*/
+    #startScreen,
+    #pauseScreen{
+        gap: 15px;
+    }
+
+    /*============================ style for overlay ============================*/
+    #ovlyCard{
+        font-size: 20px;
+    }
+
+    /*============================ overlay Control ============================*/
+    #controlTable{
+        border-spacing: 1px 20px;
+    }
+    .ctrlKeyImg{
+        width: 40px;
+        height: 40px;
+    }
+
+    #ctrlMobileCtrlImg{
+        width: 80px;
+        height: 80px;
+    }
+    .ctrlMobileBtnImg{
+        width: 50px;
+        height: 50px;
+    }
+
+    /*============================ overlay Introduction ============================*/
+    .tabContentIntroduciton{
+        font-size: 15px;
+    }
+
+    #attackTableSharky tr:not(:first-child){
+    font-size: 12px;
+}
+}
+
+@media (max-height: 450px){
+        /*============================ overlay Control ============================*/
+        #controlTable{
+            border-spacing: 1px 10px;
+        }
+        .ctrlKeyImg{
+            width: 30px;
+            height: 30px;
+        }
+    
+        #ctrlMobileCtrlImg{
+            width: 60px;
+            height: 60px;
+        }
+        .ctrlMobileBtnImg{
+            width: 40px;
+            height: 40px;
+        }
+
+        /*============================ overlay Introduction ============================*/
+        .gameImg{
+            width: 30px;
+            height: 30px;
+        }
+        
+        .gameImgCoin{
+            width: 20px;
+            height: 20px;
+        }
+
+        /*============================ overlay LoadingScreen: LoadingBar ============================*/
+        #loadingBarFrame{
+            height: 15px;
+        }
+
+        /*============================ overlay win & loose screen ============================*/
+        .wrapperBtnGroup{
+            top: 50px;
+        }
+
+        .wrapperResult{
+            right: 75px;
+            bottom: 30px;
+            gap: 5px;
+        }
+
+        .wrapperBtnGroup button{
+            padding: 15px 25px !important;
+            width: 150px;
+        }
+
+        /*============================ overlay turn device screen ============================*/
+        #imgTurnDevice{
+            height: 30%;
+            width: 30%;
+        }
 }

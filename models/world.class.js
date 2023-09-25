@@ -392,7 +392,7 @@ class World {
      * This function checks if the level is finsished, finished: character or Endbos dead
      */
     checkEndCondition(){
-        if (this.character[0].isState('REMOVE') ||true) {
+        if (this.character[0].isState('REMOVE') ) {
             this.endWorld();
             let lvlProgress = Math.round(this.character[0].x / this.level.length*100);
             showOverlay(getLooseScreenHTMLTemplate(this.character[0].coins,lvlProgress));         
