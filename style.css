@@ -616,6 +616,10 @@ h1{
         gap: 15px;
     }
 
+    #gameBtnGroupMenu{
+        gap: 40px;
+    }
+
     /*============================ style for overlay ============================*/
     #ovlyCard{
         font-size: 20px;
@@ -650,6 +654,15 @@ h1{
 }
 
 @media (max-height: 450px){
+        /*============================ common style============================*/
+        .gameBtn{
+            width: 25px;
+            height: 25px;
+        }
+        /*============================ game screen  ============================*/
+        #gameBtnGroupMenu{
+        gap: 25px;
+        }
         /*============================ overlay Control ============================*/
         #controlTable{
             border-spacing: 1px 10px;

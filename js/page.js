@@ -32,7 +32,7 @@ function init(){
  */
 function addEventListeners(){
     addEventListener("fullscreenchange", e => {changeFullscreenSetting();});
-    //addEventListener("resize",e => checkDeviceOrientation());
+    addEventListener("resize",e => checkDeviceOrientation());
 }
 
 /**
@@ -446,6 +446,7 @@ function isMobileDevice(){
 function checkDeviceOrientation(){
     if (isMobileDevice() && isDeviceOrientationUpright()) {
         showOverlay(getTurnDeviceHTML());
+        showMobileCtrl();
     } else{
         hideOverlay();
     }

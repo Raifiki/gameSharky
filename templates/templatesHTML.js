@@ -198,7 +198,7 @@ function getControlHTMLTemplate(){
             </td>
             <td>move shark</td>
             <td>
-                <img id="ctrlMobileCtrlImg" src="./img/07_icons/Joystick.svg" alt="Joystick">
+                <img id="ctrlMobileCtrlImg" src="./img/07_icons/joystick.svg" alt="Joystick">
             </td>
         </tr>
         <tr>
@@ -249,7 +249,7 @@ function getLooseScreenHTMLTemplate(nrCoins,lvlProgress){
                 <span class="highlight-text">${lvlProgress}%</span>
             </div>
             <div class="wrapperResultElement">
-                <img src="" alt="Coins">
+                <span>Coins</span>
                 <span class="highlight-text">${nrCoins}</span>
             </div>
         </div>
@@ -278,7 +278,7 @@ function getWinScreenHTMLTemplate(nrCoins,lvlProgress){
                 <span class="highlight-text">${lvlProgress}%</span>
             </div>
             <div class="wrapperResultElement">
-                <img src="" alt="Coins">
+                <span>Coins</span>
                 <span class="highlight-text">${nrCoins}</span>
             </div>
         </div>
@@ -336,7 +336,7 @@ function getLoadingScreenHTMLTemplate(){
             </td>
             <td>move shark</td>
             <td>
-                <img id="ctrlMobileCtrlImg" src="./img/07_icons/Joystick.svg" alt="Joystick">
+                <img id="ctrlMobileCtrlImg" src="./img/07_icons/joystick.svg" alt="Joystick">
             </td>
         </tr>
         <tr>
@@ -385,7 +385,7 @@ function getLoadingScreenHTMLTemplate(){
  */
 function getTurnDeviceHTML(){
 return /*html*/ `
-    <h2>turn your device</h2>
+    <h2><span class="highlight-text">turn</span> your device</h2>
     <img id="imgTurnDevice" src="./img/07_icons/turn-device.svg" alt="turn-device">
 `
 }
