@@ -330,7 +330,7 @@ class World {
      * @returns {boolean} true: is in sector, false: is not in sector
      */
     isCharacterInEBSector(){
-        return this.character[0].x >= (this.level.length - canvas_w + 150);
+        return this.character[0].x >= (this.level.length - canvas_w + 300);
     }
 
 
@@ -338,7 +338,7 @@ class World {
      * This function add the endboss scenario to the map
      */
     addEndbosScenarioToMap(){
-        this.level.barrier.push(new Barrier(6700,265,150,70,2));
+        this.level.barrier.push(new Barrier(6800,265,150,70,2));
         this.endboss = new Endboss (this.level.length - 500,0);
         this.level.enemies.push(this.endboss);
         this.addJellyfish();
@@ -356,7 +356,7 @@ class World {
             if (this.isCharacterInEBSector()) {
                 let y = Math.random()*(this.level.height - 150);
                 let x = this.level.length - 101;
-                this.level.enemies.push(new Jellyfish(x,y,0.2,0.2,'toxic'))
+                this.level.enemies.push(new Jellyfish(x,y,0.2,0.2,'toxic'));
             }
         }, 40000);
     }
@@ -370,7 +370,7 @@ class World {
             if (this.isCharacterInEBSector()) {
                 let y = Math.random()*(this.level.height - 150);
                 let x = this.level.length - 101;
-                this.level.enemies.push(new Pufferfish(x,y,0,'red'))
+                this.level.enemies.push(new Pufferfish(x,y,0,'red'));
             }
         }, 25000);
     }
@@ -392,14 +392,14 @@ class World {
      * This function checks if the level is finsished, finished: character or Endbos dead
      */
     checkEndCondition(){
-        if (this.character[0].isState('REMOVE')) {
+        if (this.character[0].isState('REMOVE') ||true) {
             this.endWorld();
-            showOverlay(getLooseScreenHTMLTemplate());           
-        }
-
-        if (this.endboss && this.endboss.isState('REMOVE')) {
+            let lvlProgress = Math.round(this.character[0].x / this.level.length*100);
+            showOverlay(getLooseScreenHTMLTemplate(this.character[0].coins,lvlProgress));         
+        } else if (this.endboss && this.endboss.isState('REMOVE')) {
             this.endWorld();
-            showOverlay(getWinScreenHTMLTemplate()); 
+            let lvlProgress = 100;
+            showOverlay(getWinScreenHTMLTemplate(this.character[0].coins,lvlProgress)); 
         }
     }
 

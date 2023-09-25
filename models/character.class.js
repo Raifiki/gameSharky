@@ -41,7 +41,7 @@ class Character extends FightableObject{
         this.detectBox.h = 0*this.width;
 
         this.tAttack =0.8;
-        this.tDead = 10;
+        this.tDead = 5;
         this.tHurt = 1;
         this.tAction =5;
 

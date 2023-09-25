@@ -38,8 +38,8 @@ function generateLvl1(){
             new Barrier(5500,75,150,525,2),
     
             new Barrier(5650,450,400,150,0),
-            new Barrier(6700,0,150,265,2),
-            new Barrier(6700,335,150,265,2),        
+            new Barrier(6800,0,150,265,2),
+            new Barrier(6800,335,150,265,2),        
         ],
         [   // enemies
             new Pufferfish(800,500,0,'green'),

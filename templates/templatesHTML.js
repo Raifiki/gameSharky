@@ -31,6 +31,7 @@ function getIntroductionHTMLTemplate(){
                     <img src="./img/04_Collectables/heart.png" alt="heart">
                 </button>
             </nav>
+            <div id="separateLine"></div>
             <div id="contentIntroductionSharky" class=" tabContentIntroduciton">
                 <h2>sharky</h2>
                 <span>Sharky is an <span class="highlight-text">agile</span> and skillful little shark, effortlessly navigating through the ocean. His fins carry him gracefully through the deep blue water, giving him remarkable <span class="highlight-text">maneuverability</span>. <br><br>
@@ -235,25 +236,28 @@ function getControlHTMLTemplate(){
 /**
  * This functions generates the HTML for the loosing overlay
  * 
+ * @param {number} lvlProgress - level progress in percentage
+ * @param {number} nrCoins - collected coins
  * @returns {string} - HTML code
  */
-function getLooseScreenHTMLTemplate(){
+function getLooseScreenHTMLTemplate(nrCoins,lvlProgress){
     return /*html*/`
-        <h2>game over</h2>
-        <div>
-            <div>
+    <div id="wrapperLooseScreen">
+        <div class="wrapperResult">
+            <div class="wrapperResultElement">
                 <span>level progress:</span>
-                <span>0%</span>
+                <span class="highlight-text">${lvlProgress}%</span>
             </div>
-            <div>
+            <div class="wrapperResultElement">
                 <img src="" alt="Coins">
-                <span>0</span>
+                <span class="highlight-text">${nrCoins}</span>
             </div>
         </div>
-        <div>
+        <div class="wrapperBtnGroup">
             <button class="menuBtn" onclick="loadGame()">try again</button>
             <button class="menuBtn" onclick="exitGame()">menu</button>
         </div>
+    </div>
     `
 }
 
@@ -261,25 +265,28 @@ function getLooseScreenHTMLTemplate(){
 /**
  * This functions generates the HTML for the winning overlay
  * 
+ * @param {number} lvlProgress - level progress in percentage
+ * @param {number} nrCoins - collected coins
  * @returns {string} - HTML code
  */
-function getWinScreenHTMLTemplate(){
+function getWinScreenHTMLTemplate(nrCoins,lvlProgress){
     return /*html*/`
-        <h2>win</h2>
-        <div>
-            <div>
+    <div id="wrapperWinScreen">
+        <div class="wrapperResult">
+            <div class="wrapperResultElement">
                 <span>level progress:</span>
-                <span>0%</span>
+                <span class="highlight-text">${lvlProgress}%</span>
             </div>
-            <div>
+            <div class="wrapperResultElement">
                 <img src="" alt="Coins">
-                <span>0</span>
+                <span class="highlight-text">${nrCoins}</span>
             </div>
         </div>
-        <div>
+        <div class="wrapperBtnGroup">
             <button class="menuBtn" onclick="loadGame()">play again</button>
             <button class="menuBtn" onclick="exitGame()">menu</button>
         </div>
+    </div>
     `
 }
 
@@ -369,4 +376,16 @@ function getLoadingScreenHTMLTemplate(){
         </tr>
     </table>
     `
+}
+
+/**
+ * This functions generates the HTML for the turn device screen overlay
+ * 
+ * @returns {string} - HTML code
+ */
+function getTurnDeviceHTML(){
+return /*html*/ `
+    <h2>turn your device</h2>
+    <img id="imgTurnDevice" src="./img/07_icons/turn-device.svg" alt="turn-device">
+`
 }

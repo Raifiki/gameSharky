@@ -56,13 +56,14 @@
 <!-- <h1>Sharky</h1> -->
 <div id="gameWindow">
     <div id="startScreen" class="contentGameWindow">
+        <h1>Sharky's underwater adventure</h1>
         <button class="menuBtn" onclick="loadGame()">start game</button>
         <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate()), setOverlaySettings()">settings</button>
         <button class="menuBtn" onclick="showOverlay(getControlHTMLTemplate())">control</button>
         <button class="menuBtn" onclick="showOverlay(getIntroductionHTMLTemplate())">introduction</button>
     </div>
     <div id="gameScreen" class="contentGameWindow">
-        <canvas id="gameCanvas" width="1200" height="600"></canvas>
+        <canvas id="gameCanvas" width="1100" height="600"></canvas>
         <div id="gameBtnGroupMenu">
             <button id="mobileCtrlBtn" class="gameBtn" onclick="changeMobileControlSetting()"></button>
             <button id="muteBtn" class="gameBtn" onclick="changeSoundSetting()"></button>

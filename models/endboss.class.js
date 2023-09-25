@@ -413,6 +413,7 @@ class Endboss extends FightableObject{
         this.animationIMGs = ANIMATION_IMGS_EB_WHALE;
         this.addIMG2Cache(this.animationIMGs.INTRODUCE);
         this.addIMG2Cache(this.animationIMGs.SWIM);
+        this.addIMG2Cache(this.animationIMGs.ANGRY);
         this.addIMG2Cache(this.animationIMGs.ATTACK);
         this.addIMG2Cache(this.animationIMGs.HURT_BUBBLE);
         this.addIMG2Cache(this.animationIMGs.DEAD);
@@ -452,7 +453,7 @@ class Endboss extends FightableObject{
     animateATTACK(){
         let dt = (new Date().getTime() - this.timeStamps.startAttack)/1000
         if (dt <= 0.5) { // angry
-            // no animation images for angry phase available
+            this.playAnimation(this.animationIMGs.ANGRY,'repeat');
         } else if(dt <= 1) { // smash
             this.playAnimation(this.animationIMGs.ATTACK,'repeat');
         } else  if(dt <= 4.9){

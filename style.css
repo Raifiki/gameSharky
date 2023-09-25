@@ -2,7 +2,7 @@
 :root{
     --primClr: #3F9CE6;
     --secClr: #005CEF;
-    --accClr: #F3774B;
+    --accClr: #D69523;
 
     --primfntClr: #1B1464;
     --secfntClr: #00D1F0;
@@ -63,21 +63,29 @@ body{
     color: var(--primfntClr);
 }
 
+h1{
+    font-size: 50px;
+    margin: 0;
+    margin-bottom: 100px;
+}
 
 #gameWindow {
     position: relative;
-    width: min(1200px,100vw);
-    height: min(600px,100vh);
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
+    background-image: url(./img/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
 }
 
 
 #startScreen,
 #pauseScreen{
-    width: min(1200px,100%);
+    width: min(1100px,100%);
     height: min(600px,100%);
     background-image: url('./img/06_Menu/Menubackground.png');
     background-repeat: no-repeat;
@@ -94,7 +102,7 @@ body{
 
 #gameScreen{
     position: relative;
-    width: min(1200px,100%);
+    width: min(1100px,100%);
     height: min(600px,100%);
     padding: 0;
     display: flex;
@@ -224,21 +232,21 @@ body{
 
 #overlay{
     position: absolute; 
-    background-color: rgba(120, 120, 120, 0.8);
-    width: min(1200px,100vw);
+    background-color: rgba(27, 20, 100, 0.6);
+    width: min(1100px,100vw);
     height: min(600px,100%);
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 20px;
 }
 
 
 #ovlyCard{
     position: relative;
     box-sizing: border-box;
-    width: 70%;
+    width: 80%;
     height: 90%;
-    padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -260,6 +268,10 @@ body{
     mask-size: contain; 
     -webkit-mask-image:url('./img/07_icons/close.svg');  
     -webkit-mask-size: contain; 
+}
+
+.highlight-text{
+    color: var(--accClr);
 }
 
 /*============================ overlay Control ============================*/
@@ -313,6 +325,9 @@ body{
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    box-sizing: border-box;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .setttingsImg{
@@ -352,53 +367,24 @@ body{
 
 
 
-/*============================ overlay LoadingScreen: LoadingBar ============================*/
-
-#loadingBarFrame{
-    position: relative;
-    width: 100%;
-    border: 2px solid var(--accClr);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3px;
-}
-
-#loadingBar{
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: var(--primfntClr);
-    width: 0%;
-    height: 100%;
-    border-radius: 5px;
-}
-
-#loadingBarText{
-    position: relative;
-    color: black;
-    font-size: 20px;
-}
-
-
 /*============================ overlay Introduction ============================*/
 #wrapperIntroduction{
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 25px;
     height: 100%;
+    box-sizing: border-box;
+    padding: 30px;
 }
 
-.highlight-text{
-    color: var(--accClr);
-}
+
 
 
 #navIntroduction{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 2px;
     height: 100%;
     width: 20%;
 }
@@ -437,7 +423,7 @@ body{
 
 #tabSharky img{
     height: 80%;
-    width: 80%;
+    width: 65%;
     object-fit: cover;
     object-position: 50% 70%;
 }
@@ -445,7 +431,7 @@ body{
 
 #tabWhale img{
     height: 100%;
-    width: 60%;
+    width: 50%;
     object-fit: cover;
     object-position: 50% 75%;
 }
@@ -463,6 +449,12 @@ body{
     object-fit: contain;
 }
 
+#separateLine{
+    width: 3px;
+    height: 100%;
+    background-color: var(--secClr);
+    border-radius: 5px;
+}
 
 .tabContentIntroduciton{
     display: flex;
@@ -471,6 +463,8 @@ body{
     height: 100%;
     width: 80%;
     font-size: 20px;
+    overflow: auto;
+    scrollbar-width: none;
 }
 
 #attackTableSharky{
@@ -482,7 +476,6 @@ body{
 }
 
 #attackTableSharky td{
-    /* background-color: #00D1F0; */
     width: 33%;
 }
 
@@ -497,4 +490,99 @@ body{
 .gameImg{
     width: 40px;
     height: 40px;
+}
+
+
+/*============================ overlay LoadingScreen: LoadingBar ============================*/
+#loadingBarFrame{
+    position: relative;
+    width: calc(100% - 10px);
+    border: 2px solid var(--accClr);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+}
+
+#loadingBar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--primfntClr);
+    width: 0%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+#loadingBarText{
+    position: relative;
+    color: black;
+    font-size: 20px;
+}
+
+
+/*============================ overlay win & loose screen ============================*/
+#wrapperWinScreen
+{
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
+    background-image: url(./img/06_Menu/WinscreenBackground.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 33% 50%;
+}
+
+#wrapperLooseScreen
+{
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
+    background-image: url(./img/06_Menu/WinscreenBackground.png); /* bild noch ändern*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 33% 50%;
+}
+
+.wrapperResult{
+    position: absolute;
+    right: 100px;
+    bottom: 40px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.wrapperResultElement{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.wrapperBtnGroup{
+    position: absolute;
+    right: 0;
+    top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+}
+
+
+/*============================ overlay turn device screen ============================*/
+#imgTurnDevice{
+    height: 50%;
+    width: 50%;
+    animation: turnDeviceAnimation 3s linear 2s infinite normal;
+}
+
+@keyframes turnDeviceAnimation {
+    0% {transform: rotate(0deg);}
+    15%{transform: rotate(-90deg);}
+    85%{transform: rotate(-90deg);}
 }

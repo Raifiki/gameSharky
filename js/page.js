@@ -1,7 +1,7 @@
 // Varibles
 let world;
 let canvas;
-let canvas_w = 1200;
+let canvas_w = 1100;
 let canvas_h = 600;
 
 let gameState = 'IDLE';
@@ -24,15 +24,15 @@ function init(){
     showGameWindow("startScreen");
     addEventListeners();
     hideMobileCtrl();
+    checkDeviceOrientation();
 }
 
 /**
  * This function add event listener which are neccassery for page control
  */
 function addEventListeners(){
-    addEventListener("fullscreenchange", e => {
-        changeFullscreenSetting();
-    });
+    addEventListener("fullscreenchange", e => {changeFullscreenSetting();});
+    addEventListener("resize",e => checkDeviceOrientation());
 }
 
 /**
@@ -102,7 +102,7 @@ function hideOverlay(){
 
 
 /**
- * This function sets the loading bar style according the procentage
+ * This function sets the loading bar style according the percentage
  * 
  * @param {number} percentage - loading progress in precent
  */
@@ -429,4 +429,35 @@ function showTabContent(id){
     showElement(idContent);
 }
 
+
+/**
+ * This function checks if the device is a mobile device
+ * 
+ * @returns {boolean} - true: mobile device, false: no mobile device
+ */
+function isMobileDevice(){
+    return true;
+}
+
+
+/**
+ * This function show the overlay turn device incase the device is a mobile device and the orientation is upright
+ */
+function checkDeviceOrientation(){
+    if (isMobileDevice() && isDeviceOrientationUpright()) {
+        showOverlay(getTurnDeviceHTML());
+    } else{
+        hideOverlay();
+    }
+}
+
+
+/**
+ * This function checks if the device orientation is Upright
+ * 
+ * @returns {boolean} - true: upright, false: landscape
+ */
+function isDeviceOrientationUpright(){
+    return window.innerWidth < window.innerHeight;
+}
 
