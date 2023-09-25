@@ -14,13 +14,30 @@ class KeyListener {
     joystick;
 
     //methodes
+    /**
+     * This function initialize the key listener
+     */
     constructor(){
-        this.registerKeyDownEvent();
-        this.registerKeyUpEvent();
         this.registerEventListeners();
         this.addJosystick();
     }
 
+
+    /**
+     * This function registers all neccessary event listeners for the key listener
+     */
+        registerEventListeners(){
+            this.registerKeyDownEvent();
+            this.registerKeyUpEvent();
+            this.registerSlapAttackBtn();
+            this.registerBubbleShotAttackBtn();
+            this.registerBubbleChangeBtn();
+        }
+
+
+    /**
+     * This function registers a keydown event and sets the settings of the key listener dependent of the key
+     */
     registerKeyDownEvent(){
         document.addEventListener('keydown',(event) => {
             if (event.key == 'ArrowRight'){
@@ -48,6 +65,9 @@ class KeyListener {
     }
 
 
+    /**
+     * This function registers a keyup event and sets the settings of the key listener dependent of the key
+     */
     registerKeyUpEvent(){
         document.addEventListener('keyup',(event) => {
             if (event.key == 'ArrowRight'){
@@ -75,13 +95,9 @@ class KeyListener {
     }
 
 
-    registerEventListeners(){
-        this.registerSlapAttackBtn();
-        this.registerBubbleShotAttackBtn();
-        this.registerBubbleChangeBtn();
-    }
-    
-    
+    /**
+     * This function registers the event listener for the slap attack button
+     */
     registerSlapAttackBtn(){
         document.getElementById('slapAttackBtn').addEventListener('mousedown',event =>{
             this.SLAP = true;
@@ -100,6 +116,10 @@ class KeyListener {
         });
     }
     
+
+    /**
+     * This function registers the event listener for the bubble shot attack button
+     */
     registerBubbleShotAttackBtn(){
         document.getElementById('bubbleShotAttackBtn').addEventListener('mousedown',event =>{
             this.BUBBLESHOT = true;
@@ -118,6 +138,10 @@ class KeyListener {
         });
     }
     
+
+    /**
+     * This function registers the event listener for the bubble change button
+     */
     registerBubbleChangeBtn(){
         document.getElementById('bubbleChangeBtn').addEventListener('mousedown',event =>{
             this.CHANGEBUBBLE = true;
@@ -136,6 +160,10 @@ class KeyListener {
         });
     }
 
+
+    /**
+     * This function adds an joystick to the webpage
+     */
     addJosystick(){
         let JSstyle = `
                 width: 150px;
@@ -156,6 +184,10 @@ class KeyListener {
         this.joystick = new Joystick('joystick', JSstyle, stickSty,this);
     }
 
+
+    /**
+     * This function rests all direction settings of the key listener
+     */
     clearDirection(){
         this.RIGHT = false;
         this.LEFT = false;
