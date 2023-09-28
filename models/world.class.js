@@ -42,7 +42,6 @@ class World {
         this.drawMap();
         this.run10();
         this.run200();
-        this.setSoundSettings();
     }
 
 
@@ -57,6 +56,7 @@ class World {
         this.statusIcons[1].character = this.character[0];
         this.statusIcons[2].character = this.character[0];
         this.endboss = false;
+        this.setSoundSettings();
     }
 
 

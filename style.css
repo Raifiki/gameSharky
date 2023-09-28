@@ -331,6 +331,7 @@ h1{
     padding-right: 10%;
 }
 
+
 .setttingsImg{
     background-color: transparent;
     border-radius: 10px;
@@ -353,8 +354,10 @@ h1{
 
 #wrapperChoices{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
     gap: 20px;
+    width: 50%;
 }
 
 #soundON,
@@ -366,6 +369,10 @@ h1{
     border-radius: 10px;
 }
 
+.soundSlider{
+    width: 60%;
+    accent-color: var(--accClr);
+}
 
 
 /*============================ overlay Introduction ============================*/
@@ -665,6 +672,11 @@ h1{
         #gameBtnGroupMenu{
         gap: 25px;
         }
+        /*============================ style for overlay ============================*/
+        #ovlyCard{
+            gap: 10px;
+        }
+
         /*============================ overlay Control ============================*/
         #controlTable{
             border-spacing: 1px 10px;

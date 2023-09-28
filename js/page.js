@@ -381,6 +381,21 @@ function setSoundSettingStyle(){
 }
 
 
+
+function updateMusicSoundVolume(){
+    let sliderValue = document.getElementById('soundMusicVolume').value;
+    document.getElementById('soundMusicVolValue').innerHTML = sliderValue + '%';
+    musicSoundVolume = sliderValue / 100;
+}
+
+
+function updateGameSoundVolume(){
+    let sliderValue = document.getElementById('soundGameVolume').value;
+    document.getElementById('soundGameVolValue').innerHTML = sliderValue + '%';
+    gameSoundVolume = sliderValue / 100;
+}
+
+
 /**
  * This function sets the visability of the mobile control buttons and joystick of the game and the style in the settings overlay
  * 

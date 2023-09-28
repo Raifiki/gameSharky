@@ -168,6 +168,20 @@ function getSettingsHTMLTemplate(){
             </div>
         </div>
         <div class="wrapperSettings">
+            <span>game music</span>
+            <div id="wrapperChoices">
+                <input id="soundMusicVolume" class="soundSlider" type="range" min="0" max="100" value="${musicSoundVolume*100}" oninput="updateMusicSoundVolume()">
+                <span id="soundMusicVolValue">${musicSoundVolume*100}%</span>
+            </div>
+        </div>
+        <div class="wrapperSettings">
+            <span>game sound</span>
+            <div id="wrapperChoices">
+                <input id="soundGameVolume" class="soundSlider" type="range" min="0" max="100" value="${gameSoundVolume*100}" oninput="updateGameSoundVolume()">
+                <span id="soundGameVolValue">${gameSoundVolume*100}%</span>
+            </div>
+        </div>
+        <div class="wrapperSettings">
             <span>mobile control</span>
             <div id="wrapperChoices">
                 <img id="mobileCtrlON" class="setttingsImg mobileCtrlChoice" onclick="setMobileCtrl('ON'), setMobileCtrlSettingStyle()" src="./img/07_icons/mobileCtrl-on.svg" alt="ON">
