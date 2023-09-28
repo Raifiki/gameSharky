@@ -11,6 +11,13 @@ class Jellyfish extends FightableObject {
     attackCnt = 0;
     initialSpdX;
     initialSpdY;
+
+    soundCache = {
+        hitBubble: new Audio('./audio/enemie/bubble-hit.mp3'),
+        hitSlap: new Audio('./audio/enemie/slap-hit.mp3'),
+        detect: new Audio('./audio/enemie/jellyfish-detected.mp3'),
+        bubble: new Audio('./audio/enemie/jellyfish-bubble.mp3'),
+    };
     //methodes
     /**
      * This function initialize an jellyfish object
@@ -239,6 +246,7 @@ class Jellyfish extends FightableObject {
         if (this.attackCnt >= 200){
             this.generateBubble();
             this.attackCnt = 0;
+            this.playSound('bubble');
         }
         this.attackCnt++;
     }
@@ -259,8 +267,9 @@ class Jellyfish extends FightableObject {
     detect(){
         if(this.isCharacterDetected()){
             this.setODetectedProperties();
+            this.playSound('detect');
         } else {
-            this.setONotDetectedProperties();
+            this.setNotDetectedProperties();
         }
     }
 
@@ -289,7 +298,7 @@ class Jellyfish extends FightableObject {
     /**
      * This function sets the object properties if the character is not detected
      */
-    setONotDetectedProperties(){
+    setNotDetectedProperties(){
         this.detectedObject = [];
         this.setState('attackFinished');
         (this.isState('HURT'))? this.setDetectBoxSize(6.5):this.setDetectBoxSize(3.5); 
@@ -427,6 +436,7 @@ class Jellyfish extends FightableObject {
         } else {
             this.playAnimation(this.animationIMGs.toxic.HURT,'repeat');
         }
+        (this.hitBy == 'slap')? this.playSound('hitSlap'):this.playSound('hitBubble');
     }
 
 
@@ -436,8 +446,10 @@ class Jellyfish extends FightableObject {
     animateDEAD(){
         if (this.hitBy == 'bubble') {
             this.animateDeadByBubble();
+            this.playSound('hitBubble');
         } else {
             this.animateDeadBySlap();
+            this.playSound('hitSlap');
         }
     }
 
@@ -465,5 +477,28 @@ class Jellyfish extends FightableObject {
         } else {
             this.playAnimation(this.animationIMGs.toxic.pink.DEAD_SLAP,'repeat');
         }
+    }
+
+
+    /**
+     * This function plays the sound of the sound cache with the sound key
+     * 
+     * @param {string} soundKey - sound which should be played, 'hitBubble', 'hitSlap', 'detect', 'bubble'
+     */
+    playSound(soundKey){
+        if (this.isSoundOn()) {
+            this.soundCache[soundKey].volume = gameSoundVolume;
+            this.soundCache[soundKey].play();
+        }
+    }
+
+
+    /**
+     * This function checks if the sound is switched on
+     * 
+     * @returns {boolean} - true: sound on, false: sound off
+     */
+    isSoundOn(){
+        return sound == 'ON' && gameState == 'RUN';
     }
 }

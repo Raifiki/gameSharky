@@ -6,6 +6,12 @@ class CollectableObject extends MoveableObject{
     // fields
     hitBox
     type
+
+    soundCache = {
+        coin: new Audio ('./audio/collectables/coin.mp3'),
+        poison: new Audio ('./audio/collectables/poison.mp3'),
+        heart: new Audio ('./audio/collectables/heart.mp3')
+    }
     // methodes
     /**
      * This function initialize a collectable object
@@ -138,5 +144,17 @@ class CollectableObject extends MoveableObject{
         //debugger
         if (this.type == 'poison') this.playAnimation(this.animationIMGs.POISON,'repeat');
         if (this.type == 'coin') this.playAnimation(this.animationIMGs.COIN,'repeat');
+    }
+
+    /**
+     * This function plays the sound of the sound cache with the sound key
+     * 
+     * @param {string} soundKey - sound which should be played, 'coin', 'poison', 'heart'
+     */
+    playSound(soundKey){
+        if (sound == 'ON') {
+            this.soundCache[soundKey].volume = gameSoundVolume;
+            this.soundCache[soundKey].play();
+        }
     }
 }

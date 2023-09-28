@@ -19,6 +19,11 @@ class World {
 
     cameraOfst = 0;
 
+    soundCache ={
+        music: new Audio('./audio/game/game-run-music.mp3'),
+        win: new Audio('./audio/game/game-win.mp3'),
+    }
+
     //methodes
     /**
      * This function initialize the world
@@ -37,6 +42,7 @@ class World {
         this.drawMap();
         this.run10();
         this.run200();
+        this.setSoundSettings();
     }
 
 
@@ -148,6 +154,7 @@ class World {
      */
     run200(){
         setInterval(() => {
+            this.playSound('music');
             if (gameState == 'RUN') {
                 this.addEndbos();
                 this.checkEndCondition();
@@ -252,13 +259,46 @@ class World {
     CharCollisionToCollectable(){
         this.level.collectables.forEach((c,idx) => {
             if (this.character[0].isColliding(this.character[0].hitBox,c.hitBox)) {
-                if (c.type == 'coin') this.character[0].coins++;
-                if (c.type == 'poison') this.character[0].poison++;
-                if (c.type == 'heart') this.character[0].health = Math.min(this.character[0].health + 10,100);
+                if (c.type == 'coin') this.collectCoin(c);
+                if (c.type == 'poison') this.collectPoison(c);
+                if (c.type == 'heart') this.collectHeart(c);
                 c.clearRunIntervalls();
                 this.level.collectables.splice(idx,1);              
             }
         })
+    }
+
+
+    /**
+     * This function adds a coin to the character
+     * 
+     * @param {CollectableObject} coin - Collectable object of type coin
+     */
+    collectCoin(coin){
+        this.character[0].coins++;
+        coin.playSound('coin');
+    }
+
+
+    /**
+     * This function adds a poison to the character
+     * 
+     * @param {CollectableObject} poison - Collectable object of type poison
+     */
+    collectPoison(poison){
+        this.character[0].poison++;
+        poison.playSound('poison');
+    }
+
+
+    /**
+     * This function adds a heart to the character
+     * 
+     * @param {CollectableObject} heart - Collectable object of type heart
+     */
+    collectHeart(heart){
+        this.character[0].health = Math.min(this.character[0].health + 15,100);
+        heart.playSound('heart');
     }
 
 
@@ -397,9 +437,10 @@ class World {
             let lvlProgress = Math.round(this.character[0].x / this.level.length*100);
             showOverlay(getLooseScreenHTMLTemplate(this.character[0].coins,lvlProgress));         
         } else if (this.endboss && this.endboss.isState('REMOVE')) {
+            this.playSound('win');
             this.endWorld();
             let lvlProgress = 100;
-            showOverlay(getWinScreenHTMLTemplate(this.character[0].coins,lvlProgress)); 
+            showOverlay(getWinScreenHTMLTemplate(this.character[0].coins,lvlProgress));
         }
     }
 
@@ -411,5 +452,43 @@ class World {
         this.level.clearLevel();
         this.character[0].clearCharacter();
         gameState = 'END';
+    }
+
+
+    /**
+     * This function set the sound settings
+     */
+    setSoundSettings(){
+        this.soundCache['music'].loop = true;
+        this.soundCache['music'].volume = musicSoundVolume;
+        this.soundCache['win'].volume = gameSoundVolume;
+    }
+
+
+    /**
+     * This function plays the sound of the sound cache with the sound key
+     * 
+     * @param {string} soundKey - sound which should be played, 'hitBubble', 'hitSlap'
+     */
+    playSound(soundKey){
+        (this.isSoundOn())? this.soundCache[soundKey].play():this.pauseSound();
+    }
+
+
+    /**
+     * This function pause the game sound
+     */
+    pauseSound(){
+        this.soundCache['music'].pause();
+    }
+
+
+    /**
+     * This function checks if the sound is switched on
+     * 
+     * @returns {boolean} - true: sound on, false: sound off
+     */
+    isSoundOn(){
+        return sound == 'ON' && gameState == 'RUN';
     }
 }

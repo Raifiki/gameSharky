@@ -15,6 +15,16 @@ class Character extends FightableObject{
 
     xOfst = 200;
 
+    soundCache = {
+        bored: new Audio('./audio/sharky/bored.mp3'),
+        swim: new Audio('./audio/sharky/swim.mp3'),
+        hitElectroshock: new Audio('./audio/sharky/hit-electroshock.mp3'),
+        hitPoison: new Audio('./audio/sharky/hit-poison.mp3'),
+        dead: new Audio('./audio/sharky/dead.mp3'),
+        bubbleNormal: new Audio('./audio/sharky/bubbletrap-normal.mp3'),
+        bubblePoison: new Audio('./audio/sharky/bubbletrap-poison.mp3'),
+    };
+
     /**
      * This function initialize an character object
      * 
@@ -41,7 +51,7 @@ class Character extends FightableObject{
         this.detectBox.h = 0*this.width;
 
         this.tAttack =0.8;
-        this.tDead = 5;
+        this.tDead = 3;
         this.tHurt = 1;
         this.tAction =5;
 
@@ -377,8 +387,10 @@ class Character extends FightableObject{
     animateIDLE(){
         if (this.isLazy(this.tAction)) {
             this.playAnimation(this.animationIMGs.LONG_IDLE,'repeat');
+            this.playSound('bored');
         } else {
             this.playAnimation(this.animationIMGs.IDLE,'repeat');
+            this.stopSound('swim');
         }
     }
 
@@ -388,6 +400,7 @@ class Character extends FightableObject{
      */
     animateMOVE(){
         this.playAnimation(this.animationIMGs.SWIM,'repeat');
+        this.playSound('swim');
     }
 
 
@@ -410,8 +423,10 @@ class Character extends FightableObject{
         if (this.bubbleShots > 0) {
             if (this.bubbleType == 'poison') {
                 this.playAnimation(this.animationIMGs.ATTACK_BUBBLETRAP_POISONBUBBLE);
+                this.playSound('bubblePoison');
             } else {
                 this.playAnimation(this.animationIMGs.ATTACK_BUBBLETRAP_NORMALBUBBLE);
+                this.playSound('bubbleNormal');
             }
         } else {
             this.playAnimation(this.animationIMGs.ATTACK_BUBBLETRAP_WOBUBBLE);
@@ -433,8 +448,10 @@ class Character extends FightableObject{
     animateHURT(){
         if (this.hitBy == 'poison') {
             this.playAnimation(this.animationIMGs.HURT_POISON,'repeat');
+            this.playSound('hitPoison');
         } else {
             this.playAnimation(this.animationIMGs.HURT_ELECTRICSHOCK,'repeat');
+            this.playSound('hitElectroshock');
         }
     }
 
@@ -448,6 +465,38 @@ class Character extends FightableObject{
         } else {
             this.playAnimation(this.animationIMGs.DEAD_ELECTROSHOCK);
         }
+        this.playSound('dead');
+    }
+
+
+    /**
+     * This function plays the sound of the sound cache with the sound key
+     * 
+     * @param {string} soundKey - sound which should be played, 'bored', 'swim', 'hitElectroshock', 'hitPoison', 'dead', 'bubbleNormal', 'bubblePoison'
+     */
+    playSound(soundKey){
+        if (this.isSoundOn()) {
+            this.soundCache[soundKey].volume = gameSoundVolume;
+            this.soundCache[soundKey].play();
+        }
+    }
+
+    /**
+     * This function stops the sound of the sound cache with the sound key
+     */
+    stopSound(soundKey){
+        this.soundCache[soundKey].pause();
+        this.soundCache[soundKey].currentTime = 0;
+    }
+
+
+    /**
+     * This function checks if the sound is switched on
+     * 
+     * @returns {boolean} - true: sound on, false: sound off
+     */
+    isSoundOn(){
+        return sound == 'ON' && gameState == 'RUN';
     }
 
 

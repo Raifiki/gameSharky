@@ -254,8 +254,8 @@ function getLooseScreenHTMLTemplate(nrCoins,lvlProgress){
             </div>
         </div>
         <div class="wrapperBtnGroup">
-            <button class="menuBtn" onclick="loadGame()">try again</button>
-            <button class="menuBtn" onclick="exitGame()">menu</button>
+            <button class="menuBtn" onclick="loadGame(), playSound('pressBtn')">try again</button>
+            <button class="menuBtn" onclick="exitGame(), playSound('pressBtn')">menu</button>
         </div>
     </div>
     `
@@ -283,8 +283,8 @@ function getWinScreenHTMLTemplate(nrCoins,lvlProgress){
             </div>
         </div>
         <div class="wrapperBtnGroup">
-            <button class="menuBtn" onclick="loadGame()">play again</button>
-            <button class="menuBtn" onclick="exitGame()">menu</button>
+            <button class="menuBtn" onclick="loadGame(), playSound('pressBtn')">play again</button>
+            <button class="menuBtn" onclick="exitGame(), playSound('pressBtn')">menu</button>
         </div>
     </div>
     `
@@ -310,8 +310,8 @@ function getNextLvlScreenHTMLTemplate(){
             </div>
         </div>
         <div>
-            <button class="menuBtn" onclick="loadGame()">play again</button>
-            <button class="menuBtn" onclick="exitGame()">menu</button>
+            <button class="menuBtn" onclick="loadGame(), playSound('pressBtn')">play again</button>
+            <button class="menuBtn" onclick="exitGame(), playSound('pressBtn')">menu</button>
         </div>
     `
 }

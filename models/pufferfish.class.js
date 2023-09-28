@@ -6,6 +6,12 @@ class Pufferfish extends FightableObject {
     //fields
     cntItems = 1;
     type;
+
+    soundCache = {
+        hitBubble: new Audio('./audio/enemie/bubble-hit.mp3'),
+        hitSlap: new Audio('./audio/enemie/slap-hit.mp3'),
+    };
+
     //methodes
     /**
      * This function initialize an pufferfish object
@@ -221,7 +227,7 @@ class Pufferfish extends FightableObject {
      */
     animate(){
         if (this.isState('MOVE')) this.animateMOVE();
-        if (this.isState('HURT')) this.playAnimation(this.animationIMGs.HURT,'repeat');
+        if (this.isState('HURT')) this.animateHURT();
         if (this.isState('DEAD')) this.animateDEAD();
     }
 
@@ -241,6 +247,13 @@ class Pufferfish extends FightableObject {
         }
     }
 
+    /**
+     * This function replay the animation for HURT state
+     */
+    animateHURT(){
+        this.playAnimation(this.animationIMGs.HURT,'repeat');
+        (this.hitBy == 'slap')? this.playSound('hitSlap'):this.playSound('hitBubble');
+    }
 
     /**
      * This function replay the animation for Dead state
@@ -255,5 +268,28 @@ class Pufferfish extends FightableObject {
         if (this.type == 'red') {
             this.playAnimation(this.animationIMGs.red.DEAD,'repeat');
         }
+        (this.hitBy == 'slap')? this.playSound('hitSlap'):this.playSound('hitBubble');
+    }
+
+
+    /**
+     * This function plays the sound of the sound cache with the sound key
+     * 
+     * @param {string} soundKey - sound which should be played, 'hitBubble', 'hitSlap'
+     */
+    playSound(soundKey){
+        if (this.isSoundOn()) {
+            this.soundCache[soundKey].volume = gameSoundVolume;
+            this.soundCache[soundKey].play();
+        }
+    }
+
+    /**
+     * This function checks if the sound is switched on
+     * 
+     * @returns {boolean} - true: sound on, false: sound off
+     */
+    isSoundOn(){
+        return sound == 'ON' && gameState == 'RUN';
     }
 }

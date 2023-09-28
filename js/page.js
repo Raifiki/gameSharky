@@ -14,6 +14,15 @@ let keyListener;
 let laodingCounter = 0;
 let loadingInterval;
 
+let soundCache = {
+    pause: new Audio('./audio/game/game-pause.mp3'),
+    unpause: new Audio('./audio/game/game-unpause.mp3'),
+    pressBtn: new Audio('./audio/game/game-press-btn.mp3'),
+}
+
+let musicSoundVolume = 0.1;
+let gameSoundVolume = 1;
+
 
 /**
  * This function will be executed if the browser loaded the page
@@ -460,5 +469,18 @@ function checkDeviceOrientation(){
  */
 function isDeviceOrientationUpright(){
     return window.innerWidth < window.innerHeight;
+}
+
+
+/**
+ * This function plays the sound of the sound cache with the sound key
+ * 
+ * @param {string} soundKey - sound which should be played, 'pause', 'unpause', 'pressBtn'
+ */
+function playSound(soundKey){
+    if (sound == 'ON') {
+        soundCache[soundKey].volume = gameSoundVolume;
+        soundCache[soundKey].play();
+    }
 }
 

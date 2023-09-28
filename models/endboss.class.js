@@ -13,6 +13,14 @@ class Endboss extends FightableObject{
     characterDetected = false;
 
     introduceStartTime = new Date().getTime();
+
+    soundCache = {
+        hitBubble: new Audio('./audio/enemie/bubble-hit.mp3'),
+        hitSlap: new Audio('./audio/enemie/slap-hit.mp3'),
+        detect: new Audio('./audio/enemie/whale-detected.mp3'),
+        attack: new Audio('./audio/enemie/whale-attack.mp3'),
+        intro: new Audio('./audio/enemie/whale-introduce.mp3'),
+    };
     //methodes
     /**
      * This function initialize an Endbos object
@@ -87,6 +95,7 @@ class Endboss extends FightableObject{
         if (this.isIntroduceAnimation()) {
             this.moveDown();
             this.updateBoxes(40,-this.hitBox.w/2,60,-100);
+            this.playSound('intro');
         } else {
             this.setState('move');
         }
@@ -430,7 +439,7 @@ class Endboss extends FightableObject{
         if (this.isState('MOVE')) this.playAnimation(this.animationIMGs.SWIM,'repeat');
         if (this.isState('ATTACK')) this.animateATTACK();
         if (this.isState('HURT')) this.animateHURT();
-        if (this.isState('DEAD')) this.playAnimation(this.animationIMGs.DEAD);
+        if (this.isState('DEAD')) this.animateDEAD();
         
     }
 
@@ -441,8 +450,10 @@ class Endboss extends FightableObject{
     animateHURT(){
         if (this.hitBy == 'bubble') {
             this.playAnimation(this.animationIMGs.HURT_BUBBLE,'repeat');
+            this.playSound('hitBubble');
         } else {
             this.playAnimation(this.animationIMGs.HURT_SLAP,'repeat');
+            this.playSound('hitSlap');
         }
     }
 
@@ -454,10 +465,41 @@ class Endboss extends FightableObject{
         let dt = (new Date().getTime() - this.timeStamps.startAttack)/1000
         if (dt <= 0.5) { // angry
             this.playAnimation(this.animationIMGs.ANGRY,'repeat');
+            this.playSound('detect');
         } else if(dt <= 1) { // smash
             this.playAnimation(this.animationIMGs.ATTACK,'repeat');
+            this.playSound('attack');
         } else  if(dt <= 4.9){
             this.playAnimation(this.animationIMGs.SWIM,'repeat');
         } 
+    }
+
+
+    animateDEAD(){
+        this.playAnimation(this.animationIMGs.DEAD);
+        (this.hitBy == 'slap')? this.playSound('hitSlap'):this.playSound('hitBubble');
+    }
+
+
+
+    /**
+    * This function plays the sound of the sound cache with the sound key
+    * 
+    * @param {string} soundKey - sound which should be played, 'hitBubble', 'hitSlap', 'detect', 'attack '
+    */
+    playSound(soundKey){
+        if (this.isSoundOn()) {
+            this.soundCache[soundKey].volume = gameSoundVolume;
+            this.soundCache[soundKey].play();
+        }
+    }
+    
+    /**
+     * This function checks if the sound is switched on
+     * 
+     * @returns {boolean} - true: sound on, false: sound off
+     */
+    isSoundOn(){
+        return sound == 'ON' && gameState == 'RUN';
     }
 }

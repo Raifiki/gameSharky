@@ -57,10 +57,10 @@
 <div id="gameWindow">
     <div id="startScreen" class="contentGameWindow">
         <h1>Sharky's underwater adventure</h1>
-        <button class="menuBtn" onclick="loadGame()">start game</button>
-        <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate()), setOverlaySettings()">settings</button>
-        <button class="menuBtn" onclick="showOverlay(getControlHTMLTemplate())">control</button>
-        <button class="menuBtn" onclick="showOverlay(getIntroductionHTMLTemplate())">introduction</button>
+        <button class="menuBtn" onclick="loadGame(), playSound('pressBtn')">start game</button>
+        <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate()), setOverlaySettings(), playSound('pressBtn')">settings</button>
+        <button class="menuBtn" onclick="showOverlay(getControlHTMLTemplate() , playSound('pressBtn'))">control</button>
+        <button class="menuBtn" onclick="showOverlay(getIntroductionHTMLTemplate()) , playSound('pressBtn')">introduction</button>
     </div>
     <div id="gameScreen" class="contentGameWindow">
         <canvas id="gameCanvas" width="1100" height="600"></canvas>
@@ -68,7 +68,7 @@
             <button id="mobileCtrlBtn" class="gameBtn" onclick="changeMobileControlSetting()"></button>
             <button id="muteBtn" class="gameBtn" onclick="changeSoundSetting()"></button>
             <button id="fullscreenBtn" class="gameBtn" onclick="toggleFullscreen()"></button>
-            <button id="menuBtn" class="gameBtn" onclick="pauseGame()"></button>
+            <button id="menuBtn" class="gameBtn" onclick="pauseGame(), playSound('pause')"></button>
         </div>
         <div id="joystick">Joystick</div>
         <div id="gameBtnGroupCtrl" class="d-none">
@@ -79,10 +79,10 @@
     </div>
     
     <div id="pauseScreen" class="contentGameWindow">
-        <button class="menuBtn" onclick="resumeGame()">resume</button>
-        <button class="menuBtn" onclick="loadGame()">restart game</button>
-        <button class="menuBtn" onclick="showOverlay(getControlHTMLTemplate())">control</button>
-        <button class="menuBtn" onclick="exitGame()">menu</button>
+        <button class="menuBtn" onclick="resumeGame(), playSound('unpause')">resume</button>
+        <button class="menuBtn" onclick="loadGame(), playSound('pressBtn')">restart game</button>
+        <button class="menuBtn" onclick="showOverlay(getControlHTMLTemplate()), playSound('pressBtn')">control</button>
+        <button class="menuBtn" onclick="exitGame(), playSound('pressBtn')">menu</button>
     </div>
     <div id="overlay" class="d-none">
         <div id="ovlyCard"></div>
