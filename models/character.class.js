@@ -36,8 +36,8 @@ class Character extends FightableObject{
         super(x,y,200,200);
         this.loadImg('./img/01_Sharkie/1_Idle/1.png');
 
-        this.speedX = 4;
-        this.speedY = 4;
+        this.speedX = 3.5;
+        this.speedY = 3.5;
 
         this.health = 100;
         this.maxHealth = this.health;

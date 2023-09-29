@@ -55,7 +55,7 @@
 <body onload="init()">
 <!-- <h1>Sharky</h1> -->
 <div id="gameWindow">
-    <div id="startScreen" class="contentGameWindow">
+    <div id="startScreen" class="contentGameWindow d-none">
         <h1>Sharky's underwater adventure</h1>
         <button class="menuBtn" onclick="loadGame(), playSound('pressBtn')">start game</button>
         <button class="menuBtn" onclick="showOverlay(getSettingsHTMLTemplate()), setOverlaySettings(), playSound('pressBtn')">settings</button>
@@ -78,7 +78,7 @@
         </div>
     </div>
     
-    <div id="pauseScreen" class="contentGameWindow">
+    <div id="pauseScreen" class="contentGameWindow d-none">
         <button class="menuBtn" onclick="resumeGame(), playSound('unpause')">resume</button>
         <button class="menuBtn" onclick="loadGame(), playSound('pressBtn')">restart game</button>
         <button class="menuBtn" onclick="showOverlay(getControlHTMLTemplate()), playSound('pressBtn')">control</button>

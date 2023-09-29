@@ -473,7 +473,7 @@ function checkDeviceOrientation(){
         showOverlay(getTurnDeviceHTML());
         showMobileCtrl();
     } else{
-       // hideOverlay();
+        hideOverlay();
     }
 }
 

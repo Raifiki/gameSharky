@@ -96,7 +96,7 @@ class Pufferfish extends FightableObject {
      */
     setTypeGreen(){
         this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/g1.png');
-        this.speedX = 1;
+        this.speedX = 0.8;
     }
 
     /**
@@ -104,7 +104,7 @@ class Pufferfish extends FightableObject {
      */
     setTypeOrange(){
         this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/o1.png');
-        this.speedX = 1.5;
+        this.speedX = 1.2;
     }
 
 
@@ -113,7 +113,7 @@ class Pufferfish extends FightableObject {
      */
     setTypeRed(){
         this.loadImg('./img/02_Enemy/1_Pufferfish/1_Swim/r1.png');
-        this.speedX = 2;
+        this.speedX = 1.5;
     }
 
 
