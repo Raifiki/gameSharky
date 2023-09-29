@@ -48,7 +48,7 @@ class Character extends FightableObject{
         this.attackBox.w = 0.5*this.width;
         this.attackBox.h = 0.3*this.width;
         this.detectBox.w = 3*this.width;
-        this.detectBox.h = 3*this.width;
+        this.detectBox.h = 2*this.width;
 
         this.tAttack =0.8;
         this.tDead = 3;
@@ -98,7 +98,7 @@ class Character extends FightableObject{
             if (this.keyListener.LEFT) this.moveLeft();
             if (this.keyListener.UP) this.moveUp();
             if (this.keyListener.DOWN) this.moveDown();
-            this.updateBoxes(30,-this.hitBox.w/2,-5,0);
+            this.updateBoxes(30,-this.hitBox.w/2,-5,-150);
             this.updateCameraOfst();
         } else if (this.isState('DEAD')) {
             this.setMoveBehaviorDead();

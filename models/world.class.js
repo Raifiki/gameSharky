@@ -66,9 +66,24 @@ class World {
      * @param {Array} ary - an array with objects which should be added to the map
      */
     addToMap(ary){
-        ary.forEach(e => e.draw(this.ctx,this.cameraOfst));
+        ary.forEach(e => {
+            if (this.isVisible(e)) {
+                e.draw(this.ctx,this.cameraOfst)
+            }
+        });
+        
     }
 
+    
+    drawFogOfWar(ctx){
+        ctx.fillStyle = "black";
+        ctx.globalAlpha = 0.5;
+        ctx.fillRect(0,0,this.character[0].detectBox.x - this.cameraOfst,canvas_h);
+        ctx.fillRect(this.character[0].detectBox.x - this.cameraOfst,0,this.character[0].detectBox.w,this.character[0].detectBox.y);
+        ctx.fillRect(this.character[0].detectBox.x - this.cameraOfst,this.character[0].detectBox.y + this.character[0].detectBox.h,this.character[0].detectBox.w,canvas_h - this.character[0].detectBox.y -this.character[0].detectBox.h);
+        ctx.fillRect(this.character[0].detectBox.x - this.cameraOfst + this.character[0].detectBox.w,0,canvas_w -(this.character[0].detectBox.x - this.cameraOfst + this.character[0].detectBox.w),canvas_h);
+        ctx.globalAlpha = 1.0;
+    }
 
     /**
      * This function redraws the map as fast as the computer can hanlde it 
@@ -78,13 +93,15 @@ class World {
 
         this.addToMap(this.level.background);
         this.addToMap(this.level.barrier);
+        if(difficulty == 'EXTREME') this.drawFogOfWar(this.ctx);
         this.addToMap(this.level.collectables);
         this.addToMap(this.bubbles);
         this.addToMap(this.level.enemies);
         this.addToMap(this.character);
         this.addToMap(this.statusBars);
         this.addToMap(this.statusIcons);
-      
+        
+        
         
         //delete Code
         //this.drawCameraView();
@@ -96,6 +113,57 @@ class World {
     }    
 
 
+    /**
+     * This function checks if the object is visible
+     * 
+     * @param {DrawableObjectobject} object - object to check
+     * @returns {boolean} true: object is visible, false: object is not visible
+     */
+    isVisible(object){
+        let objVisible = true;
+        if (this.hideObjtBehindFogOfWar(object)) {
+            objVisible = this.isObjectInsideDetectionBox(object);
+        } else if (object instanceof DrawableObject){
+            objVisible = this.isObjectInsideCanvasArea(object);
+        }
+        return objVisible;
+    }
+
+
+    /**
+     * This function checks if the object shall be hide behind the fog of war
+     * 
+     * @param {DrawableObject} object - object to check
+     * @returns {boolean} true: hide object, false: dont hide object
+     */
+    hideObjtBehindFogOfWar(object){
+        return difficulty == 'EXTREME' && (object instanceof FightableObject || object instanceof CollectableObject) && !(object instanceof Endboss);
+    }
+
+
+    /**
+     * This funtion checks if the object is inside the detection box of the character
+     * 
+     * @param {DrawableObject} object - object to check
+     * @returns true: object is visible, false: object is not visible
+     */
+    isObjectInsideDetectionBox(object){
+        return !(object.x < this.character[0].detectBox.x || object.x + object.width/2 > this.character[0].detectBox.x + this.character[0].detectBox.w)&&
+                !(object.y < this.character[0].detectBox.y || object.y +object.height/2 > this.character[0].detectBox.y + this.character[0].detectBox.h);
+    }
+
+
+    /**
+     * This function checks if the object is inside the canvas area
+     * 
+     * @param {DrawableObject} object - object to check
+     * @returns true: object is visible, false: object is not visible
+     */
+    isObjectInsideCanvasArea(object){
+        return !(object.x+object.width < this.cameraOfst || object.x > this.cameraOfst + canvas_w);
+    }
+
+    
     drawCameraView(){ // function for debuggung
         this.ctx.beginPath();
         this.ctx.lineWidth = '2';

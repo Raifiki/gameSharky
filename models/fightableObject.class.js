@@ -40,7 +40,7 @@ class FightableObject extends MoveableObject {
      */
     constructor(x,y,w,h){
         super(x,y,w,h);
-        this.updateBoxes(0,0);
+        this.updateBoxes(0,0,0,0);
         this.run10();
     }
 

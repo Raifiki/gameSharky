@@ -39,15 +39,13 @@ class DrawableObject {
      * @param {number} ofst - x-offset of the canvas relative to the origon of the map 
      */
     draw(ctx,ofst){
-        if (this.isVisible(ofst)) {
-            let xCanvas = this.x - ofst;
-            if (this.isImgInCorrectDirection()) {
-                ctx.drawImage(this.img,xCanvas,this.y,this.width,this.height); 
-            } else {
-                this.flipImg(ctx,xCanvas);
-            }
-            //this.drawFrames(ctx,ofst);
+        let xCanvas = this.x - ofst;
+        if (this.isImgInCorrectDirection()) {
+            ctx.drawImage(this.img,xCanvas,this.y,this.width,this.height); 
+        } else {
+            this.flipImg(ctx,xCanvas);
         }
+        //this.drawFrames(ctx,ofst);
     }
 
 
@@ -114,18 +112,6 @@ class DrawableObject {
      */
     loadImg(path){ 
         this.img.src = path;
-    }
-
-
-    /**
-     * This function checks if the object is visible within the canvas
-     * 
-     * @param {number} ofst - x-offset of the canvas relative to the origon of the map 
-     * @returns {boolean} true: object is visible, object is not visible
-     */
-    isVisible(ofst){
-        return !(this.x+this.width < ofst ||
-            this.x > ofst + canvas_w);
     }
 
 
