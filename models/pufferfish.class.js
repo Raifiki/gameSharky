@@ -45,7 +45,10 @@ class Pufferfish extends FightableObject {
         this.detectBox.w = 0*this.width;
         this.detectBox.h = 0*this.width;
 
+        this.setDifficulty();
+
         this.addAnimationIMGs();
+        this.setSoundSetting();
 
         this.PFrun10();
         this.PFrun100();
@@ -278,11 +281,18 @@ class Pufferfish extends FightableObject {
      * @param {string} soundKey - sound which should be played, 'hitBubble', 'hitSlap'
      */
     playSound(soundKey){
-        if (this.isSoundOn()) {
-            this.soundCache[soundKey].volume = gameSoundVolume;
-            this.soundCache[soundKey].play();
-        }
+        if (this.isSoundOn()) this.soundCache[soundKey].play();
     }
+
+    /**
+     * This function sets the setting of the sounds
+     */
+    setSoundSetting(){
+        Object.keys(this.soundCache).forEach(key => {
+            this.soundCache[key].volume = gameSoundVolume;
+        });
+    }
+
 
     /**
      * This function checks if the sound is switched on
@@ -291,5 +301,17 @@ class Pufferfish extends FightableObject {
      */
     isSoundOn(){
         return sound == 'ON' && gameState == 'RUN';
+    }
+
+
+    /**
+     * This function sets the difficulty of an pufferfsih
+     */
+    setDifficulty(){
+        if (difficulty == 'EASY') {
+            this.speedY *= 0.8;
+        } else if(difficulty == 'HARD' || difficulty == 'EXTREME'){
+            this.damage *= 1.2; 
+        }
     }
 }

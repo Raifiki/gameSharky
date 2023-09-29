@@ -393,6 +393,7 @@ function updateGameSoundVolume(){
     let sliderValue = document.getElementById('soundGameVolume').value;
     document.getElementById('soundGameVolValue').innerHTML = sliderValue + '%';
     gameSoundVolume = sliderValue / 100;
+    setSoundSetting();
 }
 
 
@@ -493,9 +494,15 @@ function isDeviceOrientationUpright(){
  * @param {string} soundKey - sound which should be played, 'pause', 'unpause', 'pressBtn'
  */
 function playSound(soundKey){
-    if (sound == 'ON') {
-        soundCache[soundKey].volume = gameSoundVolume;
-        soundCache[soundKey].play();
-    }
+    if (sound == 'ON') soundCache[soundKey].play();
 }
 
+
+/**
+ * This function sets the setting of the sounds
+ */
+function setSoundSetting(){
+    Object.keys(soundCache).forEach(key => {
+        soundCache[key].volume = gameSoundVolume;
+    });
+}

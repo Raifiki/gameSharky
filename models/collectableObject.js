@@ -27,6 +27,7 @@ class CollectableObject extends MoveableObject{
         this.updateHitBox();
 
         this.addAnimationIMGs();
+        this.setSoundSetting();
 
         this.Crun10();
         this.Crun200();
@@ -146,15 +147,23 @@ class CollectableObject extends MoveableObject{
         if (this.type == 'coin') this.playAnimation(this.animationIMGs.COIN,'repeat');
     }
 
+
     /**
      * This function plays the sound of the sound cache with the sound key
      * 
      * @param {string} soundKey - sound which should be played, 'coin', 'poison', 'heart'
      */
     playSound(soundKey){
-        if (sound == 'ON') {
-            this.soundCache[soundKey].volume = gameSoundVolume;
-            this.soundCache[soundKey].play();
-        }
+        if (sound == 'ON') this.soundCache[soundKey].play();
+    }
+
+
+    /**
+     * This function sets the setting of the sounds
+     */
+    setSoundSetting(){
+        Object.keys(this.soundCache).forEach(key => {
+            this.soundCache[key].volume = gameSoundVolume;
+        });
     }
 }

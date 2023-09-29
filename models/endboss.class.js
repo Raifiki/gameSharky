@@ -12,6 +12,8 @@ class Endboss extends FightableObject{
     detectedBubble;
     characterDetected = false;
 
+    detectionBoxChange = 1;
+
     introduceStartTime = new Date().getTime();
 
     soundCache = {
@@ -52,7 +54,10 @@ class Endboss extends FightableObject{
         this.tAttack = 5;
         this.tDead = 5;
         
+        this.setDifficulty();
+
         this.addAnimationIMGs();
+        this.setSoundSetting();
 
         this.Whrun10();
         this.Whrun150();
@@ -342,7 +347,7 @@ class Endboss extends FightableObject{
      * This function set the attack properties for the phase smash
      */
     setSmashAttackPropertiesSmash(){
-        let [spdX,spdY,dirX,dirY] = this.calcAttackKinematics(this.smashAttack.x,this.smashAttack.y,0.75,100);
+        let [spdX,spdY,dirX,dirY] = this.calcAttackKinematics(this.smashAttack.x,this.smashAttack.y,1,100);
         this.speedX = spdX;
         this.speedY = spdY;
         this.directionX = dirX;
@@ -409,8 +414,8 @@ class Endboss extends FightableObject{
             this.detectBox.w = 1.5*this.width;
             this.detectBox.h = 0.8*this.width;
         } else {
-            this.detectBox.w += 0.8;
-            this.detectBox.h += 0.4;
+            this.detectBox.w += this.detectionBoxChange;
+            this.detectBox.h += this.detectionBoxChange/2;
         }
     }
 
@@ -488,12 +493,20 @@ class Endboss extends FightableObject{
     * @param {string} soundKey - sound which should be played, 'hitBubble', 'hitSlap', 'detect', 'attack '
     */
     playSound(soundKey){
-        if (this.isSoundOn()) {
-            this.soundCache[soundKey].volume = gameSoundVolume;
-            this.soundCache[soundKey].play();
-        }
+        if (this.isSoundOn()) this.soundCache[soundKey].play();
     }
     
+
+    /**
+     * This function sets the setting of the sounds
+     */
+    setSoundSetting(){
+        Object.keys(this.soundCache).forEach(key => {
+            this.soundCache[key].volume = gameSoundVolume;
+        });
+    }
+
+
     /**
      * This function checks if the sound is switched on
      * 
@@ -501,5 +514,18 @@ class Endboss extends FightableObject{
      */
     isSoundOn(){
         return sound == 'ON' && gameState == 'RUN';
+    }
+
+    /**
+     * This function sets the difficulty of an endboss
+     */
+    setDifficulty(){
+        if (difficulty == 'EASY') {
+            this.detectionBoxChange *=0.8;
+            this.damage *=0.75;
+        } else if(difficulty == 'HARD' || difficulty == 'EXTREME'){
+            this.detectionBoxChange *=1.2;
+            this.damage *=1.25;
+        }
     }
 }

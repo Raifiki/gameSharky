@@ -36,8 +36,8 @@ class Character extends FightableObject{
         super(x,y,200,200);
         this.loadImg('./img/01_Sharkie/1_Idle/1.png');
 
-        this.speedX = 6;
-        this.speedY = 6;
+        this.speedX = 4;
+        this.speedY = 4;
 
         this.health = 100;
         this.maxHealth = this.health;
@@ -47,8 +47,8 @@ class Character extends FightableObject{
         this.hitBox.h = 0.2*this.width;
         this.attackBox.w = 0.5*this.width;
         this.attackBox.h = 0.3*this.width;
-        this.detectBox.w = 0*this.width;
-        this.detectBox.h = 0*this.width;
+        this.detectBox.w = 3*this.width;
+        this.detectBox.h = 3*this.width;
 
         this.tAttack =0.8;
         this.tDead = 3;
@@ -56,6 +56,7 @@ class Character extends FightableObject{
         this.tAction =5;
 
         this.addAnimationIMGs();
+        this.setSoundSetting();
 
         this.Crun10();
         this.Crun100();
@@ -475,10 +476,16 @@ class Character extends FightableObject{
      * @param {string} soundKey - sound which should be played, 'bored', 'swim', 'hitElectroshock', 'hitPoison', 'dead', 'bubbleNormal', 'bubblePoison'
      */
     playSound(soundKey){
-        if (this.isSoundOn()) {
-            this.soundCache[soundKey].volume = gameSoundVolume;
-            this.soundCache[soundKey].play();
-        }
+        if (this.isSoundOn()) this.soundCache[soundKey].play();
+    }
+
+    /**
+     * This function sets the setting of the sounds
+     */
+    setSoundSetting(){
+        Object.keys(this.soundCache).forEach(key => {
+            this.soundCache[key].volume = gameSoundVolume;
+        });
     }
 
     /**

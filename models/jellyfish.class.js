@@ -6,9 +6,14 @@ class Jellyfish extends FightableObject {
     //fields
     cntItems = 1;
     type = 'normal';
+
+    detectRadius = 4.5;
+
     radiusCnt = 0;
     frequency = 1/500;
     attackCnt = 0;
+    attackShotFrequency = 150;
+
     initialSpdX;
     initialSpdY;
 
@@ -39,16 +44,19 @@ class Jellyfish extends FightableObject {
 
         this.maxHealth = this.health;
 
-        this.tDead = 2;
+        this.tDead = 1.5;
         this.tAttack = 1;
+
+        this.setDifficulty();
 
         this.hitBox.w = 0.8*this.width;
         this.hitBox.h = 0.65*this.width;
         this.attackBox.w = 0;
         this.attackBox.h = 0;
-        this.setDetectBoxSize(3.5);
+        this.setDetectBoxSize(this.detectRadius);
 
         this.addAnimationIMGs();
+        this.setSoundSetting();
 
         this.JFrun10();
         this.JFrun150();
@@ -98,7 +106,7 @@ class Jellyfish extends FightableObject {
      */
     setTypeNormal(){
         this.loadImg('./img/02_Enemy/2_Jellyfish/1_Swim/normal/p1.png');
-        this.health = 30;
+        this.health = 40;
         this.damage = 10;
         this.cntItems = 3;
     }
@@ -199,9 +207,9 @@ class Jellyfish extends FightableObject {
     attack(){
         if (this.isState('ATTACK')) {
             if (this.type == 'normal') {
-                this.attackMove(0,6);
+                this.attackMove(0,10);
             } else {
-                this.attackMove(150,1);
+                this.attackMove(150,3);
                 this.attackShot();
             }
         }
@@ -243,7 +251,7 @@ class Jellyfish extends FightableObject {
      * This function shot a bubble frequently
      */
     attackShot(){
-        if (this.attackCnt >= 200){
+        if (this.attackCnt >= this.attackShotFrequency){
             this.generateBubble();
             this.attackCnt = 0;
             this.playSound('bubble');
@@ -266,7 +274,7 @@ class Jellyfish extends FightableObject {
      */
     detect(){
         if(this.isCharacterDetected()){
-            this.setODetectedProperties();
+            this.setDetectedProperties();
             this.playSound('detect');
         } else {
             this.setNotDetectedProperties();
@@ -287,7 +295,7 @@ class Jellyfish extends FightableObject {
     /**
      * This function sets the object properties if the character is detected
      */
-    setODetectedProperties(){
+    setDetectedProperties(){
         this.detectedObject = world.character[0];
         this.initAttack();
         this.setState('attack');
@@ -301,7 +309,7 @@ class Jellyfish extends FightableObject {
     setNotDetectedProperties(){
         this.detectedObject = [];
         this.setState('attackFinished');
-        (this.isState('HURT'))? this.setDetectBoxSize(6.5):this.setDetectBoxSize(3.5); 
+        (this.isState('HURT'))? this.setDetectBoxSize(6.5):this.setDetectBoxSize(this.detectRadius); 
     }
 
 
@@ -486,10 +494,16 @@ class Jellyfish extends FightableObject {
      * @param {string} soundKey - sound which should be played, 'hitBubble', 'hitSlap', 'detect', 'bubble'
      */
     playSound(soundKey){
-        if (this.isSoundOn()) {
-            this.soundCache[soundKey].volume = gameSoundVolume;
-            this.soundCache[soundKey].play();
-        }
+        if (this.isSoundOn()) this.soundCache[soundKey].play();
+    }
+
+    /**
+     * This function sets the setting of the sounds
+     */
+    setSoundSetting(){
+        Object.keys(this.soundCache).forEach(key => {
+            this.soundCache[key].volume = gameSoundVolume;
+        });
     }
 
 
@@ -500,5 +514,19 @@ class Jellyfish extends FightableObject {
      */
     isSoundOn(){
         return sound == 'ON' && gameState == 'RUN';
+    }
+
+    
+    /**
+     * This function sets the difficulty of an jellyfish
+     */
+    setDifficulty(){
+        if (difficulty == 'EASY') {
+            this.detectRadius = 3.5;
+            this.attackShotFrequency = 200;
+        } else if(difficulty == 'HARD' || difficulty == 'EXTREME'){
+            this.damage *= 1.2;
+            this.frequency = 1/1000; 
+        }
     }
 }
