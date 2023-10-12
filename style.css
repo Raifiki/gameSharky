@@ -373,6 +373,7 @@ h1{
 .soundSlider{
     width: 60%;
     accent-color: var(--accClr);
+    cursor: pointer;
 }
 
 
